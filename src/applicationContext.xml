@@ -38,6 +38,11 @@
 				</prop>
 			</props>
 		</property>
+		<property name="mappingResources">
+			<list>
+				<value>dao/TUser.hbm.xml</value>
+			</list>
+		</property>
 	</bean>
 
 	<!-- 事务管理配置 -->
@@ -64,11 +69,26 @@
 	</bean>
 
 	<!-- 将DAO注入给SessionFactory -->
-
-	<!-- 将service注入给DAO -->
-
-	<!-- 将Action注入给Service -->
-
-
+	<bean id="TUserDAO" class="dao.TUserDAO">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+	
+	<!-- 将DAO注入给service -->
+	<bean id="TestService" parent="baseTransactionProxy">
+		<property name="target">
+			<bean class="ser.TestService">
+				<property name="tUserDAO" ref="TUserDAO"/>
+			</bean>
+		</property>
+	</bean>	
+	
+	<!-- 将Service注入给Action -->
+	<bean id="testAction" class="web.Test" scope="singleton">
+	<property name="testService" ref="TestService" />
+	</bean>
+	
 	<tx:annotation-driven transaction-manager="transactionManager" />
 </beans>
+	

@@ -1,17 +1,20 @@
 #MyEclipse Hibernate Properties
-#Thu May 21 19:08:04 CST 2015
-genVersionTag=false
-sessionFactoryName=config.HibernateSessionFactory
-genAnnotations=false
-configFile=/GameForum/src/config/hibernate.cfg.xml
-reStrategyClass=
-sessionFactoryId=
-profile=
-detectM2M=false
+#Thu May 21 20:34:42 CST 2015
 genBasicCompId=false
-keyGenerator=
-createConfigFile=true
-basePersistenceClass=
+sessionFactoryName=config.HibernateSessionFactory
+profile=
+daoSFId=sessionFactory
+jndiPath=
+detectM2M=false
+reStrategyClass=
 detectO2O=false
+springDaoFile=src/applicationContext.xml
 useJavaTypes=true
-reSettingsFile=
+keyGenerator=
+genVersionTag=false
+sessionFactoryId=
+basePersistenceClass=
+genAnnotations=false
+reSettingsFile=/GameForum/hibernate.reveng.xml
+configFile=/GameForum/src/config/hibernate.cfg.xml
+createConfigFile=true
