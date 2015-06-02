@@ -2,8 +2,11 @@
 <!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.1//EN" "http://struts.apache.org/dtds/struts-2.1.dtd">
 <struts>
 	<package name="default" extends="struts-default">
-	    <action name="testA" class="testAction" method="test">
-     	   <result name="test">test.jsp</result>
+     	<action name="login" class="loginAction" method="login">
+     	   <result name="Login">test.jsp</result>
+     	   <result name="NotFound">test.jsp</result>
+     	   <result name="Succeed">test.jsp</result>
+     	   <result name="WrongPasswd">test.jsp</result>
      	</action>
      </package>
 </struts>

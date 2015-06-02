@@ -1,14 +1,15 @@
+drop database GameForum;
 create database GameForum;
 use GameForum;
 
 create table Admin(
-	Id 			int(10) not null primary key AUTO_INCREMENT,
+	account 	varchar(30) not null primary key,
 	Name 		varchar(30),
 	Passwd 		varchar(30)
 );
 
 create table GUser(
-	ID 			int(10) not null primary key AUTO_INCREMENT,
+	account 	varchar(30) not null primary key,
 	name 		varchar(255),
 	passwd		varchar(30),
 	gender 		Char(1),
@@ -21,7 +22,6 @@ create table GUser(
 	signature	varchar(255),
 	coinNum		int(10)
 );
-alter table GUser AUTO_INCREMENT=1000;
 
 create table Item(
 	ID 			int(10) not null primary key AUTO_INCREMENT,
@@ -57,7 +57,7 @@ create table UserGroup(
 create table Post(
 	ID 				int(10) not null primary key AUTO_INCREMENT,
 	title			varchar(50),
-	authorId		int(10) references User(ID),
+	authorId		varchar(30) references User(account),
 	type			varchar(10),
 	shareNum		int(10),
 	favouriteNum	int(10),
@@ -70,7 +70,7 @@ create table Reply(
 	ID 				int(20) not null primary key AUTO_INCREMENT,
 	PostID			int(10) references Post(ID),
 	floor			int(10),
-	userid			int(10) references User(ID),
+	userId			varchar(30) references User(account),
 	favouriteNum	int(10),
 	postTime 		datetime,
 	contents		varchar(255)
@@ -81,27 +81,27 @@ create table Section(
 	name			varchar(255),
 	PostNum			int(10),
 	OwnerType		varchar(6),
-	OwnerID			int(10) references User(ID)
+	OwnerID			varchar(30) references User(account)
 );
 
 create table Message(
 	ID 				int(20) not null primary key AUTO_INCREMENT,
-	Sender			int(10) references User(ID),
-	Receiver		int(10) references User(ID),
+	Sender			varchar(30) references User(account),
+	Receiver		varchar(30) references User(account),
 	time			datetime,
 	contents		varchar(255)
 );
 
 create table Favourites(
 	ID 				int(20) not null primary key AUTO_INCREMENT,
-	belong			int(10)	references User(ID),
-	postID			int(10) references Post(ID)
+	belong			varchar(30) references User(account),
+	postID			varchar(30) references User(account)
 );
 
 create table Follow(
 	ID				int(20) not null primary key AUTO_INCREMENT,
-	fromID			int(10) references User(ID),
-	targetID		int(10) references User(ID)
+	fromID			varchar(30) references User(account),
+	targetID		varchar(30) references User(account)
 );
 
 create table Requirement(

@@ -1,7 +1,6 @@
 package dao;
 
 import java.util.List;
-
 import org.hibernate.LockOptions;
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -13,20 +12,24 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
- * A data access object (DAO) providing persistence and search support for TUser
- * entities. Transaction control of the save(), update() and delete() operations
- * can directly support Spring container-managed transactions or they can be
- * augmented to handle user-managed Spring transactions. Each of these methods
- * provides additional information for how to configure it for the desired type
- * of transaction control.
+ * A data access object (DAO) providing persistence and search support for
+ * Section entities. Transaction control of the save(), update() and delete()
+ * operations can directly support Spring container-managed transactions or they
+ * can be augmented to handle user-managed Spring transactions. Each of these
+ * methods provides additional information for how to configure it for the
+ * desired type of transaction control.
  * 
- * @see dao.TUser
+ * @see dao.Section
  * @author MyEclipse Persistence Tools
  */
 @Transactional
-public class TUserDAO {
-	private static final Logger log = LoggerFactory.getLogger(TUserDAO.class);
+public class SectionDAO {
+	private static final Logger log = LoggerFactory.getLogger(SectionDAO.class);
 	// property constants
+	public static final String NAME = "name";
+	public static final String POST_NUM = "postNum";
+	public static final String OWNER_TYPE = "ownerType";
+	public static final String OWNER_ID = "ownerId";
 
 	private SessionFactory sessionFactory;
 
@@ -42,8 +45,8 @@ public class TUserDAO {
 		// do nothing
 	}
 
-	public void save(TUser transientInstance) {
-		log.debug("saving TUser instance");
+	public void save(Section transientInstance) {
+		log.debug("saving Section instance");
 		try {
 			getCurrentSession().save(transientInstance);
 			log.debug("save successful");
@@ -53,8 +56,8 @@ public class TUserDAO {
 		}
 	}
 
-	public void delete(TUser persistentInstance) {
-		log.debug("deleting TUser instance");
+	public void delete(Section persistentInstance) {
+		log.debug("deleting Section instance");
 		try {
 			getCurrentSession().delete(persistentInstance);
 			log.debug("delete successful");
@@ -64,10 +67,11 @@ public class TUserDAO {
 		}
 	}
 
-	public TUser findById(java.lang.Integer id) {
-		log.debug("getting TUser instance with id: " + id);
+	public Section findById(java.lang.Integer id) {
+		log.debug("getting Section instance with id: " + id);
 		try {
-			TUser instance = (TUser) getCurrentSession().get("dao.TUser", id);
+			Section instance = (Section) getCurrentSession().get("dao.Section",
+					id);
 			return instance;
 		} catch (RuntimeException re) {
 			log.error("get failed", re);
@@ -75,10 +79,10 @@ public class TUserDAO {
 		}
 	}
 
-	public List findByExample(TUser instance) {
-		log.debug("finding TUser instance by example");
+	public List findByExample(Section instance) {
+		log.debug("finding Section instance by example");
 		try {
-			List results = getCurrentSession().createCriteria("dao.TUser")
+			List results = getCurrentSession().createCriteria("dao.Section")
 					.add(Example.create(instance)).list();
 			log.debug("find by example successful, result size: "
 					+ results.size());
@@ -90,10 +94,10 @@ public class TUserDAO {
 	}
 
 	public List findByProperty(String propertyName, Object value) {
-		log.debug("finding TUser instance with property: " + propertyName
+		log.debug("finding Section instance with property: " + propertyName
 				+ ", value: " + value);
 		try {
-			String queryString = "from TUser as model where model."
+			String queryString = "from Section as model where model."
 					+ propertyName + "= ?";
 			Query queryObject = getCurrentSession().createQuery(queryString);
 			queryObject.setParameter(0, value);
@@ -104,10 +108,26 @@ public class TUserDAO {
 		}
 	}
 
+	public List findByName(Object name) {
+		return findByProperty(NAME, name);
+	}
+
+	public List findByPostNum(Object postNum) {
+		return findByProperty(POST_NUM, postNum);
+	}
+
+	public List findByOwnerType(Object ownerType) {
+		return findByProperty(OWNER_TYPE, ownerType);
+	}
+
+	public List findByOwnerId(Object ownerId) {
+		return findByProperty(OWNER_ID, ownerId);
+	}
+
 	public List findAll() {
-		log.debug("finding all TUser instances");
+		log.debug("finding all Section instances");
 		try {
-			String queryString = "from TUser";
+			String queryString = "from Section";
 			Query queryObject = getCurrentSession().createQuery(queryString);
 			return queryObject.list();
 		} catch (RuntimeException re) {
@@ -116,10 +136,11 @@ public class TUserDAO {
 		}
 	}
 
-	public TUser merge(TUser detachedInstance) {
-		log.debug("merging TUser instance");
+	public Section merge(Section detachedInstance) {
+		log.debug("merging Section instance");
 		try {
-			TUser result = (TUser) getCurrentSession().merge(detachedInstance);
+			Section result = (Section) getCurrentSession().merge(
+					detachedInstance);
 			log.debug("merge successful");
 			return result;
 		} catch (RuntimeException re) {
@@ -128,8 +149,8 @@ public class TUserDAO {
 		}
 	}
 
-	public void attachDirty(TUser instance) {
-		log.debug("attaching dirty TUser instance");
+	public void attachDirty(Section instance) {
+		log.debug("attaching dirty Section instance");
 		try {
 			getCurrentSession().saveOrUpdate(instance);
 			log.debug("attach successful");
@@ -139,8 +160,8 @@ public class TUserDAO {
 		}
 	}
 
-	public void attachClean(TUser instance) {
-		log.debug("attaching clean TUser instance");
+	public void attachClean(Section instance) {
+		log.debug("attaching clean Section instance");
 		try {
 			getCurrentSession().buildLockRequest(LockOptions.NONE).lock(
 					instance);
@@ -151,7 +172,7 @@ public class TUserDAO {
 		}
 	}
 
-	public static TUserDAO getFromApplicationContext(ApplicationContext ctx) {
-		return (TUserDAO) ctx.getBean("TUserDAO");
+	public static SectionDAO getFromApplicationContext(ApplicationContext ctx) {
+		return (SectionDAO) ctx.getBean("SectionDAO");
 	}
 }
