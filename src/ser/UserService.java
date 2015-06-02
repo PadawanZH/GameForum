@@ -80,15 +80,12 @@ public class UserService {
 	 * 			2. SaveFailed 存储失败<p>
 	 * 			3. Succeed 存储成功<p>
 	 */
-	public String userRegist(String account, String name, String passwd, String gender,
-			Date birthday, String email, Integer groupId, Integer points,
-			Integer postNum, Integer replyNum, String signature, Integer coinNum){
+	public String userRegist(Guser guser){
 		String status = "";
 		//查重
-		if(guserDAO.findById(account) != null){
+		if(guserDAO.findById(guser.getAccount()) != null){
 			status = "Existed";
 		}else{
-			Guser guser = new Guser(account, name, passwd, gender, birthday, email, groupId, points, postNum, replyNum, signature, coinNum);
 			try{
 				guserDAO.save(guser);
 			}catch(RuntimeException re){

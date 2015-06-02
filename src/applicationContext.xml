@@ -40,7 +40,20 @@
 		</property>
 		<property name="mappingResources">
 			<list>
-				<value>dao/TUser.hbm.xml</value>
+				<value>dao/Admin.hbm.xml</value>
+				<value>dao/Favourites.hbm.xml</value>
+				<value>dao/Follow.hbm.xml</value>
+				<value>dao/Game.hbm.xml</value>
+				<value>dao/Guser.hbm.xml</value>
+				<value>dao/Item.hbm.xml</value>
+				<value>dao/Message.hbm.xml</value>
+				<value>dao/Post.hbm.xml</value>
+				<value>dao/Reply.hbm.xml</value>
+				<value>dao/Requirement.hbm.xml</value>
+				<value>dao/Section.hbm.xml</value>
+				<value>dao/Studio.hbm.xml</value>
+				<value>dao/Usergroup.hbm.xml</value>
+				
 			</list>
 		</property>
 	</bean>
@@ -148,6 +161,9 @@
 	
 	<!-- 将Service注入给Action -->
 	<bean id="loginAction" class="web.LoginAction" scope="singleton">
+		<property name="userService" ref="UserService" />
+	</bean>
+	<bean id="registAction" class="web.RegistAction" scope="singleton">
 		<property name="userService" ref="UserService" />
 	</bean>
 	

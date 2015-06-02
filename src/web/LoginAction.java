@@ -4,14 +4,14 @@ import ser.UserService;
 
 public class LoginAction {
 	private UserService userService;
-	
+	private String account,passwd;
 	/**
 	 * 
 	 * @param account
 	 * @param passwd
 	 * @return 四种结果  1. Login 缺少信息保留在当前页面<p>2. NotFound 没找到<p>3. Succeed 成功登陆<p>4. WrongPasswd 密码错误<p>
 	 */
-	public String login(String account, String passwd){
+	public String login(){
 		/* NAME和PASSWORD为空则返回登录页面，否则验证登录 */
 		if(account == null || passwd == null){
 			return "Login";
@@ -32,5 +32,33 @@ public class LoginAction {
 	 */
 	public void setUserService(UserService userService) {
 		this.userService = userService;
+	}
+
+	/**
+	 * @return the account
+	 */
+	public String getAccount() {
+		return account;
+	}
+
+	/**
+	 * @param account the account to set
+	 */
+	public void setAccount(String account) {
+		this.account = account;
+	}
+
+	/**
+	 * @return the passwd
+	 */
+	public String getPasswd() {
+		return passwd;
+	}
+
+	/**
+	 * @param passwd the passwd to set
+	 */
+	public void setPasswd(String passwd) {
+		this.passwd = passwd;
 	}
 }

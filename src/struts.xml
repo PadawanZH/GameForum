@@ -8,5 +8,10 @@
      	   <result name="Succeed">test.jsp</result>
      	   <result name="WrongPasswd">test.jsp</result>
      	</action>
+     	<action name="guserRegist" class="registAction" method="regist">
+     	   <result name="Existed">RegisterError.html</result>
+     	   <result name="SaveFailed">RegisterError.html</result>
+     	   <result name="Succeed">RegisterOk.html</result>
+     	</action>
      </package>
 </struts>

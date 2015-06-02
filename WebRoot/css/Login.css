@@ -1,0 +1,16 @@
+a,p,button,label{
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+body{
+    background-image:url("../picture/fengjianyouxiang.jpg");
+
+}
+.container{
+    margin-top: 200px;
+}
+.btn-control{
+    margin:30px;
+}
+.btn-success{
+    margin-right:50px ;
+}
