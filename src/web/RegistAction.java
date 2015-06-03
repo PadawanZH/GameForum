@@ -38,5 +38,4 @@ public class RegistAction {
 	public void setGuser(Guser guser) {
 		this.guser = guser;
 	}
-	
 }

@@ -3,15 +3,17 @@
 <struts>
 	<package name="default" extends="struts-default">
      	<action name="login" class="loginAction" method="login">
-     	   <result name="Login">test.jsp</result>
-     	   <result name="NotFound">test.jsp</result>
-     	   <result name="Succeed">test.jsp</result>
-     	   <result name="WrongPasswd">test.jsp</result>
+     	   <result name="Login">Login.html</result>
+     	   <result name="NotFound">LoginError.html</result>
+     	   <result name="Succeed">LoginOk.html</result>
+     	   <result name="WrongPasswd">LoginError.html</result>
      	</action>
      	<action name="guserRegist" class="registAction" method="regist">
      	   <result name="Existed">RegisterError.html</result>
      	   <result name="SaveFailed">RegisterError.html</result>
      	   <result name="Succeed">RegisterOk.html</result>
+     	</action>
+     	<action name="testAction" class="testAction" method="test">
      	</action>
      </package>
 </struts>

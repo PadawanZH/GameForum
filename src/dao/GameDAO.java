@@ -31,7 +31,10 @@ public class GameDAO {
 	public static final String STUDIO_ID = "studioId";
 	public static final String PLATFORM = "platform";
 	public static final String TYPE = "type";
+	public static final String LOGO_ADDR = "logoAddr";
 	public static final String REQUIREMENT_ID = "requirementId";
+	public static final String POST_NUM = "postNum";
+	public static final String OWNER_ID = "ownerId";
 
 	private SessionFactory sessionFactory;
 
@@ -125,8 +128,20 @@ public class GameDAO {
 		return findByProperty(TYPE, type);
 	}
 
+	public List findByLogoAddr(Object logoAddr) {
+		return findByProperty(LOGO_ADDR, logoAddr);
+	}
+
 	public List findByRequirementId(Object requirementId) {
 		return findByProperty(REQUIREMENT_ID, requirementId);
+	}
+
+	public List findByPostNum(Object postNum) {
+		return findByProperty(POST_NUM, postNum);
+	}
+
+	public List findByOwnerId(Object ownerId) {
+		return findByProperty(OWNER_ID, ownerId);
 	}
 
 	public List findAll() {
@@ -176,6 +191,22 @@ public class GameDAO {
 		}
 	}
 
+	public List queryFourTopGame(){
+		log.debug("finding Game instances with four top Game");
+		try {
+			String queryString = "select a from Game as a ,Game as b "
+					+ "Where a.type=b.type and a.postNum<=b.postNum "
+					+ "group by a.id "
+					+ "having count(b.id)<=4 "
+					+ "order by a.type,a.postNum,a.id desc";
+			Query queryObject = getCurrentSession().createQuery(queryString);
+			return queryObject.list();
+		} catch (RuntimeException re) {
+			log.error("find by property name failed", re);
+			throw re;
+		}
+	}
+	
 	public static GameDAO getFromApplicationContext(ApplicationContext ctx) {
 		return (GameDAO) ctx.getBean("GameDAO");
 	}

@@ -14,9 +14,12 @@ public class LoginAction {
 	public String login(){
 		/* NAME和PASSWORD为空则返回登录页面，否则验证登录 */
 		if(account == null || passwd == null){
+			System.out.println("Login");
 			return "Login";
 		}else{
-			return userService.login(account, passwd);
+			String status = userService.login(account, passwd);
+			System.out.println(status);
+			return status;
 		}
 	}
 

@@ -1,4 +1,3 @@
-drop database GameForum;
 create database GameForum;
 use GameForum;
 
@@ -7,6 +6,7 @@ create table Admin(
 	Name 		varchar(30),
 	Passwd 		varchar(30)
 );
+
 
 create table GUser(
 	account 	varchar(30) not null primary key,
@@ -30,15 +30,18 @@ create table Item(
 	remain 		int(10),
 	closetime 	datetime
 );
-
+drop table game;
 create table Game(
 	ID 				int(10) not null primary key AUTO_INCREMENT,
 	name 			varchar(255),
 	studioId 		int(10) references Studio(ID),
 	platform 		varchar(20),
 	type 			varchar(30),
+	logoAddr		varchar(255),
 	releaseDate 	date,
-	requirementID 	int(10) references Requirement(ID)
+	requirementID 	int(10) references Requirement(ID),
+	PostNum			int(10),
+	OwnerID			varchar(30) references User(account)
 );
 
 create table Studio(

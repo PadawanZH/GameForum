@@ -22,11 +22,20 @@
         <property name="type" type="java.lang.String">
             <column name="type" length="30" />
         </property>
+        <property name="logoAddr" type="java.lang.String">
+            <column name="logoAddr" />
+        </property>
         <property name="releaseDate" type="java.util.Date">
             <column name="releaseDate" length="10" />
         </property>
         <property name="requirementId" type="java.lang.Integer">
             <column name="requirementID" />
+        </property>
+        <property name="postNum" type="java.lang.Integer">
+            <column name="PostNum" />
+        </property>
+        <property name="ownerId" type="java.lang.String">
+            <column name="OwnerID" length="30" />
         </property>
     </class>
 </hibernate-mapping>

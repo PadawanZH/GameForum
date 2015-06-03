@@ -2,6 +2,8 @@ package ser;
 
 import java.util.Date;
 
+import org.apache.struts2.ServletActionContext;
+
 import dao.Admin;
 import dao.AdminDAO;
 import dao.Guser;
@@ -23,17 +25,19 @@ public class UserService {
 		String type = "";//标识身份是管理员还是用户，具体传值方式有待修改！！！！！！
 		status = adminCheck(account,passwd);
 		if(status != "NotFound"){
-			type = "admin";
-			return status;
+			type = "admin";	
 		}else{
 			status = guserCheck(account,passwd);
 			if(status != "NotFound"){
 				type = "guser";
-				return status;
 			}else{
 				return "NotFound";
 			}
 		}
+		
+		ServletActionContext.getRequest().getSession().setAttribute("cUser", guserDAO.findById(account));
+		ServletActionContext.getRequest().getSession().setAttribute("cUserType", type);
+		return status;
 	}
 	/**
 	 * 

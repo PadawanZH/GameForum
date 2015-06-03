@@ -15,8 +15,11 @@ public class Game implements java.io.Serializable {
 	private Integer studioId;
 	private String platform;
 	private String type;
+	private String logoAddr;
 	private Date releaseDate;
 	private Integer requirementId;
+	private Integer postNum;
+	private String ownerId;
 
 	// Constructors
 
@@ -26,13 +29,17 @@ public class Game implements java.io.Serializable {
 
 	/** full constructor */
 	public Game(String name, Integer studioId, String platform, String type,
-			Date releaseDate, Integer requirementId) {
+			String logoAddr, Date releaseDate, Integer requirementId,
+			Integer postNum, String ownerId) {
 		this.name = name;
 		this.studioId = studioId;
 		this.platform = platform;
 		this.type = type;
+		this.logoAddr = logoAddr;
 		this.releaseDate = releaseDate;
 		this.requirementId = requirementId;
+		this.postNum = postNum;
+		this.ownerId = ownerId;
 	}
 
 	// Property accessors
@@ -77,6 +84,14 @@ public class Game implements java.io.Serializable {
 		this.type = type;
 	}
 
+	public String getLogoAddr() {
+		return this.logoAddr;
+	}
+
+	public void setLogoAddr(String logoAddr) {
+		this.logoAddr = logoAddr;
+	}
+
 	public Date getReleaseDate() {
 		return this.releaseDate;
 	}
@@ -91,6 +106,34 @@ public class Game implements java.io.Serializable {
 
 	public void setRequirementId(Integer requirementId) {
 		this.requirementId = requirementId;
+	}
+
+	public Integer getPostNum() {
+		return this.postNum;
+	}
+
+	public void setPostNum(Integer postNum) {
+		this.postNum = postNum;
+	}
+
+	public String getOwnerId() {
+		return this.ownerId;
+	}
+
+	public void setOwnerId(String ownerId) {
+		this.ownerId = ownerId;
+	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "Game [id=" + id + ", name=" + name + ", studioId=" + studioId
+				+ ", platform=" + platform + ", type=" + type + ", logoAddr="
+				+ logoAddr + ", releaseDate=" + releaseDate
+				+ ", requirementId=" + requirementId + ", postNum=" + postNum
+				+ ", ownerId=" + ownerId + "]";
 	}
 
 }
