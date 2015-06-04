@@ -13,6 +13,9 @@
         <property name="name" type="java.lang.String">
             <column name="name" />
         </property>
+        <property name="nickName" type="java.lang.String">
+            <column name="nickName" length="30" />
+        </property>
         <property name="passwd" type="java.lang.String">
             <column name="passwd" length="30" />
         </property>
@@ -42,6 +45,9 @@
         </property>
         <property name="coinNum" type="java.lang.Integer">
             <column name="coinNum" />
+        </property>
+        <property name="portraitAddr" type="java.lang.String">
+            <column name="portraitAddr" />
         </property>
     </class>
 </hibernate-mapping>

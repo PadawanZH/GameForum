@@ -12,6 +12,7 @@ public class Guser implements java.io.Serializable {
 
 	private String account;
 	private String name;
+	private String nickName;
 	private String passwd;
 	private String gender;
 	private Date birthday;
@@ -22,6 +23,7 @@ public class Guser implements java.io.Serializable {
 	private Integer replyNum;
 	private String signature;
 	private Integer coinNum;
+	private String portraitAddr;
 
 	// Constructors
 
@@ -35,11 +37,13 @@ public class Guser implements java.io.Serializable {
 	}
 
 	/** full constructor */
-	public Guser(String account, String name, String passwd, String gender,
-			Date birthday, String email, Integer groupId, Integer points,
-			Integer postNum, Integer replyNum, String signature, Integer coinNum) {
+	public Guser(String account, String name, String nickName, String passwd,
+			String gender, Date birthday, String email, Integer groupId,
+			Integer points, Integer postNum, Integer replyNum,
+			String signature, Integer coinNum, String portraitAddr) {
 		this.account = account;
 		this.name = name;
+		this.nickName = nickName;
 		this.passwd = passwd;
 		this.gender = gender;
 		this.birthday = birthday;
@@ -50,6 +54,7 @@ public class Guser implements java.io.Serializable {
 		this.replyNum = replyNum;
 		this.signature = signature;
 		this.coinNum = coinNum;
+		this.portraitAddr = portraitAddr;
 	}
 
 	// Property accessors
@@ -68,6 +73,14 @@ public class Guser implements java.io.Serializable {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public String getNickName() {
+		return this.nickName;
+	}
+
+	public void setNickName(String nickName) {
+		this.nickName = nickName;
 	}
 
 	public String getPasswd() {
@@ -150,16 +163,12 @@ public class Guser implements java.io.Serializable {
 		this.coinNum = coinNum;
 	}
 
-	/* (non-Javadoc)
-	 * @see java.lang.Object#toString()
-	 */
-	@Override
-	public String toString() {
-		return "Guser [account=" + account + ", name=" + name + ", passwd="
-				+ passwd + ", gender=" + gender + ", birthday=" + birthday
-				+ ", email=" + email + ", groupId=" + groupId + ", points="
-				+ points + ", postNum=" + postNum + ", replyNum=" + replyNum
-				+ ", signature=" + signature + ", coinNum=" + coinNum + "]";
+	public String getPortraitAddr() {
+		return this.portraitAddr;
+	}
+
+	public void setPortraitAddr(String portraitAddr) {
+		this.portraitAddr = portraitAddr;
 	}
 
 }

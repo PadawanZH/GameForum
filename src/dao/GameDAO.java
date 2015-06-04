@@ -33,7 +33,7 @@ public class GameDAO {
 	public static final String TYPE = "type";
 	public static final String LOGO_ADDR = "logoAddr";
 	public static final String REQUIREMENT_ID = "requirementId";
-	public static final String POST_NUM = "postNum";
+	public static final String SECTION_ID = "sectionId";
 	public static final String OWNER_ID = "ownerId";
 
 	private SessionFactory sessionFactory;
@@ -136,8 +136,8 @@ public class GameDAO {
 		return findByProperty(REQUIREMENT_ID, requirementId);
 	}
 
-	public List findByPostNum(Object postNum) {
-		return findByProperty(POST_NUM, postNum);
+	public List findBySectionId(Object sectionId) {
+		return findByProperty(SECTION_ID, sectionId);
 	}
 
 	public List findByOwnerId(Object ownerId) {
@@ -190,7 +190,10 @@ public class GameDAO {
 			throw re;
 		}
 	}
-
+	/**
+	 *	以type作为分组，查找每组中post最多的4个游戏
+	 * @return
+	 */
 	public List queryFourTopGame(){
 		log.debug("finding Game instances with four top Game");
 		try {

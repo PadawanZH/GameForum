@@ -19,6 +19,9 @@
         <property name="time" type="java.sql.Timestamp">
             <column name="time" length="19" />
         </property>
+        <property name="marked" type="java.lang.String">
+            <column name="marked" length="1" />
+        </property>
         <property name="contents" type="java.lang.String">
             <column name="contents" />
         </property>

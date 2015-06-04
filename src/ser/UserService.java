@@ -97,6 +97,7 @@ public class UserService {
 				guser.setPoints(0);
 				guser.setPostNum(0);
 				guser.setReplyNum(0);
+				
 				guserDAO.save(guser);
 			}catch(RuntimeException re){
 				status = "SaveFailed";

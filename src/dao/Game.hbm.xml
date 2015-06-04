@@ -31,8 +31,8 @@
         <property name="requirementId" type="java.lang.Integer">
             <column name="requirementID" />
         </property>
-        <property name="postNum" type="java.lang.Integer">
-            <column name="PostNum" />
+        <property name="sectionId" type="java.lang.Integer">
+            <column name="sectionID" />
         </property>
         <property name="ownerId" type="java.lang.String">
             <column name="OwnerID" length="30" />

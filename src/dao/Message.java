@@ -14,6 +14,7 @@ public class Message implements java.io.Serializable {
 	private String sender;
 	private String receiver;
 	private Timestamp time;
+	private String marked;
 	private String contents;
 
 	// Constructors
@@ -24,10 +25,11 @@ public class Message implements java.io.Serializable {
 
 	/** full constructor */
 	public Message(String sender, String receiver, Timestamp time,
-			String contents) {
+			String marked, String contents) {
 		this.sender = sender;
 		this.receiver = receiver;
 		this.time = time;
+		this.marked = marked;
 		this.contents = contents;
 	}
 
@@ -63,6 +65,14 @@ public class Message implements java.io.Serializable {
 
 	public void setTime(Timestamp time) {
 		this.time = time;
+	}
+
+	public String getMarked() {
+		return this.marked;
+	}
+
+	public void setMarked(String marked) {
+		this.marked = marked;
 	}
 
 	public String getContents() {

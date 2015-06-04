@@ -8,10 +8,10 @@ create table Admin(
 	Passwd 		varchar(30)
 );
 
-
 create table GUser(
 	account 	varchar(30) not null primary key,
 	name 		varchar(255),
+	nickName	varchar(30),
 	passwd		varchar(30),
 	gender 		Char(1),
 	birthday 	date,
@@ -21,7 +21,8 @@ create table GUser(
 	postNum		int(10)  default 0,
 	replyNum	int(10)  default 0,
 	signature	varchar(255),
-	coinNum		int(10)  default 0
+	coinNum		int(10)  default 0,
+	portraitAddr varchar(255)
 );
 
 create table Item(
@@ -41,7 +42,7 @@ create table Game(
 	logoAddr		varchar(255),
 	releaseDate 	date,
 	requirementID 	int(10) references Requirement(ID),
-	PostNum			int(10)  default 0,
+	sectionID		int(10) references Section(ID),
 	OwnerID			varchar(30) references User(account)
 );
 
@@ -93,6 +94,7 @@ create table Message(
 	Sender			varchar(30) references User(account),
 	Receiver		varchar(30) references User(account),
 	time			datetime,
+	marked			CHAR(1),
 	contents		varchar(255)
 );
 

@@ -29,6 +29,7 @@ public class MessageDAO {
 	// property constants
 	public static final String SENDER = "sender";
 	public static final String RECEIVER = "receiver";
+	public static final String MARKED = "marked";
 	public static final String CONTENTS = "contents";
 
 	private SessionFactory sessionFactory;
@@ -114,6 +115,10 @@ public class MessageDAO {
 
 	public List findByReceiver(Object receiver) {
 		return findByProperty(RECEIVER, receiver);
+	}
+
+	public List findByMarked(Object marked) {
+		return findByProperty(MARKED, marked);
 	}
 
 	public List findByContents(Object contents) {

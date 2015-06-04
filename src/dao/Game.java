@@ -18,7 +18,7 @@ public class Game implements java.io.Serializable {
 	private String logoAddr;
 	private Date releaseDate;
 	private Integer requirementId;
-	private Integer postNum;
+	private Integer sectionId;
 	private String ownerId;
 
 	// Constructors
@@ -30,7 +30,7 @@ public class Game implements java.io.Serializable {
 	/** full constructor */
 	public Game(String name, Integer studioId, String platform, String type,
 			String logoAddr, Date releaseDate, Integer requirementId,
-			Integer postNum, String ownerId) {
+			Integer sectionId, String ownerId) {
 		this.name = name;
 		this.studioId = studioId;
 		this.platform = platform;
@@ -38,7 +38,7 @@ public class Game implements java.io.Serializable {
 		this.logoAddr = logoAddr;
 		this.releaseDate = releaseDate;
 		this.requirementId = requirementId;
-		this.postNum = postNum;
+		this.sectionId = sectionId;
 		this.ownerId = ownerId;
 	}
 
@@ -108,12 +108,12 @@ public class Game implements java.io.Serializable {
 		this.requirementId = requirementId;
 	}
 
-	public Integer getPostNum() {
-		return this.postNum;
+	public Integer getSectionId() {
+		return this.sectionId;
 	}
 
-	public void setPostNum(Integer postNum) {
-		this.postNum = postNum;
+	public void setSectionId(Integer sectionId) {
+		this.sectionId = sectionId;
 	}
 
 	public String getOwnerId() {
@@ -122,18 +122,6 @@ public class Game implements java.io.Serializable {
 
 	public void setOwnerId(String ownerId) {
 		this.ownerId = ownerId;
-	}
-
-	/* (non-Javadoc)
-	 * @see java.lang.Object#toString()
-	 */
-	@Override
-	public String toString() {
-		return "Game [id=" + id + ", name=" + name + ", studioId=" + studioId
-				+ ", platform=" + platform + ", type=" + type + ", logoAddr="
-				+ logoAddr + ", releaseDate=" + releaseDate
-				+ ", requirementId=" + requirementId + ", postNum=" + postNum
-				+ ", ownerId=" + ownerId + "]";
 	}
 
 }

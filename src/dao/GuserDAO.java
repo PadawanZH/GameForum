@@ -28,6 +28,7 @@ public class GuserDAO {
 	private static final Logger log = LoggerFactory.getLogger(GuserDAO.class);
 	// property constants
 	public static final String NAME = "name";
+	public static final String NICK_NAME = "nickName";
 	public static final String PASSWD = "passwd";
 	public static final String GENDER = "gender";
 	public static final String EMAIL = "email";
@@ -37,6 +38,7 @@ public class GuserDAO {
 	public static final String REPLY_NUM = "replyNum";
 	public static final String SIGNATURE = "signature";
 	public static final String COIN_NUM = "coinNum";
+	public static final String PORTRAIT_ADDR = "portraitAddr";
 
 	private SessionFactory sessionFactory;
 
@@ -118,6 +120,10 @@ public class GuserDAO {
 		return findByProperty(NAME, name);
 	}
 
+	public List findByNickName(Object nickName) {
+		return findByProperty(NICK_NAME, nickName);
+	}
+
 	public List findByPasswd(Object passwd) {
 		return findByProperty(PASSWD, passwd);
 	}
@@ -152,6 +158,10 @@ public class GuserDAO {
 
 	public List findByCoinNum(Object coinNum) {
 		return findByProperty(COIN_NUM, coinNum);
+	}
+
+	public List findByPortraitAddr(Object portraitAddr) {
+		return findByProperty(PORTRAIT_ADDR, portraitAddr);
 	}
 
 	public List findAll() {
