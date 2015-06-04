@@ -1,0 +1,33 @@
+.form-group,p,a,label{
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    color: #000000;
+    text-shadow: 2px 2px 4px #ffffff;
+    font-weight: bold;
+}
+.basicinformation{
+    margin-top: 5%;
+    font-size: 200%;
+}
+.sex{
+    margin-left: 10%;
+}
+.date-control{
+    width: 10%;
+}
+
+.container{
+    margin-top: 5%;
+}
+
+label{
+    margin-top: 3%;
+}
+
+body{
+    background-image: url("../picture/fengjianyouxiang.jpg");
+    background-size:cover;
+}
+
+.btn{
+    margin: 4%;
+}
