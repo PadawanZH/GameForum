@@ -1,3 +1,4 @@
+drop database GameForum;
 create database GameForum;
 use GameForum;
 
@@ -15,12 +16,12 @@ create table GUser(
 	gender 		Char(1),
 	birthday 	date,
 	email 		varchar(255),
-	groupId		int(10) references UserGroup(ID),
-	points		int(10),
-	postNum		int(10),
-	replyNum	int(10),
+	groupId		int(10) default 0 references UserGroup(ID) ,
+	points		int(10)  default 0,
+	postNum		int(10)  default 0,
+	replyNum	int(10)  default 0,
 	signature	varchar(255),
-	coinNum		int(10)
+	coinNum		int(10)  default 0
 );
 
 create table Item(
@@ -30,7 +31,7 @@ create table Item(
 	remain 		int(10),
 	closetime 	datetime
 );
-drop table game;
+
 create table Game(
 	ID 				int(10) not null primary key AUTO_INCREMENT,
 	name 			varchar(255),
@@ -40,7 +41,7 @@ create table Game(
 	logoAddr		varchar(255),
 	releaseDate 	date,
 	requirementID 	int(10) references Requirement(ID),
-	PostNum			int(10),
+	PostNum			int(10)  default 0,
 	OwnerID			varchar(30) references User(account)
 );
 
@@ -62,8 +63,8 @@ create table Post(
 	title			varchar(50),
 	authorId		varchar(30) references User(account),
 	type			varchar(10),
-	shareNum		int(10),
-	favouriteNum	int(10),
+	shareNum		int(10)  default 0,
+	favouriteNum	int(10)  default 0,
 	postTime		datetime,
 	SectionId		int(10) references Section(ID),
 	Contents		varchar(255)	
@@ -74,7 +75,7 @@ create table Reply(
 	PostID			int(10) references Post(ID),
 	floor			int(10),
 	userId			varchar(30) references User(account),
-	favouriteNum	int(10),
+	favouriteNum	int(10)  default 0,
 	postTime 		datetime,
 	contents		varchar(255)
 );
@@ -82,7 +83,7 @@ create table Reply(
 create table Section(
 	ID 				int(10) not null primary key AUTO_INCREMENT,
 	name			varchar(255),
-	PostNum			int(10),
+	PostNum			int(10)  default 0,
 	OwnerType		varchar(6),
 	OwnerID			varchar(30) references User(account)
 );

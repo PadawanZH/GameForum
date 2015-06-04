@@ -16,29 +16,34 @@
             <label>金币数量：800</label>
         </div>
         <div class="changeinformation col-md-5">
-            <form>
+            <form method="post" action="changeInfoAction">
+            	
+            	<!--这里要求输入用户名密码，暂时这样写-->
+            	<input type="hidden" name="guser.account" class="form-control" value="zhangan0520">
+            	<input type="hidden" name="guser.passwd" class="form-control" value="zhangan0520">
+               
                 <div class="form-group">
                     <label>email
-                        <input type="email" class="form-control" placeholder="email">
+                        <input type="email" name="guser.email" class="form-control" placeholder="email">
                     </label>
                 </div>
                 <div class="form-group">
                     <label>性别:</label>
                     <label class="sex">男
-                        <input type="radio" name="sexchoose" value="M">
+                        <input type="radio" name="guser.gender" value="M">
                     </label>
                     <label class="sex">女
-                        <input type="radio" name="sexchoose" value="F">
+                        <input type="radio" name="guser.gender" value="F">
                     </label>
                 </div>
                 <div class="form-group">
                     <label>出生日期
-                        <input type="tel" class="date-control">年<input type="tel" class="date-control">月<input type="tel" class="date-control">日
+                        <input type="text" name="year" class="date-control">年<input type="text" name="month" class="date-control">月<input type="text" name="day" class="date-control">日
                     </label>
                 </div>
                 <div class="form-group">
                     <label>签名
-                        <input type="text" class="form-control">
+                        <input type="text" name="guser.signature" class="form-control">
                     </label>
                 </div>
                 <div class="form-group">

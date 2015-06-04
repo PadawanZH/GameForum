@@ -184,6 +184,9 @@
 	<bean id="registAction" class="web.RegistAction" scope="singleton">
 		<property name="userService" ref="userService" />
 	</bean>
+	<bean id="changeInfoAction" class="web.ChangeInfoAction" scope="singleton">
+		<property name="userService" ref="userService" />
+	</bean>
 	
 	<tx:annotation-driven transaction-manager="transactionManager" />
 	</beans>

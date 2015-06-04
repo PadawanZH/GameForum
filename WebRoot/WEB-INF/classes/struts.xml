@@ -15,5 +15,9 @@
      	</action>
      	<action name="testAction" class="testAction" method="test">
      	</action>
+     	<action name="changeInfoAction" class="changeInfoAction" method="changeInfo">
+     	   <result name="ChangeFailed">ChangeError.html</result>
+     	   <result name="Succeed">ChangeOk.html</result>
+     	</action>
      </package>
 </struts>

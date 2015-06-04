@@ -13,6 +13,7 @@ public class UserService {
 	
 	private AdminDAO adminDAO;
 	private GuserDAO guserDAO;
+	String nullString = new String("");
 	
 	/**
 	 * 
@@ -91,6 +92,11 @@ public class UserService {
 			status = "Existed";
 		}else{
 			try{
+				guser.setCoinNum(0);
+				guser.setGroupId(0);
+				guser.setPoints(0);
+				guser.setPostNum(0);
+				guser.setReplyNum(0);
 				guserDAO.save(guser);
 			}catch(RuntimeException re){
 				status = "SaveFailed";
@@ -122,19 +128,38 @@ public class UserService {
 	/**
 	 * guser信息的更新方法，<b><font color="red">正确性有待验证。。。</font></b>
 	 * @param newInstanceer
-	 * @return
+	 * @return Succeed,ChangeFailed
 	 */
 	public String changeInfo(Guser newInstanceer){
 		String status = "";
 		if(guserCheck(newInstanceer.getAccount(), newInstanceer.getPasswd()) == "Succeed"){
 			Guser oldInstance = guserDAO.findById(newInstanceer.getAccount());
-			guserDAO.merge(newInstanceer);
-			guserDAO.save(oldInstance);
+			mergeUserInfo(newInstanceer, oldInstance);
+			guserDAO.attachDirty(oldInstance);
 			status = "Succeed";
 		}else{
 			status = "ChangeFailed";
 		}
 		return status;
+	}
+	/**
+	 * 更新改变信息页面的值，头像没改
+	 * @param newInstance
+	 * @param target
+	 */
+	private void mergeUserInfo(Guser newInstance,Guser target){
+		if(!newInstance.getEmail().equals(nullString)){
+			target.setEmail(newInstance.getEmail());
+		}
+		if(newInstance.getGender() != null){
+			target.setGender(newInstance.getGender());
+		}
+		if(newInstance.getBirthday() != null){
+			target.setBirthday(newInstance.getBirthday());
+		}
+		if(!newInstance.getSignature().equals(nullString)){
+			target.setSignature(newInstance.getSignature());
+		}
 	}
 	
 	/**
@@ -143,7 +168,7 @@ public class UserService {
 	 * @param passwd
 	 * @return
 	 */
-	private String adminCheck(String account, String passwd){
+	public String adminCheck(String account, String passwd){
 		Admin admin = adminDAO.findById(account);
 		String status = "";
 		
@@ -164,7 +189,7 @@ public class UserService {
 	 * @param passwd
 	 * @return
 	 */
-	private String guserCheck(String account, String passwd){
+	public String guserCheck(String account, String passwd){
 		Guser guser = guserDAO.findById(account);
 		String status = "";
 		
@@ -179,8 +204,22 @@ public class UserService {
 		}
 		return status;
 	}
-	
-	
+	/**
+	 * 一般用来页面初始化时请求用户信息，将用户信息存入session中
+	 * @param account
+	 * @return true 成功找到 false 查找失败
+	 */
+	public boolean RequestCurUserDataWithAccount(String account){
+		Guser guser = guserDAO.findById(account);
+		if(guser != null){
+			ServletActionContext.getRequest().getSession().setAttribute("UserData", guser);
+			return true;
+		}else{
+			return false;
+		}
+	}
+
+
 	/**
 	 * @return the adminDAO
 	 */

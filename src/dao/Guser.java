@@ -150,4 +150,16 @@ public class Guser implements java.io.Serializable {
 		this.coinNum = coinNum;
 	}
 
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "Guser [account=" + account + ", name=" + name + ", passwd="
+				+ passwd + ", gender=" + gender + ", birthday=" + birthday
+				+ ", email=" + email + ", groupId=" + groupId + ", points="
+				+ points + ", postNum=" + postNum + ", replyNum=" + replyNum
+				+ ", signature=" + signature + ", coinNum=" + coinNum + "]";
+	}
+
 }
