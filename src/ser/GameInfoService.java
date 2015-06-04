@@ -9,10 +9,10 @@ public class GameInfoService {
 	GameDAO gameDAO;
 	
 	/**
-	 * 返回各类中贴子数最大的四个游戏
+	 * 返回各类中贴子数最大的四个游戏,在主界面使用
 	 * @return
 	 */
 	public List<Game> grubFourTopGames(){
-		return null;
+		return gameDAO.queryFourTopGame();
 	}
 }

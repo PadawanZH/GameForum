@@ -1,0 +1,34 @@
+a,p,h2{
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    text-overflow: ellipsis;
+}
+
+a:hover img{
+    filter:alpha(Opacity=50);-moz-opacity:0.5;opacity: 0.5;
+}
+
+body{
+    background-image: url("../picture/chongshi01.jpg");
+    background-attachment: fixed;
+}
+
+.game{
+    height: 170px;
+    overflow: hidden;
+    padding:1%;
+    background-color: rgba(207,207,207,.8);
+    border:1px solid rgba(86,61,124,1);
+}
+
+
+.navigation-bar{
+    margin-bottom: 5%;
+}
+.title{
+    font-size: 200%;
+    background-color: rgba(207,207,207,.8);
+    border: 1px solid rgba(86,61,124,1);
+    font-weight: bold;
+    color:white;
+    text-shadow: 2px 2px 4px #000000;
+}

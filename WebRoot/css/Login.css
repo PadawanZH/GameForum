@@ -3,14 +3,15 @@ a,p,button,label{
 }
 body{
     background-image:url("../picture/fengjianyouxiang.jpg");
+    background-size:cover ;
 
 }
 .container{
-    margin-top: 200px;
+    margin-top: 8%;
 }
 .btn-control{
-    margin:30px;
+    margin:10%;
 }
 .btn-success{
-    margin-right:50px ;
+    margin-right:20% ;
 }

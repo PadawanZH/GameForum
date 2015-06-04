@@ -1,0 +1,47 @@
+body{
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    background-image: url("../picture/xianjianqixiazhuanbackground.jpg");
+    background-size: cover;
+    background-attachment: fixed;
+}
+
+li{
+    list-style-type:none
+}
+
+.GameDiscuss p,a,h1,h3,h4{
+    color: black;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+#GameIntroduction,#GameDiscuss{
+    background-color: rgba(207,207,207,.8);
+    border: 1px solid rgba(86,61,124,1);
+}
+
+.pagination{
+    margin: 0 0;
+
+}
+#GameIntroduce{
+    text-indent:2em;
+    color:black;
+}
+#GameTitle{
+    color: blueviolet;
+    text-shadow: 4px 4px 6px #ffffff;
+}
+
+h1,h3,h4{
+    font-weight: bold;
+}
+
+#tableleft{
+    border-top: 1px solid rgba(86,61,124,1);
+    border-right: 1px solid rgba(86,61,124,1);
+}
+#tableright{
+    border-top: 1px solid rgba(86,61,124,1);
+}

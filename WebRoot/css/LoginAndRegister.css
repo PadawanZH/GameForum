@@ -4,10 +4,11 @@ a,p,button{
 
 body{
     background-image: url(../picture/fengjianyouxiang.jpg);
+    background-size:cover ;
 }
 
 .container{
-    margin-top:200px;
+    margin-top:15%;
 }
 
 p{
@@ -15,6 +16,6 @@ p{
 }
 
 a{
-    margin-top: 40px;
-    margin-left: 160px;
+    margin-top: 3%;
+    margin-left: 13%;
 }
