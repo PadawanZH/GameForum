@@ -18,7 +18,7 @@ public class TestService {
 		Iterator<Post> iterator = guser.getPosts().iterator();
 		
 		while(iterator.hasNext()){
-			System.out.println(iterator.next().getId());
+			System.out.println(iterator.next().getPostTime());
 		}
 	}
 	

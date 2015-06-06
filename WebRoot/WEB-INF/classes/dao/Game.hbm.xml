@@ -13,14 +13,11 @@
         <many-to-one name="requirement" class="dao.Requirement" fetch="select">
             <column name="requirementID" />
         </many-to-one>
-        <many-to-one name="guser" class="dao.Guser" fetch="select">
-            <column name="OwnerID" length="30" />
+        <many-to-one name="studio" class="dao.Studio" fetch="select">
+            <column name="studioId" />
         </many-to-one>
         <property name="name" type="java.lang.String">
             <column name="name" />
-        </property>
-        <property name="studioId" type="java.lang.Integer">
-            <column name="studioId" />
         </property>
         <property name="platform" type="java.lang.String">
             <column name="platform" length="20" />
@@ -33,6 +30,9 @@
         </property>
         <property name="releaseDate" type="java.util.Date">
             <column name="releaseDate" length="10" />
+        </property>
+        <property name="description" type="java.lang.String">
+            <column name="description" />
         </property>
         <set name="sections" inverse="true">
             <key>

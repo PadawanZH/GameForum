@@ -19,5 +19,7 @@
      	   <result name="ChangeFailed">ChangeError.html</result>
      	   <result name="Succeed">ChangeOk.html</result>
      	</action>
+     	<action name="top4Game" class="autoRequestAction" method="updateTop4GameInfo">
+     	</action>
      </package>
 </struts>

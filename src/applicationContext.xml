@@ -40,7 +40,6 @@
 		</property>
 		<property name="mappingResources">
 			<list>
-				<value>dao/Admin.hbm.xml</value>
 				<value>dao/Favourites.hbm.xml</value>
 				<value>dao/Follow.hbm.xml</value>
 				<value>dao/Game.hbm.xml</value>
@@ -53,7 +52,6 @@
 				<value>dao/Section.hbm.xml</value>
 				<value>dao/Studio.hbm.xml</value>
 				<value>dao/Usergroup.hbm.xml</value>
-				
 			</list>
 		</property>
 	</bean>
@@ -177,6 +175,13 @@
 			</bean>
 		</property>
 	</bean>	
+	<bean id="gameInfoService" parent="baseTransactionProxy">
+		<property name="target">
+			<bean class="ser.GameInfoService">
+				<property name="gameDAO" ref="GameDAO"/>
+			</bean>
+		</property>
+	</bean>
 	
 	<!-- 将Service注入给Action -->
 	<bean id="testAction" class="web.TestAction" scope="singleton">
@@ -190,6 +195,10 @@
 	</bean>
 	<bean id="changeInfoAction" class="web.ChangeInfoAction" scope="singleton">
 		<property name="userService" ref="userService" />
+	</bean>
+	<bean id="autoRequestAction" class="web.AutoRequestAction" scope="singleton">
+		<property name="userService" ref="userService" />
+		<property name="gameInfoService" ref="gameInfoService" />
 	</bean>
 	
 	<tx:annotation-driven transaction-manager="transactionManager" />

@@ -1,0 +1,23 @@
+body{
+    background-image: url("../picture/001.jpg");
+    background-attachment: fixed;
+    background-size: cover;
+}
+
+.container{
+    margin-top: 3%;
+    border:1px solid rgba(86,61,124,1);
+    background-color: rgba(207,207,207,.8);
+}
+
+.Enter{
+    border: 1px solid black;
+    background-color: rgba(207,207,207,.8);
+}
+
+#btnControl{
+    margin: 2%;
+}
+#Title{
+    margin-top: 2%;
+}

@@ -29,10 +29,10 @@ public class GameDAO {
 	private static final Logger log = LoggerFactory.getLogger(GameDAO.class);
 	// property constants
 	public static final String NAME = "name";
-	public static final String STUDIO_ID = "studioId";
 	public static final String PLATFORM = "platform";
 	public static final String TYPE = "type";
 	public static final String LOGO_ADDR = "logoAddr";
+	public static final String DESCRIPTION = "description";
 
 	private SessionFactory sessionFactory;
 
@@ -114,10 +114,6 @@ public class GameDAO {
 		return findByProperty(NAME, name);
 	}
 
-	public List findByStudioId(Object studioId) {
-		return findByProperty(STUDIO_ID, studioId);
-	}
-
 	public List findByPlatform(Object platform) {
 		return findByProperty(PLATFORM, platform);
 	}
@@ -128,6 +124,10 @@ public class GameDAO {
 
 	public List findByLogoAddr(Object logoAddr) {
 		return findByProperty(LOGO_ADDR, logoAddr);
+	}
+
+	public List findByDescription(Object description) {
+		return findByProperty(DESCRIPTION, description);
 	}
 
 	public List findAll() {
@@ -176,7 +176,7 @@ public class GameDAO {
 			throw re;
 		}
 	}
-	
+
 	/**
 	 *	以type作为分组，查找每组中post最多的4个游戏
 	 * @return
@@ -196,7 +196,7 @@ public class GameDAO {
 			throw re;
 		}
 	}
-
+	
 	public static GameDAO getFromApplicationContext(ApplicationContext ctx) {
 		return (GameDAO) ctx.getBean("GameDAO");
 	}

@@ -58,17 +58,21 @@ insert into Studio value (1,'Ubisoft','America','hehe');
 create table Game(
 	ID 				int(10) not null primary key AUTO_INCREMENT,
 	name 			varchar(255),
-	studioId 		int(10) references Studio(ID)
+	studioId 		int(10),
 	platform 		varchar(20),
 	type 			varchar(30),
 	logoAddr		varchar(255),
 	releaseDate 	date,
 	requirementID 	int(10),
-	OwnerID			varchar(30),
+	description 	varchar(255),
 	foreign key (requirementID) references Requirement(ID),
-	foreign key (OwnerID) references GUser(account)
+	foreign key (studioId) references Studio(ID)
 );
-insert into Game value (1,'Assassin',1,'PC','动作游戏','1111111','2010-5-9',1,'admin');
+
+insert into Game value (1,'真三国无双7',1,'PC','ACT','picture/sanguo7logo.jpg','2010-5-9',1,'真三国无双7真三国无双7真三国无双7');
+insert into Game value (2,'仙剑奇侠传',1,'PC','RPG','picture/xianjianxiqizhuanglogo.jpg','2010-5-10',1,'仙剑奇侠传仙剑奇侠传仙剑奇侠传');
+insert into Game value (3,'古墓丽影',1,'PC','AVG','picture/gumuliyinglogo.jpg','2010-5-18',1,'古墓丽影古墓丽影古墓丽影');
+insert into Game value (4,'三国志',1,'PC','SLG','picture/sanguozhilogo.jpg','2010-5-18',1,'三国志三国志三国志');
 
 create table Section(
 	ID 				int(10) not null primary key AUTO_INCREMENT,
@@ -80,7 +84,6 @@ create table Section(
 	foreign key (OwnerID) references GUser(account),
 	foreign key (GameID) references Game(ID)
 );
-insert into Section value (1,'动作游戏',1,'admin','admin',1);
 
 create table Post(
 	ID 				int(10) not null primary key AUTO_INCREMENT,
@@ -134,3 +137,12 @@ create table Follow(
 	foreign key (fromID) references GUser(account),
 	foreign key (targetID) references GUser(account)
 );
+
+-- 用来添加游戏就添加相应的section
+DELIMITER //
+CREATE TRIGGER InsetSectionForGame BEFORE INSERT ON Game 
+FOR EACH ROW
+BEGIN
+	insert into Section(name,PostNum,OwnerType,OwnerID,GameID) value (Game.name,0,null,null,Game.ID);
+END//
+DELIMITER ;

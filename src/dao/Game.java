@@ -14,13 +14,13 @@ public class Game implements java.io.Serializable {
 
 	private Integer id;
 	private Requirement requirement;
-	private Guser guser;
+	private Studio studio;
 	private String name;
-	private Integer studioId;
 	private String platform;
 	private String type;
 	private String logoAddr;
 	private Date releaseDate;
+	private String description;
 	private Set sections = new HashSet(0);
 
 	// Constructors
@@ -30,17 +30,17 @@ public class Game implements java.io.Serializable {
 	}
 
 	/** full constructor */
-	public Game(Requirement requirement, Guser guser, String name,
-			Integer studioId, String platform, String type, String logoAddr,
-			Date releaseDate, Set sections) {
+	public Game(Requirement requirement, Studio studio, String name,
+			String platform, String type, String logoAddr, Date releaseDate,
+			String description, Set sections) {
 		this.requirement = requirement;
-		this.guser = guser;
+		this.studio = studio;
 		this.name = name;
-		this.studioId = studioId;
 		this.platform = platform;
 		this.type = type;
 		this.logoAddr = logoAddr;
 		this.releaseDate = releaseDate;
+		this.description = description;
 		this.sections = sections;
 	}
 
@@ -62,12 +62,12 @@ public class Game implements java.io.Serializable {
 		this.requirement = requirement;
 	}
 
-	public Guser getGuser() {
-		return this.guser;
+	public Studio getStudio() {
+		return this.studio;
 	}
 
-	public void setGuser(Guser guser) {
-		this.guser = guser;
+	public void setStudio(Studio studio) {
+		this.studio = studio;
 	}
 
 	public String getName() {
@@ -76,14 +76,6 @@ public class Game implements java.io.Serializable {
 
 	public void setName(String name) {
 		this.name = name;
-	}
-
-	public Integer getStudioId() {
-		return this.studioId;
-	}
-
-	public void setStudioId(Integer studioId) {
-		this.studioId = studioId;
 	}
 
 	public String getPlatform() {
@@ -116,6 +108,14 @@ public class Game implements java.io.Serializable {
 
 	public void setReleaseDate(Date releaseDate) {
 		this.releaseDate = releaseDate;
+	}
+
+	public String getDescription() {
+		return this.description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
 	}
 
 	public Set getSections() {

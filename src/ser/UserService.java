@@ -32,6 +32,14 @@ public class UserService {
 		}
 		return status;
 	}
+	
+	public String logoff(String account){
+		String status = "";
+		Guser logoffguser = (Guser) ServletActionContext.getRequest().getSession().getAttribute("cUser");
+		
+		
+		return status;
+	}
 	/**
 	 * 必须有身份为管理员的邀请者才能将之升级为管理员用户组
 	 * @param account

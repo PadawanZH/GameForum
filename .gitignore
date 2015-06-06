@@ -1,6 +1,10 @@
 *.class
 .classpath
 *.jpg
+*.html
+*.jsp
+*.css
+*.js
 # Mobile Tools for Java (J2ME)
 .mtj.tmp/
 

@@ -1,10 +1,12 @@
 package web;
 
+import dao.Guser;
 import ser.UserService;
 
 public class LoginAction {
 	private UserService userService;
 	private String account,passwd;
+	private Guser curUser;
 	/**
 	 * 
 	 * @param account
@@ -63,5 +65,13 @@ public class LoginAction {
 	 */
 	public void setPasswd(String passwd) {
 		this.passwd = passwd;
+	}
+
+	public Guser getCurUser() {
+		return curUser;
+	}
+
+	public void setCurUser(Guser curUser) {
+		this.curUser = curUser;
 	}
 }
