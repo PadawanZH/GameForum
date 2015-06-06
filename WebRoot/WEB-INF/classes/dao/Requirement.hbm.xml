@@ -28,5 +28,11 @@
         <property name="soundCard" type="java.lang.String">
             <column name="SoundCard" />
         </property>
+        <set name="games" inverse="true">
+            <key>
+                <column name="requirementID" />
+            </key>
+            <one-to-many class="dao.Game" />
+        </set>
     </class>
 </hibernate-mapping>

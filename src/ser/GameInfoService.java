@@ -4,17 +4,10 @@ import java.util.List;
 
 import dao.Game;
 import dao.GameDAO;
+import dao.Section;
 
 public class GameInfoService {
 	GameDAO gameDAO;
-	
-	/**
-	 * 在进入游戏专区需要填写游戏信息时使用，可能要对Name加一个unique的限制
-	 * @return
-	 */
-	public Game getGameByName(){
-		return null;
-	}
 	
 	/**
 	 * 返回各类中贴子数最大的四个游戏,在主界面使用

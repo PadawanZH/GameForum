@@ -1,6 +1,5 @@
 package web;
 
-import dao.Admin;
 import dao.Guser;
 import ser.UserService;
 

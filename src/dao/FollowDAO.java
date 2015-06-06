@@ -26,8 +26,6 @@ import org.springframework.transaction.annotation.Transactional;
 public class FollowDAO {
 	private static final Logger log = LoggerFactory.getLogger(FollowDAO.class);
 	// property constants
-	public static final String FROM_ID = "fromId";
-	public static final String TARGET_ID = "targetId";
 
 	private SessionFactory sessionFactory;
 
@@ -104,14 +102,6 @@ public class FollowDAO {
 			log.error("find by property name failed", re);
 			throw re;
 		}
-	}
-
-	public List findByFromId(Object fromId) {
-		return findByProperty(FROM_ID, fromId);
-	}
-
-	public List findByTargetId(Object targetId) {
-		return findByProperty(TARGET_ID, targetId);
 	}
 
 	public List findAll() {

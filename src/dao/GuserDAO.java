@@ -2,6 +2,7 @@ package dao;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 import org.hibernate.LockOptions;
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -32,7 +33,6 @@ public class GuserDAO {
 	public static final String PASSWD = "passwd";
 	public static final String GENDER = "gender";
 	public static final String EMAIL = "email";
-	public static final String GROUP_ID = "groupId";
 	public static final String POINTS = "points";
 	public static final String POST_NUM = "postNum";
 	public static final String REPLY_NUM = "replyNum";
@@ -134,10 +134,6 @@ public class GuserDAO {
 
 	public List findByEmail(Object email) {
 		return findByProperty(EMAIL, email);
-	}
-
-	public List findByGroupId(Object groupId) {
-		return findByProperty(GROUP_ID, groupId);
 	}
 
 	public List findByPoints(Object points) {

@@ -2,6 +2,7 @@ package dao;
 
 import java.sql.Timestamp;
 import java.util.List;
+import java.util.Set;
 import org.hibernate.LockOptions;
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -28,11 +29,9 @@ public class PostDAO {
 	private static final Logger log = LoggerFactory.getLogger(PostDAO.class);
 	// property constants
 	public static final String TITLE = "title";
-	public static final String AUTHOR_ID = "authorId";
 	public static final String TYPE = "type";
 	public static final String SHARE_NUM = "shareNum";
 	public static final String FAVOURITE_NUM = "favouriteNum";
-	public static final String SECTION_ID = "sectionId";
 	public static final String CONTENTS = "contents";
 
 	private SessionFactory sessionFactory;
@@ -115,10 +114,6 @@ public class PostDAO {
 		return findByProperty(TITLE, title);
 	}
 
-	public List findByAuthorId(Object authorId) {
-		return findByProperty(AUTHOR_ID, authorId);
-	}
-
 	public List findByType(Object type) {
 		return findByProperty(TYPE, type);
 	}
@@ -129,10 +124,6 @@ public class PostDAO {
 
 	public List findByFavouriteNum(Object favouriteNum) {
 		return findByProperty(FAVOURITE_NUM, favouriteNum);
-	}
-
-	public List findBySectionId(Object sectionId) {
-		return findByProperty(SECTION_ID, sectionId);
 	}
 
 	public List findByContents(Object contents) {

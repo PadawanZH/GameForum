@@ -1,18 +1,24 @@
 package ser;
 
+import java.util.Iterator;
 import java.util.List;
 
 import dao.Game;
 import dao.GameDAO;
+import dao.Guser;
+import dao.GuserDAO;
+import dao.Post;
 
 public class TestService {
 	private GameDAO gameDAO;
+	private GuserDAO guserDAO;
 	
 	public void test(){
-		List<Game> list = gameDAO.queryFourTopGame();
+		Guser guser = guserDAO.findById("admin");
+		Iterator<Post> iterator = guser.getPosts().iterator();
 		
-		for(int i=0;i<list.size();i++){
-			System.out.println(list.get(i).toString());
+		while(iterator.hasNext()){
+			System.out.println(iterator.next().getId());
 		}
 	}
 	
@@ -29,5 +35,15 @@ public class TestService {
 	 */
 	public void setGameDAO(GameDAO gameDAO) {
 		this.gameDAO = gameDAO;
+	}
+
+
+	public GuserDAO getGuserDAO() {
+		return guserDAO;
+	}
+
+
+	public void setGuserDAO(GuserDAO guserDAO) {
+		this.guserDAO = guserDAO;
 	}
 }

@@ -1,5 +1,8 @@
 package dao;
 
+import java.util.HashSet;
+import java.util.Set;
+
 /**
  * Section entity. @author MyEclipse Persistence Tools
  */
@@ -9,10 +12,12 @@ public class Section implements java.io.Serializable {
 	// Fields
 
 	private Integer id;
+	private Guser guser;
+	private Game game;
 	private String name;
 	private Integer postNum;
 	private String ownerType;
-	private String ownerId;
+	private Set posts = new HashSet(0);
 
 	// Constructors
 
@@ -21,12 +26,14 @@ public class Section implements java.io.Serializable {
 	}
 
 	/** full constructor */
-	public Section(String name, Integer postNum, String ownerType,
-			String ownerId) {
+	public Section(Guser guser, Game game, String name, Integer postNum,
+			String ownerType, Set posts) {
+		this.guser = guser;
+		this.game = game;
 		this.name = name;
 		this.postNum = postNum;
 		this.ownerType = ownerType;
-		this.ownerId = ownerId;
+		this.posts = posts;
 	}
 
 	// Property accessors
@@ -37,6 +44,22 @@ public class Section implements java.io.Serializable {
 
 	public void setId(Integer id) {
 		this.id = id;
+	}
+
+	public Guser getGuser() {
+		return this.guser;
+	}
+
+	public void setGuser(Guser guser) {
+		this.guser = guser;
+	}
+
+	public Game getGame() {
+		return this.game;
+	}
+
+	public void setGame(Game game) {
+		this.game = game;
 	}
 
 	public String getName() {
@@ -63,12 +86,12 @@ public class Section implements java.io.Serializable {
 		this.ownerType = ownerType;
 	}
 
-	public String getOwnerId() {
-		return this.ownerId;
+	public Set getPosts() {
+		return this.posts;
 	}
 
-	public void setOwnerId(String ownerId) {
-		this.ownerId = ownerId;
+	public void setPosts(Set posts) {
+		this.posts = posts;
 	}
 
 }

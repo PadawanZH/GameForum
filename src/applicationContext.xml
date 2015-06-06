@@ -83,11 +83,6 @@
 
 	<!-- 将DAO注入给SessionFactory -->
 	
-	<bean id="AdminDAO" class="dao.AdminDAO">
-		<property name="sessionFactory">
-			<ref bean="sessionFactory" />
-		</property>
-	</bean>
 	<bean id="FavouritesDAO" class="dao.FavouritesDAO">
 		<property name="sessionFactory">
 			<ref bean="sessionFactory" />
@@ -154,13 +149,13 @@
 		<property name="target">
 			<bean class="ser.TestService">
 			<property name="gameDAO" ref="GameDAO"/>
+			<property name="guserDAO" ref="GuserDAO"/>
 			</bean>
 		</property>
 	</bean>	
 	<bean id="userService" parent="baseTransactionProxy">
 		<property name="target">
 			<bean class="ser.UserService">
-				<property name="adminDAO" ref="AdminDAO"/>
 				<property name="guserDAO" ref="GuserDAO"/>
 			</bean>
 		</property>
@@ -170,6 +165,15 @@
 			<bean class="ser.PermissionService">
 				<property name="guserDAO" ref="GuserDAO"/>
 				<property name="usergroupDAO" ref="UsergroupDAO"/>
+			</bean>
+		</property>
+	</bean>	
+	<bean id="sectionService" parent="baseTransactionProxy">
+		<property name="target">
+			<bean class="ser.SectionService">
+				<property name="sectionDAO" ref="SectionDAO"/>
+				<property name="gameDAO" ref="GameDAO"/>
+				<property name="userService" ref="userService"/>
 			</bean>
 		</property>
 	</bean>	

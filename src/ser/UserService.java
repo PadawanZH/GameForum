@@ -4,64 +4,56 @@ import java.util.Date;
 
 import org.apache.struts2.ServletActionContext;
 
-import dao.Admin;
-import dao.AdminDAO;
 import dao.Guser;
 import dao.GuserDAO;
+import dao.Usergroup;
 
 public class UserService {
 	
-	private AdminDAO adminDAO;
 	private GuserDAO guserDAO;
 	String nullString = new String("");
 	
 	/**
-	 * 
+	 * 验证用户信息，维护session中的cUser和cUserType
 	 * @param account
 	 * @param passwd
 	 * @return	三种结果 1. NotFound 没找到<p>2. Succeed 成功登陆<p>3. WrongPasswd 密码错误<p>
 	 */
 	public String login(String account, String passwd){
 		String status = "";
-		String type = "";//标识身份是管理员还是用户，具体传值方式有待修改！！！！！！
-		status = adminCheck(account,passwd);
-		if(status != "NotFound"){
-			type = "admin";	
+		status = guserCheck(account,passwd);
+		if(status == "Succeed"){
+			Guser cuser = guserDAO.findById(account);
+			ServletActionContext.getRequest().getSession().setAttribute("cUser", cuser);
+			ServletActionContext.getRequest().getSession().setAttribute("cUserType", cuser.getUsergroup().getName());
 		}else{
-			status = guserCheck(account,passwd);
-			if(status != "NotFound"){
-				type = "guser";
-			}else{
-				return "NotFound";
-			}
+			ServletActionContext.getRequest().getSession().setAttribute("cUser", null);
+			ServletActionContext.getRequest().getSession().setAttribute("cUserType", "vister");
 		}
-		
-		ServletActionContext.getRequest().getSession().setAttribute("cUser", guserDAO.findById(account));
-		ServletActionContext.getRequest().getSession().setAttribute("cUserType", type);
 		return status;
 	}
 	/**
-	 * 
+	 * 必须有身份为管理员的邀请者才能将之升级为管理员用户组
 	 * @param account
 	 * @param name
 	 * @param passwd
 	 * @return 三种结果
-	 * 			1. Existed 重复管理员用户<p>
-	 * 			2. SaveFailed 存储失败<p>
+	 * 			1. NotAdmin 操作者不是管理员<p>
+	 * 			2. Existed 重复管理员用户<p>
 	 * 			3. Succeed 存储成功<p>
 	 */
-	public String adminRegist(String account, String name, String passwd){
+	public String adminRegist(Guser Introducer, String targerAccount){
 		String status = "";
+		if(!isAdmin(Introducer.getAccount()) ){
+			return "NotAdmin";
+		}
+		Guser targetUser = guserDAO.findById(targerAccount);
 		//查重
-		if(guserDAO.findById(account) != null){//每一个admin创建一个相同的user
+		if(targetUser.getUsergroup().getName() == "admin"){//每一个admin创建一个相同的user
 			status = "Existed";
 		}else{
-			Admin admin = new Admin(account,name,passwd);
-			try{
-				adminDAO.save(admin);
-			}catch(RuntimeException re){
-				status = "SaveFailed";
-			}
+			targetUser.setUsergroup(new Usergroup("admin"));
+			guserDAO.save(targetUser);
 			status = "Succeed";
 		}
 		return status;
@@ -93,7 +85,7 @@ public class UserService {
 		}else{
 			try{
 				guser.setCoinNum(0);
-				guser.setGroupId(0);
+				guser.setUsergroup(new Usergroup("小白"));
 				guser.setPoints(0);
 				guser.setPostNum(0);
 				guser.setReplyNum(0);
@@ -127,7 +119,7 @@ public class UserService {
 	}
 	
 	/**
-	 * guser信息的更新方法，<b><font color="red">正确性有待验证。。。</font></b>
+	 * guser信息的更新方法
 	 * @param newInstanceer
 	 * @return Succeed,ChangeFailed
 	 */
@@ -164,27 +156,6 @@ public class UserService {
 	}
 	
 	/**
-	 * 内部方法，管理员登录，在login中调用
-	 * @param account
-	 * @param passwd
-	 * @return
-	 */
-	public String adminCheck(String account, String passwd){
-		Admin admin = adminDAO.findById(account);
-		String status = "";
-		
-		if(admin == null){
-			status = "NotFound";
-		}else{
-			if(admin.getPasswd().equals(passwd)){
-				status = "Succeed";
-			}else{
-				status = "WrongPasswd";
-			}
-		}
-		return status;
-	}
-	/**
 	 * 内部方法，用户登录，在login中调用
 	 * @param account
 	 * @param passwd
@@ -213,26 +184,29 @@ public class UserService {
 	public boolean RequestCurUserDataWithAccount(String account){
 		Guser guser = guserDAO.findById(account);
 		if(guser != null){
-			ServletActionContext.getRequest().getSession().setAttribute("UserData", guser);
+			ServletActionContext.getRequest().getSession().setAttribute("cUser", guser);
+			ServletActionContext.getRequest().getSession().setAttribute("cUserType", guser.getUsergroup().getName());
 			return true;
 		}else{
 			return false;
 		}
 	}
-
-
+	
 	/**
-	 * @return the adminDAO
+	 * 询问是否是管理员
+	 * @return
 	 */
-	public AdminDAO getAdminDAO() {
-		return adminDAO;
+	public boolean isAdmin(String account){
+		return guserDAO.findById(account).getUsergroup().getName() == "admin";
 	}
 	/**
-	 * @param adminDAO the adminDAO to set
+	 * 测试函数
+	 * @return
 	 */
-	public void setAdminDAO(AdminDAO adminDAO) {
-		this.adminDAO = adminDAO;
+	public Guser getUserInfo(String account){
+		return guserDAO.findById(account);
 	}
+
 	/**
 	 * @return the guserDAO
 	 */

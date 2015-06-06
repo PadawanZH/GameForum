@@ -9,8 +9,8 @@ public class Favourites implements java.io.Serializable {
 	// Fields
 
 	private Integer id;
-	private String belong;
-	private String postId;
+	private Guser guser;
+	private Post post;
 
 	// Constructors
 
@@ -19,9 +19,9 @@ public class Favourites implements java.io.Serializable {
 	}
 
 	/** full constructor */
-	public Favourites(String belong, String postId) {
-		this.belong = belong;
-		this.postId = postId;
+	public Favourites(Guser guser, Post post) {
+		this.guser = guser;
+		this.post = post;
 	}
 
 	// Property accessors
@@ -34,20 +34,20 @@ public class Favourites implements java.io.Serializable {
 		this.id = id;
 	}
 
-	public String getBelong() {
-		return this.belong;
+	public Guser getGuser() {
+		return this.guser;
 	}
 
-	public void setBelong(String belong) {
-		this.belong = belong;
+	public void setGuser(Guser guser) {
+		this.guser = guser;
 	}
 
-	public String getPostId() {
-		return this.postId;
+	public Post getPost() {
+		return this.post;
 	}
 
-	public void setPostId(String postId) {
-		this.postId = postId;
+	public void setPost(Post post) {
+		this.post = post;
 	}
 
 }

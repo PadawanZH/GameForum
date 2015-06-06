@@ -11,8 +11,8 @@ public class Message implements java.io.Serializable {
 	// Fields
 
 	private Integer id;
-	private String sender;
-	private String receiver;
+	private Guser guserByReceiver;
+	private Guser guserBySender;
 	private Timestamp time;
 	private String marked;
 	private String contents;
@@ -24,10 +24,10 @@ public class Message implements java.io.Serializable {
 	}
 
 	/** full constructor */
-	public Message(String sender, String receiver, Timestamp time,
+	public Message(Guser guserByReceiver, Guser guserBySender, Timestamp time,
 			String marked, String contents) {
-		this.sender = sender;
-		this.receiver = receiver;
+		this.guserByReceiver = guserByReceiver;
+		this.guserBySender = guserBySender;
 		this.time = time;
 		this.marked = marked;
 		this.contents = contents;
@@ -43,20 +43,20 @@ public class Message implements java.io.Serializable {
 		this.id = id;
 	}
 
-	public String getSender() {
-		return this.sender;
+	public Guser getGuserByReceiver() {
+		return this.guserByReceiver;
 	}
 
-	public void setSender(String sender) {
-		this.sender = sender;
+	public void setGuserByReceiver(Guser guserByReceiver) {
+		this.guserByReceiver = guserByReceiver;
 	}
 
-	public String getReceiver() {
-		return this.receiver;
+	public Guser getGuserBySender() {
+		return this.guserBySender;
 	}
 
-	public void setReceiver(String receiver) {
-		this.receiver = receiver;
+	public void setGuserBySender(Guser guserBySender) {
+		this.guserBySender = guserBySender;
 	}
 
 	public Timestamp getTime() {

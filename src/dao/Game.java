@@ -1,6 +1,8 @@
 package dao;
 
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Game entity. @author MyEclipse Persistence Tools
@@ -11,15 +13,15 @@ public class Game implements java.io.Serializable {
 	// Fields
 
 	private Integer id;
+	private Requirement requirement;
+	private Guser guser;
 	private String name;
 	private Integer studioId;
 	private String platform;
 	private String type;
 	private String logoAddr;
 	private Date releaseDate;
-	private Integer requirementId;
-	private Integer sectionId;
-	private String ownerId;
+	private Set sections = new HashSet(0);
 
 	// Constructors
 
@@ -28,18 +30,18 @@ public class Game implements java.io.Serializable {
 	}
 
 	/** full constructor */
-	public Game(String name, Integer studioId, String platform, String type,
-			String logoAddr, Date releaseDate, Integer requirementId,
-			Integer sectionId, String ownerId) {
+	public Game(Requirement requirement, Guser guser, String name,
+			Integer studioId, String platform, String type, String logoAddr,
+			Date releaseDate, Set sections) {
+		this.requirement = requirement;
+		this.guser = guser;
 		this.name = name;
 		this.studioId = studioId;
 		this.platform = platform;
 		this.type = type;
 		this.logoAddr = logoAddr;
 		this.releaseDate = releaseDate;
-		this.requirementId = requirementId;
-		this.sectionId = sectionId;
-		this.ownerId = ownerId;
+		this.sections = sections;
 	}
 
 	// Property accessors
@@ -50,6 +52,22 @@ public class Game implements java.io.Serializable {
 
 	public void setId(Integer id) {
 		this.id = id;
+	}
+
+	public Requirement getRequirement() {
+		return this.requirement;
+	}
+
+	public void setRequirement(Requirement requirement) {
+		this.requirement = requirement;
+	}
+
+	public Guser getGuser() {
+		return this.guser;
+	}
+
+	public void setGuser(Guser guser) {
+		this.guser = guser;
 	}
 
 	public String getName() {
@@ -100,28 +118,12 @@ public class Game implements java.io.Serializable {
 		this.releaseDate = releaseDate;
 	}
 
-	public Integer getRequirementId() {
-		return this.requirementId;
+	public Set getSections() {
+		return this.sections;
 	}
 
-	public void setRequirementId(Integer requirementId) {
-		this.requirementId = requirementId;
-	}
-
-	public Integer getSectionId() {
-		return this.sectionId;
-	}
-
-	public void setSectionId(Integer sectionId) {
-		this.sectionId = sectionId;
-	}
-
-	public String getOwnerId() {
-		return this.ownerId;
-	}
-
-	public void setOwnerId(String ownerId) {
-		this.ownerId = ownerId;
+	public void setSections(Set sections) {
+		this.sections = sections;
 	}
 
 }

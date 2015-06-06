@@ -27,9 +27,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class ReplyDAO {
 	private static final Logger log = LoggerFactory.getLogger(ReplyDAO.class);
 	// property constants
-	public static final String POST_ID = "postId";
 	public static final String FLOOR = "floor";
-	public static final String USER_ID = "userId";
 	public static final String FAVOURITE_NUM = "favouriteNum";
 	public static final String CONTENTS = "contents";
 
@@ -109,16 +107,8 @@ public class ReplyDAO {
 		}
 	}
 
-	public List findByPostId(Object postId) {
-		return findByProperty(POST_ID, postId);
-	}
-
 	public List findByFloor(Object floor) {
 		return findByProperty(FLOOR, floor);
-	}
-
-	public List findByUserId(Object userId) {
-		return findByProperty(USER_ID, userId);
 	}
 
 	public List findByFavouriteNum(Object favouriteNum) {
@@ -176,6 +166,27 @@ public class ReplyDAO {
 		}
 	}
 
+	/**
+	 * 以属性A的值，以属性B排序
+	 * @param A
+	 * @param B
+	 * @return
+	 */
+	public List findByAOrderByB(String A, Object value, String B) {
+		log.debug("finding Reply instance with property: " + A
+				+ ", order by : " + B);
+		try {
+			String queryString = "from Reply as model where model."
+					+ A + "= ? order by model."+B;
+			Query queryObject = getCurrentSession().createQuery(queryString);
+			queryObject.setParameter(0, value);
+			return queryObject.list();
+		} catch (RuntimeException re) {
+			log.error("find by A name order by B failed", re);
+			throw re;
+		}
+	}
+	
 	public static ReplyDAO getFromApplicationContext(ApplicationContext ctx) {
 		return (ReplyDAO) ctx.getBean("ReplyDAO");
 	}

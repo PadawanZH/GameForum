@@ -10,11 +10,14 @@
             <column name="ID" />
             <generator class="identity" />
         </id>
+        <many-to-one name="section" class="dao.Section" fetch="select">
+            <column name="SectionId" />
+        </many-to-one>
+        <many-to-one name="guser" class="dao.Guser" fetch="select">
+            <column name="authorId" length="30" />
+        </many-to-one>
         <property name="title" type="java.lang.String">
             <column name="title" length="50" />
-        </property>
-        <property name="authorId" type="java.lang.String">
-            <column name="authorId" length="30" />
         </property>
         <property name="type" type="java.lang.String">
             <column name="type" length="10" />
@@ -28,11 +31,20 @@
         <property name="postTime" type="java.sql.Timestamp">
             <column name="postTime" length="19" />
         </property>
-        <property name="sectionId" type="java.lang.Integer">
-            <column name="SectionId" />
-        </property>
         <property name="contents" type="java.lang.String">
             <column name="Contents" />
         </property>
+        <set name="replies" inverse="true">
+            <key>
+                <column name="PostID" />
+            </key>
+            <one-to-many class="dao.Reply" />
+        </set>
+        <set name="favouriteses" inverse="true">
+            <key>
+                <column name="postID" />
+            </key>
+            <one-to-many class="dao.Favourites" />
+        </set>
     </class>
 </hibernate-mapping>

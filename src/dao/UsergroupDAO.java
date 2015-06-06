@@ -1,6 +1,7 @@
 package dao;
 
 import java.util.List;
+import java.util.Set;
 import org.hibernate.LockOptions;
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -27,7 +28,6 @@ public class UsergroupDAO {
 	private static final Logger log = LoggerFactory
 			.getLogger(UsergroupDAO.class);
 	// property constants
-	public static final String NAME = "name";
 	public static final String PERMISSIONS = "permissions";
 
 	private SessionFactory sessionFactory;
@@ -66,7 +66,7 @@ public class UsergroupDAO {
 		}
 	}
 
-	public Usergroup findById(java.lang.Integer id) {
+	public Usergroup findById(java.lang.String id) {
 		log.debug("getting Usergroup instance with id: " + id);
 		try {
 			Usergroup instance = (Usergroup) getCurrentSession().get(
@@ -105,10 +105,6 @@ public class UsergroupDAO {
 			log.error("find by property name failed", re);
 			throw re;
 		}
-	}
-
-	public List findByName(Object name) {
-		return findByProperty(NAME, name);
 	}
 
 	public List findByPermissions(Object permissions) {

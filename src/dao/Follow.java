@@ -9,8 +9,8 @@ public class Follow implements java.io.Serializable {
 	// Fields
 
 	private Integer id;
-	private String fromId;
-	private String targetId;
+	private Guser guserByFromId;
+	private Guser guserByTargetId;
 
 	// Constructors
 
@@ -19,9 +19,9 @@ public class Follow implements java.io.Serializable {
 	}
 
 	/** full constructor */
-	public Follow(String fromId, String targetId) {
-		this.fromId = fromId;
-		this.targetId = targetId;
+	public Follow(Guser guserByFromId, Guser guserByTargetId) {
+		this.guserByFromId = guserByFromId;
+		this.guserByTargetId = guserByTargetId;
 	}
 
 	// Property accessors
@@ -34,20 +34,20 @@ public class Follow implements java.io.Serializable {
 		this.id = id;
 	}
 
-	public String getFromId() {
-		return this.fromId;
+	public Guser getGuserByFromId() {
+		return this.guserByFromId;
 	}
 
-	public void setFromId(String fromId) {
-		this.fromId = fromId;
+	public void setGuserByFromId(Guser guserByFromId) {
+		this.guserByFromId = guserByFromId;
 	}
 
-	public String getTargetId() {
-		return this.targetId;
+	public Guser getGuserByTargetId() {
+		return this.guserByTargetId;
 	}
 
-	public void setTargetId(String targetId) {
-		this.targetId = targetId;
+	public void setGuserByTargetId(Guser guserByTargetId) {
+		this.guserByTargetId = guserByTargetId;
 	}
 
 }

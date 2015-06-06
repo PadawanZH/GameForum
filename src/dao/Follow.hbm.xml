@@ -10,11 +10,11 @@
             <column name="ID" />
             <generator class="identity" />
         </id>
-        <property name="fromId" type="java.lang.String">
+        <many-to-one name="guserByFromId" class="dao.Guser" fetch="select">
             <column name="fromID" length="30" />
-        </property>
-        <property name="targetId" type="java.lang.String">
+        </many-to-one>
+        <many-to-one name="guserByTargetId" class="dao.Guser" fetch="select">
             <column name="targetID" length="30" />
-        </property>
+        </many-to-one>
     </class>
 </hibernate-mapping>

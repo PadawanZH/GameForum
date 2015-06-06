@@ -10,6 +10,9 @@
             <column name="account" length="30" />
             <generator class="assigned" />
         </id>
+        <many-to-one name="usergroup" class="dao.Usergroup" fetch="select">
+            <column name="groupName" length="30" />
+        </many-to-one>
         <property name="name" type="java.lang.String">
             <column name="name" />
         </property>
@@ -27,9 +30,6 @@
         </property>
         <property name="email" type="java.lang.String">
             <column name="email" />
-        </property>
-        <property name="groupId" type="java.lang.Integer">
-            <column name="groupId" />
         </property>
         <property name="points" type="java.lang.Integer">
             <column name="points" />
@@ -49,5 +49,59 @@
         <property name="portraitAddr" type="java.lang.String">
             <column name="portraitAddr" />
         </property>
+        <set name="sections" inverse="true">
+            <key>
+                <column name="OwnerID" length="30" />
+            </key>
+            <one-to-many class="dao.Section" />
+        </set>
+        <set name="followsForFromId" inverse="true">
+            <key>
+                <column name="fromID" length="30" />
+            </key>
+            <one-to-many class="dao.Follow" />
+        </set>
+        <set name="followsForTargetId" inverse="true">
+            <key>
+                <column name="targetID" length="30" />
+            </key>
+            <one-to-many class="dao.Follow" />
+        </set>
+        <set name="posts" inverse="true">
+            <key>
+                <column name="authorId" length="30" />
+            </key>
+            <one-to-many class="dao.Post" />
+        </set>
+        <set name="replies" inverse="true">
+            <key>
+                <column name="userId" length="30" />
+            </key>
+            <one-to-many class="dao.Reply" />
+        </set>
+        <set name="favouriteses" inverse="true">
+            <key>
+                <column name="belong" length="30" />
+            </key>
+            <one-to-many class="dao.Favourites" />
+        </set>
+        <set name="games" inverse="true">
+            <key>
+                <column name="OwnerID" length="30" />
+            </key>
+            <one-to-many class="dao.Game" />
+        </set>
+        <set name="messagesForReceiver" inverse="true">
+            <key>
+                <column name="Receiver" length="30" />
+            </key>
+            <one-to-many class="dao.Message" />
+        </set>
+        <set name="messagesForSender" inverse="true">
+            <key>
+                <column name="Sender" length="30" />
+            </key>
+            <one-to-many class="dao.Message" />
+        </set>
     </class>
 </hibernate-mapping>

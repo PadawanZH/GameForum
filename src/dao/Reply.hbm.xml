@@ -10,14 +10,14 @@
             <column name="ID" />
             <generator class="identity" />
         </id>
-        <property name="postId" type="java.lang.Integer">
+        <many-to-one name="guser" class="dao.Guser" fetch="select">
+            <column name="userId" length="30" />
+        </many-to-one>
+        <many-to-one name="post" class="dao.Post" fetch="select">
             <column name="PostID" />
-        </property>
+        </many-to-one>
         <property name="floor" type="java.lang.Integer">
             <column name="floor" />
-        </property>
-        <property name="userId" type="java.lang.String">
-            <column name="userId" length="30" />
         </property>
         <property name="favouriteNum" type="java.lang.Integer">
             <column name="favouriteNum" />

@@ -9,15 +9,25 @@ import dao.ReplyDAO;
 
 public class ReplyService {
 	ReplyDAO replyDAO;
+	PostService postService;
 	
 	/**
-	 * 得到post的回复，根据时间排序
+	 * 得到post的回复，根据时间升序排序,一般在post页面初始化时使用（包括点击回复后）
 	 * @param post
 	 * @return
 	 */
-	public List<Reply> getReplyInPost(Post post){
+	public List<Reply> getReplyInPostbyTime(Post post){
+		List<Reply> list;
+		try{
+			list = replyDAO.findByAOrderByB("postId", post.getId(), "postTime");
+			//过会试一下将之在service层存入session，而不是返回给action
+			return list;
+		}catch (RuntimeException re) {
+			System.out.println("attr name is wrong in ReplyService.getReplyInPost.findByAOrderByB");
+		}
 		return null;
 	}
+	
 	
 	/**
 	 * 添加回复

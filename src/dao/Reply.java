@@ -11,9 +11,9 @@ public class Reply implements java.io.Serializable {
 	// Fields
 
 	private Integer id;
-	private Integer postId;
+	private Guser guser;
+	private Post post;
 	private Integer floor;
-	private String userId;
 	private Integer favouriteNum;
 	private Timestamp postTime;
 	private String contents;
@@ -25,11 +25,11 @@ public class Reply implements java.io.Serializable {
 	}
 
 	/** full constructor */
-	public Reply(Integer postId, Integer floor, String userId,
-			Integer favouriteNum, Timestamp postTime, String contents) {
-		this.postId = postId;
+	public Reply(Guser guser, Post post, Integer floor, Integer favouriteNum,
+			Timestamp postTime, String contents) {
+		this.guser = guser;
+		this.post = post;
 		this.floor = floor;
-		this.userId = userId;
 		this.favouriteNum = favouriteNum;
 		this.postTime = postTime;
 		this.contents = contents;
@@ -45,12 +45,20 @@ public class Reply implements java.io.Serializable {
 		this.id = id;
 	}
 
-	public Integer getPostId() {
-		return this.postId;
+	public Guser getGuser() {
+		return this.guser;
 	}
 
-	public void setPostId(Integer postId) {
-		this.postId = postId;
+	public void setGuser(Guser guser) {
+		this.guser = guser;
+	}
+
+	public Post getPost() {
+		return this.post;
+	}
+
+	public void setPost(Post post) {
+		this.post = post;
 	}
 
 	public Integer getFloor() {
@@ -59,14 +67,6 @@ public class Reply implements java.io.Serializable {
 
 	public void setFloor(Integer floor) {
 		this.floor = floor;
-	}
-
-	public String getUserId() {
-		return this.userId;
-	}
-
-	public void setUserId(String userId) {
-		this.userId = userId;
 	}
 
 	public Integer getFavouriteNum() {

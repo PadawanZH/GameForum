@@ -27,8 +27,6 @@ import org.springframework.transaction.annotation.Transactional;
 public class MessageDAO {
 	private static final Logger log = LoggerFactory.getLogger(MessageDAO.class);
 	// property constants
-	public static final String SENDER = "sender";
-	public static final String RECEIVER = "receiver";
 	public static final String MARKED = "marked";
 	public static final String CONTENTS = "contents";
 
@@ -107,14 +105,6 @@ public class MessageDAO {
 			log.error("find by property name failed", re);
 			throw re;
 		}
-	}
-
-	public List findBySender(Object sender) {
-		return findByProperty(SENDER, sender);
-	}
-
-	public List findByReceiver(Object receiver) {
-		return findByProperty(RECEIVER, receiver);
 	}
 
 	public List findByMarked(Object marked) {

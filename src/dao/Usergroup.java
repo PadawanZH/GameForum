@@ -1,5 +1,8 @@
 package dao;
 
+import java.util.HashSet;
+import java.util.Set;
+
 /**
  * Usergroup entity. @author MyEclipse Persistence Tools
  */
@@ -8,9 +11,9 @@ public class Usergroup implements java.io.Serializable {
 
 	// Fields
 
-	private Integer id;
 	private String name;
 	private String permissions;
+	private Set gusers = new HashSet(0);
 
 	// Constructors
 
@@ -18,21 +21,19 @@ public class Usergroup implements java.io.Serializable {
 	public Usergroup() {
 	}
 
+	/** minimal constructor */
+	public Usergroup(String name) {
+		this.name = name;
+	}
+
 	/** full constructor */
-	public Usergroup(String name, String permissions) {
+	public Usergroup(String name, String permissions, Set gusers) {
 		this.name = name;
 		this.permissions = permissions;
+		this.gusers = gusers;
 	}
 
 	// Property accessors
-
-	public Integer getId() {
-		return this.id;
-	}
-
-	public void setId(Integer id) {
-		this.id = id;
-	}
 
 	public String getName() {
 		return this.name;
@@ -48,6 +49,14 @@ public class Usergroup implements java.io.Serializable {
 
 	public void setPermissions(String permissions) {
 		this.permissions = permissions;
+	}
+
+	public Set getGusers() {
+		return this.gusers;
+	}
+
+	public void setGusers(Set gusers) {
+		this.gusers = gusers;
 	}
 
 }

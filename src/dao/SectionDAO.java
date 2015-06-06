@@ -1,6 +1,7 @@
 package dao;
 
 import java.util.List;
+import java.util.Set;
 import org.hibernate.LockOptions;
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -29,7 +30,6 @@ public class SectionDAO {
 	public static final String NAME = "name";
 	public static final String POST_NUM = "postNum";
 	public static final String OWNER_TYPE = "ownerType";
-	public static final String OWNER_ID = "ownerId";
 
 	private SessionFactory sessionFactory;
 
@@ -118,10 +118,6 @@ public class SectionDAO {
 
 	public List findByOwnerType(Object ownerType) {
 		return findByProperty(OWNER_TYPE, ownerType);
-	}
-
-	public List findByOwnerId(Object ownerId) {
-		return findByProperty(OWNER_ID, ownerId);
 	}
 
 	public List findAll() {

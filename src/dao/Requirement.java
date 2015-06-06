@@ -1,5 +1,8 @@
 package dao;
 
+import java.util.HashSet;
+import java.util.Set;
+
 /**
  * Requirement entity. @author MyEclipse Persistence Tools
  */
@@ -15,6 +18,7 @@ public class Requirement implements java.io.Serializable {
 	private String graphics;
 	private String hardDrive;
 	private String soundCard;
+	private Set games = new HashSet(0);
 
 	// Constructors
 
@@ -24,13 +28,14 @@ public class Requirement implements java.io.Serializable {
 
 	/** full constructor */
 	public Requirement(String os, String processor, Integer memory,
-			String graphics, String hardDrive, String soundCard) {
+			String graphics, String hardDrive, String soundCard, Set games) {
 		this.os = os;
 		this.processor = processor;
 		this.memory = memory;
 		this.graphics = graphics;
 		this.hardDrive = hardDrive;
 		this.soundCard = soundCard;
+		this.games = games;
 	}
 
 	// Property accessors
@@ -89,6 +94,14 @@ public class Requirement implements java.io.Serializable {
 
 	public void setSoundCard(String soundCard) {
 		this.soundCard = soundCard;
+	}
+
+	public Set getGames() {
+		return this.games;
+	}
+
+	public void setGames(Set games) {
+		this.games = games;
 	}
 
 }

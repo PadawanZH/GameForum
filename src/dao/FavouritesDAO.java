@@ -27,8 +27,6 @@ public class FavouritesDAO {
 	private static final Logger log = LoggerFactory
 			.getLogger(FavouritesDAO.class);
 	// property constants
-	public static final String BELONG = "belong";
-	public static final String POST_ID = "postId";
 
 	private SessionFactory sessionFactory;
 
@@ -105,14 +103,6 @@ public class FavouritesDAO {
 			log.error("find by property name failed", re);
 			throw re;
 		}
-	}
-
-	public List findByBelong(Object belong) {
-		return findByProperty(BELONG, belong);
-	}
-
-	public List findByPostId(Object postId) {
-		return findByProperty(POST_ID, postId);
 	}
 
 	public List findAll() {

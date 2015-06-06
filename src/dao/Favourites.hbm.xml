@@ -10,11 +10,11 @@
             <column name="ID" />
             <generator class="identity" />
         </id>
-        <property name="belong" type="java.lang.String">
+        <many-to-one name="guser" class="dao.Guser" fetch="select">
             <column name="belong" length="30" />
-        </property>
-        <property name="postId" type="java.lang.String">
-            <column name="postID" length="30" />
-        </property>
+        </many-to-one>
+        <many-to-one name="post" class="dao.Post" fetch="select">
+            <column name="postID" />
+        </many-to-one>
     </class>
 </hibernate-mapping>

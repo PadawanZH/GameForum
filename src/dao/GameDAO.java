@@ -2,6 +2,7 @@ package dao;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 import org.hibernate.LockOptions;
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -32,9 +33,6 @@ public class GameDAO {
 	public static final String PLATFORM = "platform";
 	public static final String TYPE = "type";
 	public static final String LOGO_ADDR = "logoAddr";
-	public static final String REQUIREMENT_ID = "requirementId";
-	public static final String SECTION_ID = "sectionId";
-	public static final String OWNER_ID = "ownerId";
 
 	private SessionFactory sessionFactory;
 
@@ -132,18 +130,6 @@ public class GameDAO {
 		return findByProperty(LOGO_ADDR, logoAddr);
 	}
 
-	public List findByRequirementId(Object requirementId) {
-		return findByProperty(REQUIREMENT_ID, requirementId);
-	}
-
-	public List findBySectionId(Object sectionId) {
-		return findByProperty(SECTION_ID, sectionId);
-	}
-
-	public List findByOwnerId(Object ownerId) {
-		return findByProperty(OWNER_ID, ownerId);
-	}
-
 	public List findAll() {
 		log.debug("finding all Game instances");
 		try {
@@ -190,6 +176,7 @@ public class GameDAO {
 			throw re;
 		}
 	}
+	
 	/**
 	 *	以type作为分组，查找每组中post最多的4个游戏
 	 * @return
@@ -209,7 +196,7 @@ public class GameDAO {
 			throw re;
 		}
 	}
-	
+
 	public static GameDAO getFromApplicationContext(ApplicationContext ctx) {
 		return (GameDAO) ctx.getBean("GameDAO");
 	}

@@ -10,6 +10,12 @@
             <column name="ID" />
             <generator class="identity" />
         </id>
+        <many-to-one name="guser" class="dao.Guser" fetch="select">
+            <column name="OwnerID" length="30" />
+        </many-to-one>
+        <many-to-one name="game" class="dao.Game" fetch="select">
+            <column name="GameID" />
+        </many-to-one>
         <property name="name" type="java.lang.String">
             <column name="name" />
         </property>
@@ -19,8 +25,11 @@
         <property name="ownerType" type="java.lang.String">
             <column name="OwnerType" length="6" />
         </property>
-        <property name="ownerId" type="java.lang.String">
-            <column name="OwnerID" length="30" />
-        </property>
+        <set name="posts" inverse="true">
+            <key>
+                <column name="SectionId" />
+            </key>
+            <one-to-many class="dao.Post" />
+        </set>
     </class>
 </hibernate-mapping>
