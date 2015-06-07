@@ -28,12 +28,18 @@ public class RequirementDAO {
 	private static final Logger log = LoggerFactory
 			.getLogger(RequirementDAO.class);
 	// property constants
-	public static final String OS = "os";
-	public static final String PROCESSOR = "processor";
-	public static final String MEMORY = "memory";
-	public static final String GRAPHICS = "graphics";
-	public static final String HARD_DRIVE = "hardDrive";
-	public static final String SOUND_CARD = "soundCard";
+	public static final String HOS = "hos";
+	public static final String HPROCESSOR = "hprocessor";
+	public static final String HMEMORY = "hmemory";
+	public static final String HGRAPHICS = "hgraphics";
+	public static final String HHARD_DRIVE = "hhardDrive";
+	public static final String HSOUND_CARD = "hsoundCard";
+	public static final String LOS = "los";
+	public static final String LPROCESSOR = "lprocessor";
+	public static final String LMEMORY = "lmemory";
+	public static final String LGRAPHICS = "lgraphics";
+	public static final String LHARD_DRIVE = "lhardDrive";
+	public static final String LSOUND_CARD = "lsoundCard";
 
 	private SessionFactory sessionFactory;
 
@@ -113,28 +119,52 @@ public class RequirementDAO {
 		}
 	}
 
-	public List findByOs(Object os) {
-		return findByProperty(OS, os);
+	public List findByHos(Object hos) {
+		return findByProperty(HOS, hos);
 	}
 
-	public List findByProcessor(Object processor) {
-		return findByProperty(PROCESSOR, processor);
+	public List findByHprocessor(Object hprocessor) {
+		return findByProperty(HPROCESSOR, hprocessor);
 	}
 
-	public List findByMemory(Object memory) {
-		return findByProperty(MEMORY, memory);
+	public List findByHmemory(Object hmemory) {
+		return findByProperty(HMEMORY, hmemory);
 	}
 
-	public List findByGraphics(Object graphics) {
-		return findByProperty(GRAPHICS, graphics);
+	public List findByHgraphics(Object hgraphics) {
+		return findByProperty(HGRAPHICS, hgraphics);
 	}
 
-	public List findByHardDrive(Object hardDrive) {
-		return findByProperty(HARD_DRIVE, hardDrive);
+	public List findByHhardDrive(Object hhardDrive) {
+		return findByProperty(HHARD_DRIVE, hhardDrive);
 	}
 
-	public List findBySoundCard(Object soundCard) {
-		return findByProperty(SOUND_CARD, soundCard);
+	public List findByHsoundCard(Object hsoundCard) {
+		return findByProperty(HSOUND_CARD, hsoundCard);
+	}
+
+	public List findByLos(Object los) {
+		return findByProperty(LOS, los);
+	}
+
+	public List findByLprocessor(Object lprocessor) {
+		return findByProperty(LPROCESSOR, lprocessor);
+	}
+
+	public List findByLmemory(Object lmemory) {
+		return findByProperty(LMEMORY, lmemory);
+	}
+
+	public List findByLgraphics(Object lgraphics) {
+		return findByProperty(LGRAPHICS, lgraphics);
+	}
+
+	public List findByLhardDrive(Object lhardDrive) {
+		return findByProperty(LHARD_DRIVE, lhardDrive);
+	}
+
+	public List findByLsoundCard(Object lsoundCard) {
+		return findByProperty(LSOUND_CARD, lsoundCard);
 	}
 
 	public List findAll() {

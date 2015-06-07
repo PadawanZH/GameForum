@@ -19,5 +19,11 @@
         <property name="description" type="java.lang.String">
             <column name="description" />
         </property>
+        <set name="games" inverse="true">
+            <key>
+                <column name="studioId" />
+            </key>
+            <one-to-many class="dao.Game" />
+        </set>
     </class>
 </hibernate-mapping>

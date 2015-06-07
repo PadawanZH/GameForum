@@ -32,7 +32,6 @@ public class Guser implements java.io.Serializable {
 	private Set posts = new HashSet(0);
 	private Set replies = new HashSet(0);
 	private Set favouriteses = new HashSet(0);
-	private Set games = new HashSet(0);
 	private Set messagesForReceiver = new HashSet(0);
 	private Set messagesForSender = new HashSet(0);
 
@@ -53,8 +52,8 @@ public class Guser implements java.io.Serializable {
 			String email, Integer points, Integer postNum, Integer replyNum,
 			String signature, Integer coinNum, String portraitAddr,
 			Set sections, Set followsForFromId, Set followsForTargetId,
-			Set posts, Set replies, Set favouriteses, Set games,
-			Set messagesForReceiver, Set messagesForSender) {
+			Set posts, Set replies, Set favouriteses, Set messagesForReceiver,
+			Set messagesForSender) {
 		this.account = account;
 		this.usergroup = usergroup;
 		this.name = name;
@@ -75,7 +74,6 @@ public class Guser implements java.io.Serializable {
 		this.posts = posts;
 		this.replies = replies;
 		this.favouriteses = favouriteses;
-		this.games = games;
 		this.messagesForReceiver = messagesForReceiver;
 		this.messagesForSender = messagesForSender;
 	}
@@ -240,14 +238,6 @@ public class Guser implements java.io.Serializable {
 
 	public void setFavouriteses(Set favouriteses) {
 		this.favouriteses = favouriteses;
-	}
-
-	public Set getGames() {
-		return this.games;
-	}
-
-	public void setGames(Set games) {
-		this.games = games;
 	}
 
 	public Set getMessagesForReceiver() {

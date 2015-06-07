@@ -17,6 +17,7 @@ public class Section implements java.io.Serializable {
 	private String name;
 	private Integer postNum;
 	private String ownerType;
+	private String sectionPictureAddr;
 	private Set posts = new HashSet(0);
 
 	// Constructors
@@ -27,12 +28,13 @@ public class Section implements java.io.Serializable {
 
 	/** full constructor */
 	public Section(Guser guser, Game game, String name, Integer postNum,
-			String ownerType, Set posts) {
+			String ownerType, String sectionPictureAddr, Set posts) {
 		this.guser = guser;
 		this.game = game;
 		this.name = name;
 		this.postNum = postNum;
 		this.ownerType = ownerType;
+		this.sectionPictureAddr = sectionPictureAddr;
 		this.posts = posts;
 	}
 
@@ -84,6 +86,14 @@ public class Section implements java.io.Serializable {
 
 	public void setOwnerType(String ownerType) {
 		this.ownerType = ownerType;
+	}
+
+	public String getSectionPictureAddr() {
+		return this.sectionPictureAddr;
+	}
+
+	public void setSectionPictureAddr(String sectionPictureAddr) {
+		this.sectionPictureAddr = sectionPictureAddr;
 	}
 
 	public Set getPosts() {

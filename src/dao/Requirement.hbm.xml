@@ -10,23 +10,41 @@
             <column name="ID" />
             <generator class="identity" />
         </id>
-        <property name="os" type="java.lang.String">
-            <column name="OS" />
+        <property name="hos" type="java.lang.String">
+            <column name="HOS" />
         </property>
-        <property name="processor" type="java.lang.String">
-            <column name="Processor" />
+        <property name="hprocessor" type="java.lang.String">
+            <column name="HProcessor" />
         </property>
-        <property name="memory" type="java.lang.Integer">
-            <column name="Memory" />
+        <property name="hmemory" type="java.lang.Integer">
+            <column name="HMemory" />
         </property>
-        <property name="graphics" type="java.lang.String">
-            <column name="Graphics" />
+        <property name="hgraphics" type="java.lang.String">
+            <column name="HGraphics" />
         </property>
-        <property name="hardDrive" type="java.lang.String">
-            <column name="HardDrive" length="20" />
+        <property name="hhardDrive" type="java.lang.String">
+            <column name="HHardDrive" length="20" />
         </property>
-        <property name="soundCard" type="java.lang.String">
-            <column name="SoundCard" />
+        <property name="hsoundCard" type="java.lang.String">
+            <column name="HSoundCard" />
+        </property>
+        <property name="los" type="java.lang.String">
+            <column name="LOS" />
+        </property>
+        <property name="lprocessor" type="java.lang.String">
+            <column name="LProcessor" />
+        </property>
+        <property name="lmemory" type="java.lang.Integer">
+            <column name="LMemory" />
+        </property>
+        <property name="lgraphics" type="java.lang.String">
+            <column name="LGraphics" />
+        </property>
+        <property name="lhardDrive" type="java.lang.String">
+            <column name="LHardDrive" length="20" />
+        </property>
+        <property name="lsoundCard" type="java.lang.String">
+            <column name="LSoundCard" />
         </property>
         <set name="games" inverse="true">
             <key>

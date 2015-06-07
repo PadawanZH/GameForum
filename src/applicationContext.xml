@@ -75,10 +75,12 @@
 				<prop key="edit*">PROPAGATION_REQUIRED</prop>
 				<prop key="del*">PROPAGATION_REQUIRED</prop>
 				<prop key="*">PROPAGATION_REQUIRED</prop>
+				<prop key="get*">PROPAGATION_REQUIRED,readOnly</prop>
+				<prop key="find*">PROPAGATION_REQUIRED,readOnly</prop>
 			</props>
 		</property>
 	</bean>
-
+	
 	<!-- 将DAO注入给SessionFactory -->
 	
 	<bean id="FavouritesDAO" class="dao.FavouritesDAO">
@@ -200,6 +202,10 @@
 		<property name="userService" ref="userService" />
 		<property name="gameInfoService" ref="gameInfoService" />
 	</bean>
+	<bean id="gameSectionAction" class="web.GameSectionAction" scope="singleton">
+		<property name="sectionService" ref="sectionService" />
+	</bean>
+	
 	
 	<tx:annotation-driven transaction-manager="transactionManager" />
 	</beans>

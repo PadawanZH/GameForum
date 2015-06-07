@@ -3,7 +3,6 @@ package ser;
 import java.util.Date;
 
 import org.apache.struts2.ServletActionContext;
-
 import dao.Guser;
 import dao.GuserDAO;
 import dao.Usergroup;
@@ -53,12 +52,14 @@ public class UserService {
 	public String adminRegist(Guser Introducer, String targerAccount){
 		String status = "";
 		if(!isAdmin(Introducer.getAccount()) ){
+			ServletActionContext.getRequest().getSession().setAttribute("ErrorInfo", "您不是管理员，无此权限");
 			return "NotAdmin";
 		}
 		Guser targetUser = guserDAO.findById(targerAccount);
 		//查重
 		if(targetUser.getUsergroup().getName() == "admin"){//每一个admin创建一个相同的user
 			status = "Existed";
+			ServletActionContext.getRequest().getSession().setAttribute("ErrorInfo", "该用户已经是管理员，请检查用户名");
 		}else{
 			targetUser.setUsergroup(new Usergroup("admin"));
 			guserDAO.save(targetUser);
@@ -89,6 +90,7 @@ public class UserService {
 		String status = "";
 		//查重
 		if(guserDAO.findById(guser.getAccount()) != null){
+			ServletActionContext.getRequest().getSession().setAttribute("ErrorInfo", "对不起，用户名已存在，请返回重试");
 			status = "Existed";
 		}else{
 			try{
@@ -122,6 +124,7 @@ public class UserService {
 			status = "Succeed";
 		}else{
 			status = "ChangeFailed";
+			ServletActionContext.getRequest().getSession().setAttribute("ErrorInfo", "修改失败，可能是密码不对，请返回重新输入");
 		}
 		return status;
 	}
@@ -140,6 +143,7 @@ public class UserService {
 			status = "Succeed";
 		}else{
 			status = "ChangeFailed";
+			ServletActionContext.getRequest().getSession().setAttribute("ErrorInfo", "修改失败，可能是密码不对，请返回重新输入");
 		}
 		return status;
 	}
@@ -175,11 +179,14 @@ public class UserService {
 		
 		if(guser == null){
 			status = "NotFound";
+			ServletActionContext.getRequest().getSession().setAttribute("ErrorInfo", "找不到用户名，请返回重试");
+
 		}else{
 			if(guser.getPasswd().equals(passwd)){
 				status = "Succeed";
 			}else{
 				status = "WrongPasswd";
+				ServletActionContext.getRequest().getSession().setAttribute("ErrorInfo", "密码错误，请返回重试");
 			}
 		}
 		return status;
@@ -196,6 +203,7 @@ public class UserService {
 			ServletActionContext.getRequest().getSession().setAttribute("cUserType", guser.getUsergroup().getName());
 			return true;
 		}else{
+			ServletActionContext.getRequest().getSession().setAttribute("ErrorInfo", "请求信息失败，请重新进入网站");
 			return false;
 		}
 	}

@@ -85,12 +85,6 @@
             </key>
             <one-to-many class="dao.Favourites" />
         </set>
-        <set name="games" inverse="true">
-            <key>
-                <column name="OwnerID" length="30" />
-            </key>
-            <one-to-many class="dao.Game" />
-        </set>
         <set name="messagesForReceiver" inverse="true">
             <key>
                 <column name="Receiver" length="30" />

@@ -3,6 +3,8 @@ package ser;
 import java.util.List;
 import java.util.Set;
 
+import org.apache.struts2.ServletActionContext;
+
 import dao.Game;
 import dao.GameDAO;
 import dao.Guser;
@@ -71,14 +73,15 @@ public class SectionService {
 	 * hashset
 	 * @return
 	 */
-	public Game GetGameInSection(Section section){
-		List<Section> list = sectionDAO.findByName(section.getName());
+	public boolean GetGameInSectionByName(String gameName){
+		System.out.println(gameName);
+		List<Section> list = sectionDAO.findByName(gameName);
 		if(list.size() != 1){
 			System.out.println("SectionService.GetGameInSection() have null value");
-			return null;
+			return false;
 		}else{
-			Game gameInSection = list.get(0).getGame();
-			return gameInSection;
+			ServletActionContext.getRequest().getSession().setAttribute("curSection", list.get(0));
+			return true;
 		}
 	}
 

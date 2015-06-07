@@ -1,5 +1,8 @@
 package dao;
 
+import java.util.HashSet;
+import java.util.Set;
+
 /**
  * Studio entity. @author MyEclipse Persistence Tools
  */
@@ -12,6 +15,7 @@ public class Studio implements java.io.Serializable {
 	private String name;
 	private String location;
 	private String description;
+	private Set games = new HashSet(0);
 
 	// Constructors
 
@@ -20,10 +24,11 @@ public class Studio implements java.io.Serializable {
 	}
 
 	/** full constructor */
-	public Studio(String name, String location, String description) {
+	public Studio(String name, String location, String description, Set games) {
 		this.name = name;
 		this.location = location;
 		this.description = description;
+		this.games = games;
 	}
 
 	// Property accessors
@@ -58,6 +63,14 @@ public class Studio implements java.io.Serializable {
 
 	public void setDescription(String description) {
 		this.description = description;
+	}
+
+	public Set getGames() {
+		return this.games;
+	}
+
+	public void setGames(Set games) {
+		this.games = games;
 	}
 
 }

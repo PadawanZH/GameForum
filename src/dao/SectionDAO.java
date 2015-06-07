@@ -30,6 +30,7 @@ public class SectionDAO {
 	public static final String NAME = "name";
 	public static final String POST_NUM = "postNum";
 	public static final String OWNER_TYPE = "ownerType";
+	public static final String SECTION_PICTURE_ADDR = "sectionPictureAddr";
 
 	private SessionFactory sessionFactory;
 
@@ -118,6 +119,10 @@ public class SectionDAO {
 
 	public List findByOwnerType(Object ownerType) {
 		return findByProperty(OWNER_TYPE, ownerType);
+	}
+
+	public List findBySectionPictureAddr(Object sectionPictureAddr) {
+		return findByProperty(SECTION_PICTURE_ADDR, sectionPictureAddr);
 	}
 
 	public List findAll() {

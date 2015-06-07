@@ -3,7 +3,10 @@
 
 <hibernate-reverse-engineering>
 
-<table name="t_user" catalog="gameforum"></table>
+	<table name="t_user" catalog="gameforum"></table>
 	<table name="admin" catalog="gameforum"></table>
 	<table name="favourites" catalog="gameforum"></table>
+	<table name="game" catalog="gameforum">
+		<column name="requirementID"></column>
+	</table>
 </hibernate-reverse-engineering>

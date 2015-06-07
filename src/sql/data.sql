@@ -69,10 +69,10 @@ create table Game(
 	foreign key (studioId) references Studio(ID)
 );
 
-insert into Game value (1,'真三国无双7',1,'PC','ACT','picture/sanguo7logo.jpg','2010-5-9',1,'真三国无双7真三国无双7真三国无双7');
-insert into Game value (2,'仙剑奇侠传',1,'PC','RPG','picture/xianjianxiqizhuanglogo.jpg','2010-5-10',1,'仙剑奇侠传仙剑奇侠传仙剑奇侠传');
-insert into Game value (3,'古墓丽影',1,'PC','AVG','picture/gumuliyinglogo.jpg','2010-5-18',1,'古墓丽影古墓丽影古墓丽影');
-insert into Game value (4,'三国志',1,'PC','SLG','picture/sanguozhilogo.jpg','2010-5-18',1,'三国志三国志三国志');
+insert into Game value (1,'真三国无双7',1,'PC','act','picture/sanguo7logo.jpg','2010-5-9',1,'真三国无双7真三国无双7真三国无双7');
+insert into Game value (2,'仙剑奇侠传',1,'PC','rpg','picture/xianjianxiqizhuanglogo.jpg','2010-5-10',1,'仙剑奇侠传仙剑奇侠传仙剑奇侠传');
+insert into Game value (3,'古墓丽影',1,'PC','avg','picture/gumuliyinglogo.jpg','2010-5-18',1,'古墓丽影古墓丽影古墓丽影');
+insert into Game value (4,'三国志',1,'PC','slg','picture/sanguozhilogo.jpg','2010-5-18',1,'三国志三国志三国志');
 
 create table Section(
 	ID 				int(10) not null primary key AUTO_INCREMENT,

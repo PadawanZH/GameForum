@@ -165,7 +165,7 @@ public class ReplyDAO {
 			throw re;
 		}
 	}
-
+	
 	/**
 	 * 以属性A的值，以属性B排序
 	 * @param A
@@ -186,7 +186,7 @@ public class ReplyDAO {
 			throw re;
 		}
 	}
-	
+
 	public static ReplyDAO getFromApplicationContext(ApplicationContext ctx) {
 		return (ReplyDAO) ctx.getBean("ReplyDAO");
 	}

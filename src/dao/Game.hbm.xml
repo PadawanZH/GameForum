@@ -34,6 +34,9 @@
         <property name="description" type="java.lang.String">
             <column name="description" />
         </property>
+        <property name="postNum" type="java.lang.Integer">
+            <column name="PostNum" />
+        </property>
         <set name="sections" inverse="true">
             <key>
                 <column name="GameID" />

@@ -21,6 +21,7 @@ public class Game implements java.io.Serializable {
 	private String logoAddr;
 	private Date releaseDate;
 	private String description;
+	private Integer postNum;
 	private Set sections = new HashSet(0);
 
 	// Constructors
@@ -32,7 +33,7 @@ public class Game implements java.io.Serializable {
 	/** full constructor */
 	public Game(Requirement requirement, Studio studio, String name,
 			String platform, String type, String logoAddr, Date releaseDate,
-			String description, Set sections) {
+			String description, Integer postNum, Set sections) {
 		this.requirement = requirement;
 		this.studio = studio;
 		this.name = name;
@@ -41,6 +42,7 @@ public class Game implements java.io.Serializable {
 		this.logoAddr = logoAddr;
 		this.releaseDate = releaseDate;
 		this.description = description;
+		this.postNum = postNum;
 		this.sections = sections;
 	}
 
@@ -116,6 +118,14 @@ public class Game implements java.io.Serializable {
 
 	public void setDescription(String description) {
 		this.description = description;
+	}
+
+	public Integer getPostNum() {
+		return this.postNum;
+	}
+
+	public void setPostNum(Integer postNum) {
+		this.postNum = postNum;
 	}
 
 	public Set getSections() {

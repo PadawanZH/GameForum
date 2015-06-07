@@ -20,6 +20,11 @@
      	   <result name="Succeed">ChangeOk.html</result>
      	</action>
      	<action name="top4Game" class="autoRequestAction" method="updateTop4GameInfo">
+     		<result name="Succeed">Main.jsp</result>
+     	</action>
+     	<action name="gameSectionAction" class="gameSectionAction" method="getSectionOfGamePage">
+     		<result name="Succeed">GamePage.jsp</result>
+     		<result name="Failed">ErrorPage.jsp</result>
      	</action>
      </package>
 </struts>

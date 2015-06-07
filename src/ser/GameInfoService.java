@@ -19,6 +19,7 @@ public class GameInfoService {
 		List<Game> list = gameDAO.queryFourTopGame();
 		ServletActionContext.getRequest().getSession().setAttribute("top4GameList", list);
 		return true;
+		
 	}
 
 	/**

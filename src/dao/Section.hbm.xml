@@ -25,6 +25,9 @@
         <property name="ownerType" type="java.lang.String">
             <column name="OwnerType" length="6" />
         </property>
+        <property name="sectionPictureAddr" type="java.lang.String">
+            <column name="SectionPictureAddr" />
+        </property>
         <set name="posts" inverse="true">
             <key>
                 <column name="SectionId" />

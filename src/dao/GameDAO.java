@@ -33,6 +33,7 @@ public class GameDAO {
 	public static final String TYPE = "type";
 	public static final String LOGO_ADDR = "logoAddr";
 	public static final String DESCRIPTION = "description";
+	public static final String POST_NUM = "postNum";
 
 	private SessionFactory sessionFactory;
 
@@ -130,6 +131,10 @@ public class GameDAO {
 		return findByProperty(DESCRIPTION, description);
 	}
 
+	public List findByPostNum(Object postNum) {
+		return findByProperty(POST_NUM, postNum);
+	}
+
 	public List findAll() {
 		log.debug("finding all Game instances");
 		try {
@@ -176,7 +181,7 @@ public class GameDAO {
 			throw re;
 		}
 	}
-
+	
 	/**
 	 *	以type作为分组，查找每组中post最多的4个游戏
 	 * @return
@@ -196,7 +201,7 @@ public class GameDAO {
 			throw re;
 		}
 	}
-	
+
 	public static GameDAO getFromApplicationContext(ApplicationContext ctx) {
 		return (GameDAO) ctx.getBean("GameDAO");
 	}
