@@ -176,6 +176,36 @@ public class PostDAO {
 			throw re;
 		}
 	}
+	
+	/**
+	 * 根据section找post，以postTime排序
+	 * @param value
+	 * @return
+	 */
+	public List findBySecionOrderByPostTime(Section value){
+		return findByAOrderByB("section.id", value.getId(), "postTime");
+	}
+	
+	/**
+	 * 以属性A的值，以属性B排序
+	 * @param A
+	 * @param B
+	 * @return
+	 */
+	public List findByAOrderByB(String A, Object value, String B) {
+		log.debug("finding Post instance with property: " + A
+				+ ", order by : " + B);
+		try {
+			String queryString = "from Post as model where model."
+					+ A + "= ? order by model."+B;
+			Query queryObject = getCurrentSession().createQuery(queryString);
+			queryObject.setParameter(0, value);
+			return queryObject.list();
+		} catch (RuntimeException re) {
+			log.error("find by A name order by B failed", re);
+			throw re;
+		}
+	}
 
 	public static PostDAO getFromApplicationContext(ApplicationContext ctx) {
 		return (PostDAO) ctx.getBean("PostDAO");

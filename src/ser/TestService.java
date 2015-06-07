@@ -14,14 +14,7 @@ public class TestService {
 	private GuserDAO guserDAO;
 	
 	public void test(){
-		
-		
-		/*Guser guser = guserDAO.findById("admin");
-		Iterator<Post> iterator = guser.getPosts().iterator();
-		
-		while(iterator.hasNext()){
-			System.out.println(iterator.next().getPostTime());
-		}*/
+
 	}
 	
 

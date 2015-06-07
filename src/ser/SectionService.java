@@ -73,15 +73,15 @@ public class SectionService {
 	 * hashset
 	 * @return
 	 */
-	public boolean GetGameInSectionByName(String gameName){
-		System.out.println(gameName);
+	public Section GetGameInSectionByName(String gameName){
 		List<Section> list = sectionDAO.findByName(gameName);
 		if(list.size() != 1){
 			System.out.println("SectionService.GetGameInSection() have null value");
-			return false;
+			ServletActionContext.getRequest().getSession().setAttribute("ErrorInfo", "Section与Game名字不符导致数据问题，请联系管理员解决");
+			return null;
 		}else{
 			ServletActionContext.getRequest().getSession().setAttribute("curSection", list.get(0));
-			return true;
+			return list.get(0);
 		}
 	}
 

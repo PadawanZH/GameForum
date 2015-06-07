@@ -1,5 +1,7 @@
 package web;
 
+import org.apache.struts2.ServletActionContext;
+
 import dao.Guser;
 import ser.UserService;
 
@@ -20,9 +22,22 @@ public class LoginAction {
 			return "Login";
 		}else{
 			String status = userService.login(account, passwd);
-			System.out.println(status);
+			System.out.println("LoginAction.login() " + status);
 			return status;
 		}
+	}
+	
+	public String logoff(){
+		Guser cUser = (Guser)ServletActionContext.getRequest().getSession().getAttribute("cUser");
+		String status = "";
+		if(cUser != null){
+			userService.logoff(cUser.getAccount());
+			status = "Succeed";
+		}else{
+			ServletActionContext.getRequest().getSession().setAttribute("ErrorInfo", "注销失败，联系前端管理员");
+			status = "Failed";
+		}
+		return status;
 	}
 
 	/**

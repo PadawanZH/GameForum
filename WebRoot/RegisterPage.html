@@ -9,22 +9,22 @@
 <body>
     <div class="header"></div>
     <div class="container col-md-3 col-md-offset-1">
-        <form role="form" method="post" action="guserRegist">
+        <form role="form" method="post" action="guserRegist" onsubmit="return check()">
             <div class="form-group">
              <label>账号</label>
-             <input type="text" name="guser.account" class="form-control" placeholder="ID" maxlength="16" >
+             <input type="text" name="guser.account" id="account" class="form-control" placeholder="ID" maxlength="16" >
           </div>
          <div class="form-group">
               <label>密码</label>
-              <input type="password" name="guser.passwd" class="form-control" placeholder="Password" maxlength="16">
+              <input type="password" name="guser.passwd" id="passwd" class="form-control" placeholder="Password" maxlength="16">
           </div>
           <div class="form-group">
                <label>确认密码</label>
-              <input type="password" class="form-control" placeholder="Password" maxlength="16">
+              <input type="password" class="form-control" id="confPasswd" placeholder="Password" maxlength="16">
            </div>
             <div class="form-group">
                <label>论坛昵称</label>
-               <input type="text" name="guser.name" class="form-control" placeholder="name" maxlength="16">
+               <input type="text" name="guser.name" id="nickName" class="form-control" placeholder="name" maxlength="16">
            </div>
            <p class="btn-control">
               <input type="submit" class="btn btn-success btn-lg" value="登录">
@@ -32,5 +32,31 @@
            </p>
         </form>
     </div>
+    <script type="text/javascript">
+	function check() {
+		if (document.getElementById("account").value == "") {
+			alert('用户名不能为空');
+			return false;
+		}
+		if (document.getElementById("passwd").value == "") {
+			alert('密码不能为空');
+			return false;
+		}
+		if (document.getElementById("nickName").value == "") {
+			alert('昵称不能为空');
+			return false;
+		}
+		if (document.getElementById("passwd").value != document
+				.getElementById("confPasswd").value) {
+			alert('两次输入的密码不一样');
+			return false;
+		}
+	}
+	function hh(x, y) {
+		if (document.getElementById(x).value == "") {
+			document.getElementById(y).innerHTML = '带*号的为必填,请不要留下空格';
+		}
+	}
+	</script>
 </body>
 </html>

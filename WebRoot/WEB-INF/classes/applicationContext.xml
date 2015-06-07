@@ -184,6 +184,13 @@
 			</bean>
 		</property>
 	</bean>
+	<bean id="postService" parent="baseTransactionProxy">
+		<property name="target">
+			<bean class="ser.PostService">
+				<property name="postDAO" ref="PostDAO"/>
+			</bean>
+		</property>
+	</bean>
 	
 	<!-- 将Service注入给Action -->
 	<bean id="testAction" class="web.TestAction" scope="singleton">
@@ -204,6 +211,7 @@
 	</bean>
 	<bean id="gameSectionAction" class="web.GameSectionAction" scope="singleton">
 		<property name="sectionService" ref="sectionService" />
+		<property name="postService" ref="postService" />
 	</bean>
 	
 	

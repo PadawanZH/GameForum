@@ -16,7 +16,6 @@ public class ChangeInfoAction {
 	Guser guser;
 	public String changeInfo(){
 		if(!year.equals(nullString) && !month.equals(nullString) && !day.equals(nullString)){
-			System.out.println(year+" "+month+" "+day+" ");
 			Date birthday = new Date(Integer.parseInt(year) - 1900, Integer.parseInt(month) - 1, Integer.parseInt(day));
 			guser.setBirthday(birthday);
 		}

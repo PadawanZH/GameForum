@@ -8,6 +8,10 @@
      	   <result name="Succeed">LoginOk.html</result>
      	   <result name="WrongPasswd">LoginError.html</result>
      	</action>
+     	<action name="logoffAction" class="loginAction" method="logoff">
+     		<result name="Succeed">Main.jsp</result>
+     		<result name="Failed">ErrorPage.jsp</result>
+     	</action>
      	<action name="guserRegist" class="registAction" method="regist">
      	   <result name="Existed">RegisterError.html</result>
      	   <result name="SaveFailed">RegisterError.html</result>
@@ -26,5 +30,10 @@
      		<result name="Succeed">GamePage.jsp</result>
      		<result name="Failed">ErrorPage.jsp</result>
      	</action>
+     	<action name="sendPostAction" class="gameSectionAction" method="sendPostAction">
+     		<result name="Succeed">GamePage.jsp</result>
+     		<result name="Failed">ErrorPage.jsp</result>
+     	</action>
+
      </package>
 </struts>
