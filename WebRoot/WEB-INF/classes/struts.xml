@@ -34,6 +34,14 @@
      		<result name="Succeed">GamePage.jsp</result>
      		<result name="Failed">ErrorPage.jsp</result>
      	</action>
+		<action name="getInPostDetailAction" class="postDetailAction" method="getInPostDetail">
+			<result name="Succeed">PostDetail.jsp</result>
+			<result name="Failed">ErrorPage.jsp</result>
+		</action>
+		<action name="lookForOtherAction" class="personalInfoAction" method="lookForOther">
+			<result name="Succeed">PersonalCenter.jsp</result>
+			<result name="Failed">ErrorPage.jsp</result>
+		</action>
 
      </package>
 </struts>

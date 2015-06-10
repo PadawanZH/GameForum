@@ -166,6 +166,19 @@ public class ReplyDAO {
 		}
 	}
 	
+	public List findByPostOrderByReplyTime(Post value){
+		return findByAOrderByB("post.id", value.getId(), "postTime");
+	}
+	
+	/**
+	 * 根据回复者查询replies历史
+	 * @param value
+	 * @return
+	 */
+	public List findByUserOrderByReplyTime(Guser author){
+		return findByAOrderByB("guser.account", author.getAccount(), "postTime");
+	}
+	
 	/**
 	 * 以属性A的值，以属性B排序
 	 * @param A
@@ -177,7 +190,7 @@ public class ReplyDAO {
 				+ ", order by : " + B);
 		try {
 			String queryString = "from Reply as model where model."
-					+ A + "= ? order by model."+B;
+					+ A + "= ? order by model."+B +" desc";
 			Query queryObject = getCurrentSession().createQuery(queryString);
 			queryObject.setParameter(0, value);
 			return queryObject.list();

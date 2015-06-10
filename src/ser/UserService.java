@@ -1,7 +1,6 @@
 package ser;
 
 import java.util.Date;
-
 import org.apache.struts2.ServletActionContext;
 import dao.Guser;
 import dao.GuserDAO;

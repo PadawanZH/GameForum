@@ -2,9 +2,7 @@ package ser;
 
 import java.sql.Timestamp;
 import java.util.List;
-
 import org.apache.struts2.ServletActionContext;
-
 import dao.Game;
 import dao.Guser;
 import dao.Post;
@@ -55,12 +53,28 @@ public class PostService {
 		}
 	}
 	/**
+	 * 返回特定User的Post历史，用于个人中心，
+	 * @return
+	 */
+	public List<Post> getPostForUserOrderByPostTime(Guser author){
+		return postDAO.findByAuthorOrderByPostTime(author);
+	}
+	/**
 	 * 用于进入一个特定的post中查看;注意返回的post不允许多余一个，可能需要对Title做出unique的限制，并相应处理
 	 * @param title
 	 * @return
 	 */
 	public Post getPostByTitle(String title){
 		return null;
+	}
+	/**
+	 * 用于进入一个特定的post中查看
+	 * @param title
+	 * @return
+	 */
+	public Post getPostByID(Integer ID){
+		Post post = postDAO.findById(ID);
+		return post;
 	}
 	
 	public String markFavourite(Integer postID){

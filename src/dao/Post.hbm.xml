@@ -34,13 +34,13 @@
         <property name="contents" type="java.lang.String">
             <column name="Contents" />
         </property>
-        <set name="replies" inverse="true">
+        <set lazy="false" name="replies" inverse="true">
             <key>
                 <column name="PostID" />
             </key>
             <one-to-many class="dao.Reply" />
         </set>
-        <set name="favouriteses" inverse="true">
+        <set lazy="false" name="favouriteses" inverse="true">
             <key>
                 <column name="postID" />
             </key>

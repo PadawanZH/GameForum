@@ -185,6 +185,14 @@ public class PostDAO {
 	public List findBySecionOrderByPostTime(Section value){
 		return findByAOrderByB("section.id", value.getId(), "postTime");
 	}
+	/**
+	 * 根据author找post，以postTime排序,
+	 * @param author
+	 * @return
+	 */
+	public List findByAuthorOrderByPostTime(Guser author){
+		return findByAOrderByB("guser.account", author.getAccount(), "postTime");
+	}
 	
 	/**
 	 * 以属性A的值，以属性B排序
@@ -197,7 +205,7 @@ public class PostDAO {
 				+ ", order by : " + B);
 		try {
 			String queryString = "from Post as model where model."
-					+ A + "= ? order by model."+B;
+					+ A + "= ? order by model."+B +" desc";
 			Query queryObject = getCurrentSession().createQuery(queryString);
 			queryObject.setParameter(0, value);
 			return queryObject.list();
