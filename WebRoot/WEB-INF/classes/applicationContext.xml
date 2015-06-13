@@ -199,6 +199,13 @@
 			</bean>
 		</property>
 	</bean>
+	<bean id="followerService" parent="baseTransactionProxy">
+		<property name="target">
+			<bean class="ser.FollowerService">
+				<property name="followDAO" ref="FollowDAO"/>
+			</bean>
+		</property>
+	</bean>
 	
 	<!-- 将Service注入给Action -->
 	<bean id="testAction" class="web.TestAction" scope="singleton">
@@ -229,6 +236,8 @@
 		<property name="replyService" ref="replyService" />
 		<property name="postService" ref="postService" />
 		<property name="userService" ref="userService" />
+		<property name="gameInfoService" ref="gameInfoService" />
+		<property name="followerService" ref="followerService" />
 	</bean>
 	
 	

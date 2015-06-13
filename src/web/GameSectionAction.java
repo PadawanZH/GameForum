@@ -16,6 +16,10 @@ public class GameSectionAction {
 	String title;
 	String contents;
 	
+	/**
+	 * gameSectionAction调用方法，设置curSection
+	 * @return
+	 */
 	public String getSectionOfGamePage(){
 		Section section = sectionService.GetGameInSectionByName(gameName);
 		if(section != null){
@@ -26,6 +30,10 @@ public class GameSectionAction {
 		}
 	}
 	
+	/**
+	 * 发帖操作，刷新PostListOfSection
+	 * @return
+	 */
 	public String sendPostAction(){
 		//获得session中section，guser
 		Section sectionOfPost = (Section) ServletActionContext.getRequest().getSession().getAttribute("curSection");

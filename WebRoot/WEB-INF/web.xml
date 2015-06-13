@@ -27,7 +27,8 @@
 		<param-name>flushMode</param-name>
 		<param-value>AUTO</param-value>
 	</init-param>
-</filter>
+	
+	</filter>
 	<filter-mapping>
 		<filter-name>openSessionInViewFilter</filter-name>
 		<url-pattern>/*</url-pattern>

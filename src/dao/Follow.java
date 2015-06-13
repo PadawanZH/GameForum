@@ -46,6 +46,21 @@ public class Follow implements java.io.Serializable {
 		return this.guserByTargetId;
 	}
 
+	@Override
+	public boolean equals(Object obj) {
+		if(obj instanceof Follow){
+			Follow follow = (Follow) obj;
+			if(this.getGuserByFromId().getAccount().equals( ((Follow) obj).getGuserByFromId().getAccount() )
+					&& this.getGuserByTargetId().getAccount().equals( ((Follow) obj).getGuserByTargetId().getAccount() )
+					){
+				return true;
+			}else{
+				return false;
+			}
+		}
+		return super.equals(obj);
+	}
+
 	public void setGuserByTargetId(Guser guserByTargetId) {
 		this.guserByTargetId = guserByTargetId;
 	}

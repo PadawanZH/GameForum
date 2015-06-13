@@ -2,7 +2,9 @@ package ser;
 
 import java.sql.Timestamp;
 import java.util.List;
+
 import org.apache.struts2.ServletActionContext;
+
 import dao.Game;
 import dao.Guser;
 import dao.Post;
@@ -30,10 +32,9 @@ public class PostService {
 			post.setFavouriteses(null);
 			
 			postDAO.save(post);
-			System.out.println("one post saved");
 			return "Succeed";
 		}else{
-			ServletActionContext.getRequest().getSession().setAttribute("ErrorInfo", "发帖失败，请返回重试");
+			ServletActionContext.getRequest().getSession().setAttribute("ErrorInfo", "发帖失败，可能是因为您没有登录，请返回登录并重试");
 			return "Failed";
 		}
 		
@@ -49,6 +50,7 @@ public class PostService {
 			return "Succeed";
 		}else{
 			ServletActionContext.getRequest().getSession().setAttribute("PostListOfSection", list);
+			System.out.println("GameSectionAction.getSectionOfGamePage() : list size : " + list.size());
 			return "Succeed";
 		}
 	}

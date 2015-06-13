@@ -8,6 +8,8 @@ import dao.Game;
 import dao.Guser;
 import dao.Post;
 import dao.Reply;
+import dao.Section;
+import ser.FollowerService;
 import ser.GameInfoService;
 import ser.PostService;
 import ser.ReplyService;
@@ -24,6 +26,7 @@ public class PersonalInfoAction {
 	PostService postService;
 	ReplyService replyService;
 	GameInfoService gameInfoService;
+	FollowerService followerService;
 	Game game;
 	
 	/**
@@ -35,6 +38,7 @@ public class PersonalInfoAction {
 	 */
 	public String lookForOther(){
 		String accountToLook = ServletActionContext.getRequest().getParameter("accountToLook");
+		System.out.println("PersonalInfoAction.lookForOther() : accountToLook = "+accountToLook);
 		Guser rUser = userService.getUserInfo(accountToLook);
 		if(rUser == null){
 			ServletActionContext.getRequest().getSession().setAttribute("ErrorInfo", "您选择的用户已因为不知名原因退出论坛");
@@ -50,6 +54,33 @@ public class PersonalInfoAction {
 		List<Reply> rUserReplys = replyService.getPostForUserOrderByPostTime(rUser);
 		ServletActionContext.getRequest().getSession().setAttribute("rUserReplys", rUserReplys);
 		return "Succeed";
+	}
+	
+	/**
+	 * 在个人中心页面，关注按钮调用，添加follow，
+	 * @return
+	 */
+	public String followSomeone(){
+		Guser cUser = (Guser) ServletActionContext.getRequest().getSession().getAttribute("cUser");
+		Guser rUser = (Guser) ServletActionContext.getRequest().getSession().getAttribute("rUser");
+		String status = followerService.followSomebody(cUser, rUser);
+		
+		return status;
+	}
+	
+	/**
+	 * 在个人中心页面，关注按钮调用，取消follow，
+	 * @return
+	 */
+	public String unFollowSomeone(){
+		Guser cUser = (Guser) ServletActionContext.getRequest().getSession().getAttribute("cUser");
+		Guser rUser = (Guser) ServletActionContext.getRequest().getSession().getAttribute("rUser");
+		String status = followerService.unFollowSombody(cUser, rUser);
+		if(status == "Succeed"){
+			//刷新当前用户信息
+			ServletActionContext.getRequest().getSession().setAttribute("cUser", userService.getUserInfo(cUser.getAccount()));
+		}
+		return status;
 	}
 	
 	/**
@@ -82,5 +113,29 @@ public class PersonalInfoAction {
 
 	public void setReplyService(ReplyService replyService) {
 		this.replyService = replyService;
+	}
+
+	public GameInfoService getGameInfoService() {
+		return gameInfoService;
+	}
+
+	public void setGameInfoService(GameInfoService gameInfoService) {
+		this.gameInfoService = gameInfoService;
+	}
+
+	public FollowerService getFollowerService() {
+		return followerService;
+	}
+
+	public void setFollowerService(FollowerService followerService) {
+		this.followerService = followerService;
+	}
+
+	public Game getGame() {
+		return game;
+	}
+
+	public void setGame(Game game) {
+		this.game = game;
 	}
 }

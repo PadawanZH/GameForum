@@ -1,6 +1,10 @@
 package ser;
 
+import java.sql.Timestamp;
 import java.util.List;
+
+import org.apache.struts2.ServletActionContext;
+
 import dao.Guser;
 import dao.Post;
 import dao.Reply;
@@ -36,11 +40,26 @@ public class ReplyService {
 	}
 	
 	/**
-	 * 添加回复
+	 * 添加回复，需要用户，和当前帖子对象
 	 * @return
 	 */
-	public String addReply(Guser cUser, Reply reply){
-		return null;
+	public String addReply(Guser cUser, Post curPost, String contents){
+		Reply reply = new Reply();
+		if(cUser != null && curPost != null){
+			reply.setGuser(cUser);
+			reply.setPost(curPost);
+			
+			reply.setFloor(0);
+			reply.setFavouriteNum(0);
+			reply.setPostTime(new Timestamp(System.currentTimeMillis()));
+			reply.setContents(contents);
+			replyDAO.save(reply);
+			return "Succeed";
+		}else{
+			ServletActionContext.getRequest().getSession().setAttribute("ErrorInfo", "评论失败，可能是因为您没有登录，请返回登录并重试");
+			return "Failed";
+		}
+		
 	}
 	
 	/**

@@ -2,6 +2,7 @@
 <!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.1//EN" "http://struts.apache.org/dtds/struts-2.1.dtd">
 <struts>
 	<package name="default" extends="struts-default">
+	
      	<action name="login" class="loginAction" method="login">
      	   <result name="Login">Login.html</result>
      	   <result name="NotFound">LoginError.html</result>
@@ -12,6 +13,7 @@
      		<result name="Succeed">Main.jsp</result>
      		<result name="Failed">ErrorPage.jsp</result>
      	</action>
+     	
      	<action name="guserRegist" class="registAction" method="regist">
      	   <result name="Existed">RegisterError.html</result>
      	   <result name="SaveFailed">RegisterError.html</result>
@@ -19,13 +21,16 @@
      	</action>
      	<action name="testAction" class="testAction" method="test">
      	</action>
+     	
      	<action name="changeInfoAction" class="changeInfoAction" method="changeInfo">
      	   <result name="ChangeFailed">ChangeError.html</result>
      	   <result name="Succeed">ChangeOk.html</result>
      	</action>
+     	
      	<action name="top4Game" class="autoRequestAction" method="updateTop4GameInfo">
      		<result name="Succeed">Main.jsp</result>
      	</action>
+     	
      	<action name="gameSectionAction" class="gameSectionAction" method="getSectionOfGamePage">
      		<result name="Succeed">GamePage.jsp</result>
      		<result name="Failed">ErrorPage.jsp</result>
@@ -34,14 +39,27 @@
      		<result name="Succeed">GamePage.jsp</result>
      		<result name="Failed">ErrorPage.jsp</result>
      	</action>
+     	
 		<action name="getInPostDetailAction" class="postDetailAction" method="getInPostDetail">
 			<result name="Succeed">PostDetail.jsp</result>
 			<result name="Failed">ErrorPage.jsp</result>
 		</action>
+		<action name="sendReplyInPostAction" class="postDetailAction" method="sendReplyInPost">
+			<result name="Succeed">PostDetail.jsp</result>
+			<result name="Failed">ErrorPage.jsp</result>
+		</action>
+		
 		<action name="lookForOtherAction" class="personalInfoAction" method="lookForOther">
 			<result name="Succeed">PersonalCenter.jsp</result>
 			<result name="Failed">ErrorPage.jsp</result>
 		</action>
-
+		<action name="followSomeoneAction" class="personalInfoAction" method="followSomeone">
+			<result name="Succeed">PersonalCenter.jsp</result>
+			<result name="Failed">ErrorPage.jsp</result>
+		</action>
+		<action name="unFollowSomeoneAction" class="personalInfoAction" method="unFollowSomeone">
+			<result name="Succeed">PersonalCenter.jsp</result>
+			<result name="Failed">ErrorPage.jsp</result>
+		</action>
      </package>
 </struts>

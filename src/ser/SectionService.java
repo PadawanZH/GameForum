@@ -68,7 +68,7 @@ public class SectionService {
 		}
 	}
 	/**
-	 * 得到section的对应的游戏,
+	 * 得到section的对应的游戏,设置curSection
 	 * 
 	 * hashset
 	 * @return
