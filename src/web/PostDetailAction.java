@@ -10,10 +10,12 @@ import dao.Reply;
 import dao.Section;
 import ser.PostService;
 import ser.ReplyService;
+import ser.UserService;
 
 public class PostDetailAction {
 	PostService postService;
 	ReplyService replyService;
+	UserService userService;
 	String contents;
 	
 	/**
@@ -50,6 +52,46 @@ public class PostDetailAction {
 		ServletActionContext.getRequest().getSession().setAttribute("replyListOfPost", list);
 		return status;
 	}
+	
+	/**
+	 * postdetail页面收藏功能,并更新session中curPost信息
+	 * @return Failed Succeed
+	 */
+	public String favouritePost(){
+		
+		String favouritePostID = ServletActionContext.getRequest().getParameter("favouritePostID");
+		String cUserAccount = ServletActionContext.getRequest().getParameter("cUserAccount");
+		Post newCurPost = postService.getPostByID(Integer.parseInt(favouritePostID));
+		Guser cUser = userService.getUserInfo(cUserAccount);
+		
+		String status = postService.markFavourite(newCurPost, cUser);
+		
+		if(status == "Succeed"){
+			//更新curPost以更新在curPost中的Favourites信息，注意，若favouritePostID不是合法值，在status=failed，不会进入次代码段，不必担心设置curPost为null
+			ServletActionContext.getRequest().getSession().setAttribute("curPost", newCurPost);
+			ServletActionContext.getRequest().getSession().setAttribute("cUser", cUser);
+		}
+		return status;
+	}
+	
+	/**
+	 * postdetail页面取消收藏功能,并更新session中curPost信息
+	 * @return
+	 */
+	public String unFavouritePost(){
+		String favouritePostID = ServletActionContext.getRequest().getParameter("favouritePostID");
+		String cUserAccount = ServletActionContext.getRequest().getParameter("cUserAccount");
+		Post newCurPost = postService.getPostByID(Integer.parseInt(favouritePostID));
+		Guser cUser = userService.getUserInfo(cUserAccount);
+		
+		String status = postService.unMarkFavourite(Integer.parseInt(favouritePostID), cUser);
+		if(status == "Succeed"){
+			//更新curPost以更新在curPost中的Favourites信息，注意，若favouritePostID不是合法值，在status=failed，不会进入次代码段，不必担心设置curPost为null
+			ServletActionContext.getRequest().getSession().setAttribute("curPost", newCurPost);
+			ServletActionContext.getRequest().getSession().setAttribute("cUser", cUser);
+		}
+		return status;
+	}
 
 	public PostService getPostService() {
 		return postService;
@@ -73,5 +115,13 @@ public class PostDetailAction {
 
 	public void setContents(String contents) {
 		this.contents = contents;
+	}
+
+	public UserService getUserService() {
+		return userService;
+	}
+
+	public void setUserService(UserService userService) {
+		this.userService = userService;
 	}
 }

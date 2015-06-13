@@ -27,8 +27,14 @@ public class FollowerService {
 			return "Failed";
 		}else{
 			Follow follow = new Follow(cUser, rUser);
-			followDAO.save(follow);
-			return "Succeed";
+			
+			if(cUser.getFollowsForFromId().contains(follow)){//我已经follow这个人了
+				ServletActionContext.getRequest().getSession().setAttribute("ErrorInfo", "您已关注过ta");
+				return "Failed";
+			}else{
+				followDAO.save(follow);
+				return "Succeed";
+			}
 		}
 	}
 	
@@ -41,11 +47,13 @@ public class FollowerService {
 	public String unFollowSombody(Guser cUser, Guser rUser){
 		Follow follow = new Follow(cUser,rUser);
 		List<Follow> list = followDAO.findByExample(follow);
-		if(list.size() != 1){
+		if(list.size() == 0){
 			ServletActionContext.getRequest().getSession().setAttribute("ErrorInfo", "您并未关注此人，请刷新页面重试");
 			return "Failed";
 		}else{
-			followDAO.delete(list.get(0));
+			for(int i=0; i<list.size(); i++){
+				followDAO.delete(list.get(i));
+			}
 			return "Succeed";
 		}
 	}

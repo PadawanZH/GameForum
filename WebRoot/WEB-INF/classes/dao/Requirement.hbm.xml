@@ -46,7 +46,7 @@
         <property name="lsoundCard" type="java.lang.String">
             <column name="LSoundCard" />
         </property>
-        <set name="games" inverse="true">
+        <set name="games" lazy="false" inverse="true">
             <key>
                 <column name="requirementID" />
             </key>

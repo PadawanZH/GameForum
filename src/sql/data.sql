@@ -27,6 +27,7 @@ create table GUser(
 	foreign key (groupName) references UserGroup(name)
 );
 insert into Guser value ('admin','admin','admin','admin','M','1994-05-20','admin@qq.com','admin',0,0,0,'admin',0,null);
+insert into Guser value ('zhangan','zhangan001','zhangan0520','zhangan','M','1994-05-20','zhangan@qq.com','小白',0,0,0,'zhangan',0,null);
 
 create table Item(
 	ID 			int(10) not null primary key AUTO_INCREMENT,
@@ -51,7 +52,7 @@ create table Requirement(
 	LHardDrive		varchar(20),
 	LSoundCard		varchar(255)
 );
-insert into Requirement value(1,'Windows','I7-3630',8,'GTX660M','120G SSD','SoundCard','Windows','I5-3630',2,'GTX440M','20G SSD','SoundCard');
+insert into Requirement value(1,'Windows','I7-3630',8,'GTX660M','120G SSD','SoundCard111','Windows','I5-3630',2,'GTX440M','20G SSD','SoundCard222');
 
 create table Studio(
 	ID 			int(10) not null primary key AUTO_INCREMENT,
@@ -89,19 +90,19 @@ create table Section(
 );
 
 -- 用来添加游戏就添加相应的section
+drop trigger if exists InsetSectionForGame;
 DELIMITER //
 CREATE TRIGGER InsetSectionForGame AFTER INSERT ON Game 
 FOR EACH ROW
 BEGIN
-	insert into Section(name,PostNum,OwnerType,OwnerID,GameID) value (new.name,0,null,null,new.ID);
+	insert into Section(name,PostNum,OwnerType,OwnerID,GameID,SectionPictureAddr) value (new.name,0,'admin','admin',new.ID,concat(new.name,'header.jpg') );
 END//
 DELIMITER ;
 
-insert into Game value (1,'真三国无双7',1,'PC','act','picture/sanguo7logo.jpg','2010-5-9',1,'真三国无双7真三国无双7真三国无双7',0);
-insert into Game value (2,'仙剑奇侠传',1,'PC','rpg','picture/xianjianxiqizhuanglogo.jpg','2010-5-10',1,'仙剑奇侠传仙剑奇侠传仙剑奇侠传',0);
-insert into Game value (3,'古墓丽影',1,'PC','avg','picture/gumuliyinglogo.jpg','2010-5-18',1,'古墓丽影古墓丽影古墓丽影',0);
-insert into Game value (4,'三国志',1,'PC','slg','picture/sanguozhilogo.jpg','2010-5-18',1,'三国志三国志三国志',0);
-
+INSERT INTO `gameforum`.`game` (`ID`, `name`, `studioId`, `platform`, `type`, `logoAddr`, `releaseDate`, `requirementID`, `description`, `PostNum`) VALUES ('1', '真三国无双7', '1', 'PC', 'act', '真三国无双7logo.jpg', '2010-05-09', '1', '真三国无双7真三国无双7真三国无双7', '0');
+INSERT INTO `gameforum`.`game` (`ID`, `name`, `studioId`, `platform`, `type`, `logoAddr`, `releaseDate`, `requirementID`, `description`, `PostNum`) VALUES ('2', '仙剑奇侠传', '1', 'PC', 'rpg', '仙剑奇侠传logo.jpg', '2010-05-10', '1', '仙剑奇侠传仙剑奇侠传仙剑奇侠传', '0');
+INSERT INTO `gameforum`.`game` (`ID`, `name`, `studioId`, `platform`, `type`, `logoAddr`, `releaseDate`, `requirementID`, `description`, `PostNum`) VALUES ('3', '古墓丽影', '1', 'PC', 'avg', '古墓丽影logo.jpg', '2010-05-18', '1', '古墓丽影古墓丽影古墓丽影', '0');
+INSERT INTO `gameforum`.`game` (`ID`, `name`, `studioId`, `platform`, `type`, `logoAddr`, `releaseDate`, `requirementID`, `description`, `PostNum`) VALUES ('4', '三国志', '1', 'PC', 'slg', '三国志logo.jpg', '2010-05-18', '1', '三国志三国志三国志', '0');
 
 create table Post(
 	ID 				int(10) not null primary key AUTO_INCREMENT,
@@ -120,15 +121,11 @@ INSERT INTO `gameforum`.`post` (`ID`, `title`, `authorId`, `type`, `shareNum`, `
 INSERT INTO `gameforum`.`post` (`ID`, `title`, `authorId`, `type`, `shareNum`, `favouriteNum`, `postTime`, `SectionId`, `Contents`) VALUES ('2', '2', 'admin', '1', '0', '0', '2015-03-02 11:50:03', '1', '22222');
 INSERT INTO `gameforum`.`post` (`ID`, `title`, `authorId`, `type`, `shareNum`, `favouriteNum`, `postTime`, `SectionId`, `Contents`) VALUES ('3', '3', 'admin', '1', '0', '0', '2015-01-05 11:50:08', '1', '33333');
 INSERT INTO `gameforum`.`post` (`ID`, `title`, `authorId`, `type`, `shareNum`, `favouriteNum`, `postTime`, `SectionId`, `Contents`) VALUES ('4', '4', 'admin', '1', '0', '0', '2014-12-08 11:50:13', '1', '44444');
-INSERT INTO `gameforum`.`post` (`ID`, `title`, `authorId`, `type`, `shareNum`, `favouriteNum`, `postTime`, `SectionId`, `Contents`) VALUES ('5', '5', 'admin', '1', '0', '0', '2015-07-15 11:50:41', '1', '4444444');
 INSERT INTO `gameforum`.`post` (`ID`, `title`, `authorId`, `type`, `shareNum`, `favouriteNum`, `postTime`, `SectionId`, `Contents`) VALUES ('6', '6', 'admin', '1', '0', '0', '2015-06-10 13:57:14', '1', '4444444');
 INSERT INTO `gameforum`.`post` (`ID`, `title`, `authorId`, `type`, `shareNum`, `favouriteNum`, `postTime`, `SectionId`, `Contents`) VALUES ('7', '123', 'admin', '1', '0', '0', '2015-06-12 13:57:17', '1', '4444444');
 INSERT INTO `gameforum`.`post` (`ID`, `title`, `authorId`, `type`, `shareNum`, `favouriteNum`, `postTime`, `SectionId`, `Contents`) VALUES ('8', '123', 'admin', '1', '0', '0', '2004-06-16 13:57:22', '1', '4444444');
-INSERT INTO `gameforum`.`post` (`ID`, `title`, `authorId`, `type`, `shareNum`, `favouriteNum`, `postTime`, `SectionId`, `Contents`) VALUES ('9', '123', 'admin', '1', '0', '0', '2015-07-23 13:57:32', '1', '4444444');
 INSERT INTO `gameforum`.`post` (`ID`, `title`, `authorId`, `type`, `shareNum`, `favouriteNum`, `postTime`, `SectionId`, `Contents`) VALUES ('10', '123', 'admin', '1', '0', '0', '2015-06-01 13:57:37', '1', '4444444');
 INSERT INTO `gameforum`.`post` (`ID`, `title`, `authorId`, `type`, `shareNum`, `favouriteNum`, `postTime`, `SectionId`, `Contents`) VALUES ('11', '123', 'admin', '1', '0', '0', '2015-05-12 13:57:40', '1', '4444444');
-INSERT INTO `gameforum`.`post` (`ID`, `title`, `authorId`, `type`, `shareNum`, `favouriteNum`, `postTime`, `SectionId`, `Contents`) VALUES ('12', '123', 'admin', '1', '0', '0', '2015-06-23 13:57:44', '1', '4444444');
-INSERT INTO `gameforum`.`post` (`ID`, `title`, `authorId`, `type`, `shareNum`, `favouriteNum`, `postTime`, `SectionId`, `Contents`) VALUES ('13', '123', 'admin', '1', '0', '0', '2015-06-24 13:57:47', '1', '4444444');
 INSERT INTO `gameforum`.`post` (`ID`, `title`, `authorId`, `type`, `shareNum`, `favouriteNum`, `postTime`, `SectionId`, `Contents`) VALUES ('14', '3', 'admin', '1', '0', '0', '2015-03-17 13:57:50', '1', '4444444');
 INSERT INTO `gameforum`.`post` (`ID`, `title`, `authorId`, `type`, `shareNum`, `favouriteNum`, `postTime`, `SectionId`, `Contents`) VALUES ('15', '123', 'admin', '1', '0', '0', '2015-04-20 13:57:55', '1', '4444444');
 

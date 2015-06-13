@@ -188,6 +188,7 @@
 		<property name="target">
 			<bean class="ser.PostService">
 				<property name="postDAO" ref="PostDAO"/>
+				<property name="favouritesDAO" ref="FavouritesDAO"/>
 			</bean>
 		</property>
 	</bean>
@@ -231,6 +232,7 @@
 	<bean id="postDetailAction" class="web.PostDetailAction" scope="singleton">
 		<property name="replyService" ref="replyService" />
 		<property name="postService" ref="postService" />
+		<property name="userService" ref="userService" />
 	</bean>
 	<bean id="personalInfoAction" class="web.PersonalInfoAction" scope="singleton">
 		<property name="replyService" ref="replyService" />
@@ -238,6 +240,9 @@
 		<property name="userService" ref="userService" />
 		<property name="gameInfoService" ref="gameInfoService" />
 		<property name="followerService" ref="followerService" />
+	</bean>
+	<bean id="gameInfoAction" class="web.GameInfoAction" scope="singleton">
+		<property name="gameInfoService" ref="gameInfoService" />
 	</bean>
 	
 	

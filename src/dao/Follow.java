@@ -23,6 +23,8 @@ public class Follow implements java.io.Serializable {
 		this.guserByFromId = guserByFromId;
 		this.guserByTargetId = guserByTargetId;
 	}
+	
+	
 
 	// Property accessors
 
@@ -46,6 +48,21 @@ public class Follow implements java.io.Serializable {
 		return this.guserByTargetId;
 	}
 
+	public void setGuserByTargetId(Guser guserByTargetId) {
+		this.guserByTargetId = guserByTargetId;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result
+				+ ((guserByFromId == null) ? 0 : guserByFromId.getAccount().hashCode());
+		result = prime * result
+				+ ((guserByTargetId == null) ? 0 : guserByTargetId.getAccount().hashCode());
+		return result;
+	}
+
 	@Override
 	public boolean equals(Object obj) {
 		if(obj instanceof Follow){
@@ -59,10 +76,6 @@ public class Follow implements java.io.Serializable {
 			}
 		}
 		return super.equals(obj);
-	}
-
-	public void setGuserByTargetId(Guser guserByTargetId) {
-		this.guserByTargetId = guserByTargetId;
 	}
 
 }

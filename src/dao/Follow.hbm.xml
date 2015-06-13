@@ -10,10 +10,10 @@
             <column name="ID" />
             <generator class="identity" />
         </id>
-        <many-to-one name="guserByFromId" class="dao.Guser" fetch="select">
+        <many-to-one name="guserByFromId" class="dao.Guser" lazy="false" fetch="select">
             <column name="fromID" length="30" />
         </many-to-one>
-        <many-to-one name="guserByTargetId" class="dao.Guser" fetch="select">
+        <many-to-one name="guserByTargetId" class="dao.Guser" lazy="false" fetch="select">
             <column name="targetID" length="30" />
         </many-to-one>
     </class>

@@ -55,13 +55,13 @@
             </key>
             <one-to-many class="dao.Section" />
         </set>
-        <set name="followsForFromId" inverse="true">
+        <set name="followsForFromId" lazy="false" inverse="true">
             <key>
                 <column name="fromID" length="30" />
             </key>
             <one-to-many class="dao.Follow" />
         </set>
-        <set name="followsForTargetId"  lazy="false"  inverse="true">
+        <set name="followsForTargetId"  lazy="false" inverse="true">
             <key>
                 <column name="targetID" length="30" />
             </key>

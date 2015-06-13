@@ -1,10 +1,13 @@
 package ser;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.struts2.ServletActionContext;
 
+import dao.Favourites;
+import dao.FavouritesDAO;
 import dao.Game;
 import dao.Guser;
 import dao.Post;
@@ -13,6 +16,7 @@ import dao.Section;
 
 public class PostService {
 	PostDAO postDAO;
+	FavouritesDAO favouritesDAO;
 	
 	
 	public String sendPostInSection(String title, String contents, Section sectionOfPost, Guser cUser){
@@ -50,7 +54,6 @@ public class PostService {
 			return "Succeed";
 		}else{
 			ServletActionContext.getRequest().getSession().setAttribute("PostListOfSection", list);
-			System.out.println("GameSectionAction.getSectionOfGamePage() : list size : " + list.size());
 			return "Succeed";
 		}
 	}
@@ -79,19 +82,68 @@ public class PostService {
 		return post;
 	}
 	
-	public String markFavourite(Integer postID){
-		Post post = postDAO.findById(postID);
-		if(post != null){
-			post.setFavouriteNum(post.getFavouriteNum() + 1);
-			return "Success";
+	/**
+	 * 收藏功能, 存入收藏信息
+	 * @param postID
+	 * @param cUserAccount
+	 * @return
+	 */
+	public String markFavourite(Post post, Guser cUser){
+		if(post != null && cUser != null){
+			//存入收藏信息
+			Favourites favourites = new Favourites(cUser, post);
+			if(cUser.getFavouriteses().contains(favourites)){//已经有收藏信息了
+				ServletActionContext.getRequest().getSession().setAttribute("ErrorInfo", "收藏失败，您已收藏该post，请刷新重试");
+				return "Failed";
+			}else{
+				favouritesDAO.save(favourites);
+				return "Succeed";
+			}
 		}else{
+			ServletActionContext.getRequest().getSession().setAttribute("ErrorInfo", "收藏失败，请您登录或通过正常方式访问帖子");
 			return "Failed";
 		}
 	}
+	
+	/**
+	 * 取消收藏功能, 删除收藏信息
+	 * @param postID
+	 * @param cUser
+	 * @return
+	 */
+	public String unMarkFavourite(Integer postID, Guser cUser){
+		Post post = postDAO.findById(postID);
+		if(post != null && cUser != null){
+			//删除收藏信息
+			List<Favourites> list = favouritesDAO.findByExample( new Favourites(cUser, post));
+			if(list.size() == 0){
+				ServletActionContext.getRequest().getSession().setAttribute("ErrorInfo", "收藏失败，没有您的收藏信息，请刷新重新检视");
+				return "Failed";
+			}else{
+				//由于没有联合主键，可能有重复信息，全部删除
+				for(int i=0; i<list.size(); i++){
+					favouritesDAO.delete(list.get(i));
+				}
+			}
+			return "Succeed";
+		}else{
+			ServletActionContext.getRequest().getSession().setAttribute("ErrorInfo", "收藏失败，请您登录或通过正常方式访问帖子");
+			return "Failed";
+		}
+	}
+	
 	public PostDAO getPostDAO() {
 		return postDAO;
 	}
 	public void setPostDAO(PostDAO postDAO) {
 		this.postDAO = postDAO;
+	}
+
+	public FavouritesDAO getFavouritesDAO() {
+		return favouritesDAO;
+	}
+
+	public void setFavouritesDAO(FavouritesDAO favouritesDAO) {
+		this.favouritesDAO = favouritesDAO;
 	}
 }

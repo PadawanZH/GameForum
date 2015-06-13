@@ -21,6 +21,17 @@ public class GameInfoService {
 		return true;
 		
 	}
+	
+	public String findGamesByType(String type){
+		List<Game> list = gameDAO.findByType(type);
+		if(list.size() ==  0){
+			ServletActionContext.getRequest().getSession().setAttribute("ErrorInfo", "该类型没有游戏，请联系管理员");
+			return "Failed";
+		}else{
+			ServletActionContext.getRequest().getSession().setAttribute("gamesOfType", list);
+			return "Succeed";
+		}
+	}
 
 	/**
 	 * @return the gameDAO

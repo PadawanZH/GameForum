@@ -31,11 +31,20 @@
      		<result name="Succeed">Main.jsp</result>
      	</action>
      	
+     	<action name="seeMoreGameAction" class="gameInfoAction" method="getMoreGameByType">
+     		<result name="Succeed">MoreGames.jsp</result>
+     		<result name="Failed">ErrorPage.jsp</result>
+     	</action>
+     	
      	<action name="gameSectionAction" class="gameSectionAction" method="getSectionOfGamePage">
      		<result name="Succeed">GamePage.jsp</result>
      		<result name="Failed">ErrorPage.jsp</result>
      	</action>
      	<action name="sendPostAction" class="gameSectionAction" method="sendPostAction">
+     		<result name="Succeed">GamePage.jsp</result>
+     		<result name="Failed">ErrorPage.jsp</result>
+     	</action>
+     	<action name="getBackToSectionAction" class="gameSectionAction" method="getBackToSection">
      		<result name="Succeed">GamePage.jsp</result>
      		<result name="Failed">ErrorPage.jsp</result>
      	</action>
@@ -48,6 +57,15 @@
 			<result name="Succeed">PostDetail.jsp</result>
 			<result name="Failed">ErrorPage.jsp</result>
 		</action>
+		<action name="favouritePostAction" class="postDetailAction" method="favouritePost">
+			<result name="Succeed">PostDetail.jsp</result>
+			<result name="Failed">ErrorPage.jsp</result>
+		</action>
+		<action name="unFavouritePostAction" class="postDetailAction" method="unFavouritePost">
+			<result name="Succeed">PostDetail.jsp</result>
+			<result name="Failed">ErrorPage.jsp</result>
+		</action>
+		
 		
 		<action name="lookForOtherAction" class="personalInfoAction" method="lookForOther">
 			<result name="Succeed">PersonalCenter.jsp</result>

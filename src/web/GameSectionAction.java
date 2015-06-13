@@ -31,6 +31,20 @@ public class GameSectionAction {
 	}
 	
 	/**
+	 * postDetail 返回 列表时用，更新session中的list
+	 * @return
+	 */
+	public String getBackToSection(){
+		Section section = (Section) ServletActionContext.getRequest().getSession().getAttribute("curSection");
+		if(section != null){
+			postService.getPostForSectionOrderByPostTime(section);
+			return "Succeed";
+		}else{
+			return "Failed";
+		}
+	}
+	
+	/**
 	 * 发帖操作，刷新PostListOfSection
 	 * @return
 	 */

@@ -38,7 +38,6 @@ public class PersonalInfoAction {
 	 */
 	public String lookForOther(){
 		String accountToLook = ServletActionContext.getRequest().getParameter("accountToLook");
-		System.out.println("PersonalInfoAction.lookForOther() : accountToLook = "+accountToLook);
 		Guser rUser = userService.getUserInfo(accountToLook);
 		if(rUser == null){
 			ServletActionContext.getRequest().getSession().setAttribute("ErrorInfo", "您选择的用户已因为不知名原因退出论坛");
@@ -61,10 +60,16 @@ public class PersonalInfoAction {
 	 * @return
 	 */
 	public String followSomeone(){
-		Guser cUser = (Guser) ServletActionContext.getRequest().getSession().getAttribute("cUser");
-		Guser rUser = (Guser) ServletActionContext.getRequest().getSession().getAttribute("rUser");
+		String cUserAccount = ServletActionContext.getRequest().getParameter("cUserAccount");
+		String rUserAccount = ServletActionContext.getRequest().getParameter("rUserAccount");
+		Guser cUser = userService.getUserInfo(cUserAccount);
+		Guser rUser = userService.getUserInfo(rUserAccount);
 		String status = followerService.followSomebody(cUser, rUser);
-		
+		if(status == "Succeed"){
+			//刷新当前用户信息
+			ServletActionContext.getRequest().getSession().setAttribute("cUser", cUser);
+			ServletActionContext.getRequest().getSession().setAttribute("rUser", rUser);
+		}
 		return status;
 	}
 	
@@ -73,12 +78,15 @@ public class PersonalInfoAction {
 	 * @return
 	 */
 	public String unFollowSomeone(){
-		Guser cUser = (Guser) ServletActionContext.getRequest().getSession().getAttribute("cUser");
-		Guser rUser = (Guser) ServletActionContext.getRequest().getSession().getAttribute("rUser");
+		String cUserAccount = ServletActionContext.getRequest().getParameter("cUserAccount");
+		String rUserAccount = ServletActionContext.getRequest().getParameter("rUserAccount");
+		Guser cUser = userService.getUserInfo(cUserAccount);
+		Guser rUser = userService.getUserInfo(rUserAccount);
 		String status = followerService.unFollowSombody(cUser, rUser);
 		if(status == "Succeed"){
 			//刷新当前用户信息
-			ServletActionContext.getRequest().getSession().setAttribute("cUser", userService.getUserInfo(cUser.getAccount()));
+			ServletActionContext.getRequest().getSession().setAttribute("cUser", cUser);
+			ServletActionContext.getRequest().getSession().setAttribute("rUser", rUser);
 		}
 		return status;
 	}
