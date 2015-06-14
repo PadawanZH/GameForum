@@ -6,6 +6,8 @@ import org.apache.struts2.ServletActionContext;
 
 import dao.Game;
 import dao.GameDAO;
+import dao.Guser;
+import dao.Post;
 import dao.Section;
 
 public class GameInfoService {
@@ -21,7 +23,11 @@ public class GameInfoService {
 		return true;
 		
 	}
-	
+	/**
+	 * 根据类型查找游戏，将list结果存到session中名为gamesOfType的变量
+	 * @param type
+	 * @return
+	 */
 	public String findGamesByType(String type){
 		List<Game> list = gameDAO.findByType(type);
 		if(list.size() ==  0){
@@ -31,6 +37,37 @@ public class GameInfoService {
 			ServletActionContext.getRequest().getSession().setAttribute("gamesOfType", list);
 			return "Succeed";
 		}
+	}
+	
+	public String delGame(Integer delGameID){
+		Game game = gameDAO.findById(delGameID);
+		if(game == null){
+			ServletActionContext.getRequest().getSession().setAttribute("ErrorInfo", "无此游戏，请刷新");
+			return "Failed";
+		}else{
+			gameDAO.delete(game);
+			return "Succeed";
+		}
+		
+	}
+	
+	/**
+	 * 添加游戏，需要上一级验证管理员
+	 * @param admin
+	 * @param game
+	 * @return
+	 */
+	public String addGame(Game game){
+		//可能还要一定的初始化
+		gameDAO.save(game);
+		return "Succeed";
+	}
+	
+	public String findAllGame(){
+		List<Game> list = gameDAO.findAll();
+		ServletActionContext.getRequest().getSession().setAttribute("allGameList", list);
+		System.out.println("GameInfoService.findAllGame() and list size is : "+ list.size());
+		return "Succeed";
 	}
 
 	/**

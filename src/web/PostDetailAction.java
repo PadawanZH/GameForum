@@ -4,6 +4,8 @@ import java.util.List;
 
 import org.apache.struts2.ServletActionContext;
 
+import dao.Favourites;
+import dao.Game;
 import dao.Guser;
 import dao.Post;
 import dao.Reply;
@@ -16,7 +18,8 @@ public class PostDetailAction {
 	PostService postService;
 	ReplyService replyService;
 	UserService userService;
-	String contents;
+	String contents;//存放回复内容
+	Game gameToAdd;//被添加的游戏对象，通过表单赋值
 	
 	/**
 	 * 从前端GamePage接收url参数postID，将curPost存入session，将post的reply存入session
@@ -34,6 +37,10 @@ public class PostDetailAction {
 		
 		List<Reply> list = replyService.getReplyInPostbyTime(curPost);
 		ServletActionContext.getRequest().getSession().setAttribute("replyListOfPost", list);
+		
+		//刷新favourites
+		List<Favourites> whoFavouritePost = postService.findFavouritesOfPost(curPost.getId());
+		ServletActionContext.getRequest().getSession().setAttribute("whoFavouritePost", whoFavouritePost);
 		return "Succeed";
 	}
 	
@@ -50,6 +57,7 @@ public class PostDetailAction {
 		//刷新reply列表
 		List<Reply> list = replyService.getReplyInPostbyTime(curPost);
 		ServletActionContext.getRequest().getSession().setAttribute("replyListOfPost", list);
+		
 		return status;
 	}
 	
@@ -61,16 +69,14 @@ public class PostDetailAction {
 		
 		String favouritePostID = ServletActionContext.getRequest().getParameter("favouritePostID");
 		String cUserAccount = ServletActionContext.getRequest().getParameter("cUserAccount");
-		Post newCurPost = postService.getPostByID(Integer.parseInt(favouritePostID));
+		
 		Guser cUser = userService.getUserInfo(cUserAccount);
 		
-		String status = postService.markFavourite(newCurPost, cUser);
+		String status = postService.markFavourite(Integer.parseInt(favouritePostID), cUser);
 		
-		if(status == "Succeed"){
-			//更新curPost以更新在curPost中的Favourites信息，注意，若favouritePostID不是合法值，在status=failed，不会进入次代码段，不必担心设置curPost为null
-			ServletActionContext.getRequest().getSession().setAttribute("curPost", newCurPost);
-			ServletActionContext.getRequest().getSession().setAttribute("cUser", cUser);
-		}
+		List<Favourites> whoFavouritePost = postService.findFavouritesOfPost(Integer.parseInt(favouritePostID));
+		ServletActionContext.getRequest().getSession().setAttribute("whoFavouritePost", whoFavouritePost);
+		
 		return status;
 	}
 	
@@ -81,15 +87,40 @@ public class PostDetailAction {
 	public String unFavouritePost(){
 		String favouritePostID = ServletActionContext.getRequest().getParameter("favouritePostID");
 		String cUserAccount = ServletActionContext.getRequest().getParameter("cUserAccount");
-		Post newCurPost = postService.getPostByID(Integer.parseInt(favouritePostID));
-		Guser cUser = userService.getUserInfo(cUserAccount);
 		
-		String status = postService.unMarkFavourite(Integer.parseInt(favouritePostID), cUser);
-		if(status == "Succeed"){
-			//更新curPost以更新在curPost中的Favourites信息，注意，若favouritePostID不是合法值，在status=failed，不会进入次代码段，不必担心设置curPost为null
-			ServletActionContext.getRequest().getSession().setAttribute("curPost", newCurPost);
-			ServletActionContext.getRequest().getSession().setAttribute("cUser", cUser);
-		}
+		String status = postService.unMarkFavourite(cUserAccount, Integer.parseInt(favouritePostID));
+		
+		List<Favourites> whoFavouritePost = postService.findFavouritesOfPost(Integer.parseInt(favouritePostID));
+		ServletActionContext.getRequest().getSession().setAttribute("whoFavouritePost", whoFavouritePost);
+		
+		return status;
+	}
+	
+	/**
+	 * 删除post，管理员才可以，在ser层检测， 该action可通过url链接直接访问
+	 * @return Succeed转到gamepage页面，Failed转到错误页面
+	 */
+	public String delPost(){
+		String delPostID = ServletActionContext.getRequest().getParameter("delPostID");
+		String cUserAccount = ServletActionContext.getRequest().getParameter("cUserAccount");
+		
+		return postService.delPost(cUserAccount, Integer.parseInt(delPostID));
+	}
+	
+	/**
+	 * 删除reply，管理员才可以，在ser层检测
+	 * @return Succeed转到postdetail页面，Failed转到错误页面，注意，这个只有表单提交方式才能调用
+	 */
+	public String delReply(){
+		String cUserAccount = ServletActionContext.getRequest().getParameter("cUserAccount");
+		String delReplyID = ServletActionContext.getRequest().getParameter("delReplyID");
+		
+		String status = replyService.delReply(cUserAccount, Integer.parseInt(delReplyID));
+		
+		//刷新reply列表
+		Post curPost = (Post) ServletActionContext.getRequest().getSession().getAttribute("curPost");
+		List<Reply> list = replyService.getReplyInPostbyTime(curPost);
+		ServletActionContext.getRequest().getSession().setAttribute("replyListOfPost", list);
 		return status;
 	}
 
@@ -123,5 +154,13 @@ public class PostDetailAction {
 
 	public void setUserService(UserService userService) {
 		this.userService = userService;
+	}
+	
+	public Game getGameToAdd() {
+		return gameToAdd;
+	}
+
+	public void setGameToAdd(Game gameToAdd) {
+		this.gameToAdd = gameToAdd;
 	}
 }

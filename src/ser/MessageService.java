@@ -2,14 +2,16 @@ package ser;
 
 import java.util.List;
 
+import dao.Guser;
 import dao.Message;
 import dao.MessageDAO;
 
 public class MessageService {
 	MessageDAO messageDAO;
 	
-	public String SendMessage(){
-		return null;
+	public String SendMessage(Message message){
+		messageDAO.save(message);
+		return "Succeed";
 	}
 	/**
 	 * 加载聊天页面时使用,返回历史消息，最多50条（从DAO类中写特殊查询）
@@ -17,6 +19,14 @@ public class MessageService {
 	 */
 	public List<Message> getMessageFromFriend(){
 		return null;
+	}
+	
+	public List<Message> getMessageAsReceiver(String account){
+		return messageDAO.findByReceiver(account);
+	}
+	
+	public List<Message> getMessageAsSender(String account){
+		return messageDAO.findBySender(account);
 	}
 	
 	/**
@@ -29,6 +39,12 @@ public class MessageService {
 	
 	public String MarkAsReaded(){
 		return null;
+	}
+	public MessageDAO getMessageDAO() {
+		return messageDAO;
+	}
+	public void setMessageDAO(MessageDAO messageDAO) {
+		this.messageDAO = messageDAO;
 	}
 
 }

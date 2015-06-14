@@ -78,4 +78,10 @@ public class Follow implements java.io.Serializable {
 		return super.equals(obj);
 	}
 
+	@Override
+	public String toString() {
+		return "Follow [id=" + id + ", guserByFromId=" + guserByFromId
+				+ ", guserByTargetId=" + guserByTargetId + "]";
+	}
+
 }

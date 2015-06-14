@@ -45,3 +45,12 @@ h1,h3,h4{
 #tableright{
     border-top: 1px solid rgba(86,61,124,1);
 }
+
+#GameDiscuss p{
+	text-align: center;
+}
+
+#PostSend{
+	background-color: rgba(207,207,207,.8);
+    border: 1px solid rgba(86,61,124,1);
+}

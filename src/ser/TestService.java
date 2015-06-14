@@ -14,7 +14,6 @@ public class TestService {
 	private GuserDAO guserDAO;
 	
 	public void test(){
-
 	}
 	
 

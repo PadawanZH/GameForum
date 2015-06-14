@@ -65,6 +65,14 @@
 			<result name="Succeed">PostDetail.jsp</result>
 			<result name="Failed">ErrorPage.jsp</result>
 		</action>
+		<action name="delPostAction" class="postDetailAction" method="delPost">
+			<result name="Succeed" type="chain">getBackToSectionAction</result> 
+			<result name="Failed">ErrorPage.jsp</result>
+		</action>
+		<action name="delReplyAction" class="postDetailAction" method="delReply">
+			<result name="Succeed">PostDetail.jsp</result> 
+			<result name="Failed">ErrorPage.jsp</result>
+		</action>
 		
 		
 		<action name="lookForOtherAction" class="personalInfoAction" method="lookForOther">
@@ -76,6 +84,26 @@
 			<result name="Failed">ErrorPage.jsp</result>
 		</action>
 		<action name="unFollowSomeoneAction" class="personalInfoAction" method="unFollowSomeone">
+			<result name="Succeed">PersonalCenter.jsp</result>
+			<result name="Failed">ErrorPage.jsp</result>
+		</action>
+		<action name="deleteUserAction" class="personalInfoAction" method="deleteUser">
+			<result name="Succeed">PersonalCenter.jsp</result>
+			<result name="Failed">ErrorPage.jsp</result>
+		</action>
+		<action name="promoteAdminAction" class="personalInfoAction" method="promoteAdmin">
+			<result name="Succeed">PersonalCenter.jsp</result>
+			<result name="Failed">ErrorPage.jsp</result>
+		</action>
+		<action name="addGameAction" class="personalInfoAction" method="addGame">
+			<result name="Succeed">PersonalCenter.jsp</result>
+			<result name="Failed">ErrorPage.jsp</result>
+		</action>
+		<action name="delGameAction" class="personalInfoAction" method="delGame">
+			<result name="Succeed">PersonalCenter.jsp</result>
+			<result name="Failed">ErrorPage.jsp</result>
+		</action>
+		<action name="sendMessageAction" class="personalInfoAction" method="sendMessage">
 			<result name="Succeed">PersonalCenter.jsp</result>
 			<result name="Failed">ErrorPage.jsp</result>
 		</action>

@@ -189,6 +189,7 @@
 			<bean class="ser.PostService">
 				<property name="postDAO" ref="PostDAO"/>
 				<property name="favouritesDAO" ref="FavouritesDAO"/>
+				<property name="userService" ref="userService"/>
 			</bean>
 		</property>
 	</bean>
@@ -197,6 +198,7 @@
 			<bean class="ser.ReplyService">
 				<property name="replyDAO" ref="ReplyDAO"/>
 				<property name="postService" ref="postService"/>
+				<property name="userService" ref="userService"/>
 			</bean>
 		</property>
 	</bean>
@@ -207,7 +209,13 @@
 			</bean>
 		</property>
 	</bean>
-	
+	<bean id="messageService" parent="baseTransactionProxy">
+		<property name="target">
+			<bean class="ser.MessageService">
+				<property name="messageDAO" ref="MessageDAO"/>
+			</bean>
+		</property>
+	</bean>
 	<!-- 将Service注入给Action -->
 	<bean id="testAction" class="web.TestAction" scope="singleton">
 		<property name="testService" ref="testService" />
@@ -240,6 +248,7 @@
 		<property name="userService" ref="userService" />
 		<property name="gameInfoService" ref="gameInfoService" />
 		<property name="followerService" ref="followerService" />
+		<property name="messageService" ref="messageService" />
 	</bean>
 	<bean id="gameInfoAction" class="web.GameInfoAction" scope="singleton">
 		<property name="gameInfoService" ref="gameInfoService" />

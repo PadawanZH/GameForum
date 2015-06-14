@@ -88,6 +88,30 @@ public class FollowDAO {
 			throw re;
 		}
 	}
+	
+	public List findByFrom(String fromAccount){
+		return findByProperty("guserByFromId.account",fromAccount);
+	}
+	
+	public List findByTarget(String targetAccount){
+		return findByProperty("guserByTargetId.account",targetAccount);
+	}
+	
+	public List findByFromAndTarget(String fromAccount,String targetAccount){
+		log.debug("finding Follow instance with property: " + fromAccount
+				+ ", value: " + fromAccount);
+		try {
+			String queryString = "from Follow as model where "
+					+ "model.guserByFromId.account = ? and guserByTargetId.account = ?";
+			Query queryObject = getCurrentSession().createQuery(queryString);
+			queryObject.setParameter(0, fromAccount);
+			queryObject.setParameter(1, targetAccount);
+			return queryObject.list();
+		} catch (RuntimeException re) {
+			log.error("find by property name failed", re);
+			throw re;
+		}
+	}
 
 	public List findByProperty(String propertyName, Object value) {
 		log.debug("finding Follow instance with property: " + propertyName

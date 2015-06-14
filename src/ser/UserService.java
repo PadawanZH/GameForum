@@ -20,7 +20,7 @@ public class UserService {
 	public String login(String account, String passwd){
 		String status = "";
 		status = guserCheck(account,passwd);
-		if(status == "Succeed"){
+		if(status.equals("Succeed")){
 			Guser cuser = guserDAO.findById(account);
 			ServletActionContext.getRequest().getSession().setAttribute("cUser", cuser);
 			ServletActionContext.getRequest().getSession().setAttribute("cUserType", cuser.getUsergroup().getName());
@@ -44,16 +44,16 @@ public class UserService {
 	 * 			2. Existed 重复管理员用户<p>
 	 * 			3. Succeed 存储成功<p>
 	 */
-	public String adminRegist(Guser Introducer, String targerAccount){
+	public String adminRegist(String introducerAccount , String targerAccount){
 		String status = "";
-		if(!isAdmin(Introducer.getAccount()) ){
+		if(!isAdmin(introducerAccount) ){
 			ServletActionContext.getRequest().getSession().setAttribute("ErrorInfo", "您不是管理员，无此权限");
-			return "NotAdmin";
+			return "Failed";
 		}
 		Guser targetUser = guserDAO.findById(targerAccount);
 		//查重
-		if(targetUser.getUsergroup().getName() == "admin"){//每一个admin创建一个相同的user
-			status = "Existed";
+		if(targetUser.getUsergroup().getName().equals("admin")){//每一个admin创建一个相同的user
+			status = "Failed";
 			ServletActionContext.getRequest().getSession().setAttribute("ErrorInfo", "该用户已经是管理员，请检查用户名");
 		}else{
 			targetUser.setUsergroup(new Usergroup("admin"));
@@ -62,6 +62,7 @@ public class UserService {
 		}
 		return status;
 	}
+	
 	/**
 	 * 
 	 * @param account
@@ -94,6 +95,9 @@ public class UserService {
 				guser.setPoints(0);
 				guser.setPostNum(0);
 				guser.setReplyNum(0);
+				guser.setBirthday(new Date(System.currentTimeMillis()));
+				guser.setName("未设置");
+				guser.setPortraitAddr("touxiang.jpg");
 				
 				guserDAO.save(guser);
 			}catch(RuntimeException re){
@@ -103,6 +107,39 @@ public class UserService {
 		}
 		return status;
 	}
+	
+	/**
+	 * 删除user，仅管理员可用
+	 * @param admin
+	 * @param accountToDelete
+	 * @return
+	 */
+	public String deleteUser(Guser admin, String accountToDelete){
+		if(admin != null && accountToDelete != null ){
+			if(isAdmin(admin.getAccount())){
+				Guser userToDelete = guserDAO.findById(accountToDelete);
+				if(isAdmin(accountToDelete)){
+					if(userToDelete != null){
+						guserDAO.delete(userToDelete);
+						return "Succeed";
+					}else{
+						ServletActionContext.getRequest().getSession().setAttribute("ErrorInfo", "对不起，要删除的用户名不存在，请返回重试");
+						return "Failed";
+					}
+				}else{
+					ServletActionContext.getRequest().getSession().setAttribute("ErrorInfo", "对不起，您不能删除另一个管理员");
+					return "Failed";
+				}
+			}else{
+				ServletActionContext.getRequest().getSession().setAttribute("ErrorInfo", "对不起，您不是管理员，请联系管理员协商解决");
+				return "Failed";
+			}
+		}else{
+			ServletActionContext.getRequest().getSession().setAttribute("ErrorInfo", "对不起，您未登录");
+			return "Failed";
+		}
+	}
+	
 	/**
 	 * <b> guser </b>改变密码 
 	 * @param account
@@ -112,7 +149,7 @@ public class UserService {
 	 */
 	public String changePasswd(String account, String oldPasswd, String newPasswd){
 		String status = "";
-		if(guserCheck(account, oldPasswd) == "Succeed"){
+		if(guserCheck(account, oldPasswd).equals("Succeed")){
 			Guser guser = guserDAO.findById(account);
 			guser.setPasswd(newPasswd);
 			guserDAO.attachDirty(guser);
@@ -131,7 +168,7 @@ public class UserService {
 	 */
 	public String changeInfo(Guser newInstanceer){
 		String status = "";
-		if(guserCheck(newInstanceer.getAccount(), newInstanceer.getPasswd()) == "Succeed"){
+		if(guserCheck(newInstanceer.getAccount(), newInstanceer.getPasswd()).equals("Succeed")){
 			Guser oldInstance = guserDAO.findById(newInstanceer.getAccount());
 			mergeUserInfo(newInstanceer, oldInstance);
 			guserDAO.attachDirty(oldInstance);
@@ -208,7 +245,7 @@ public class UserService {
 	 * @return
 	 */
 	public boolean isAdmin(String account){
-		return guserDAO.findById(account).getUsergroup().getName() == "admin";
+		return guserDAO.findById(account).getUsergroup().getName().equals("admin");
 	}
 	/**
 	 * 测试函数

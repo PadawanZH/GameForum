@@ -1,6 +1,7 @@
 package dao;
 
 import java.util.List;
+
 import org.hibernate.LockOptions;
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -86,6 +87,22 @@ public class FavouritesDAO {
 			return results;
 		} catch (RuntimeException re) {
 			log.error("find by example failed", re);
+			throw re;
+		}
+	}
+	
+	public List findByBelongAndPost(String Account,Integer postID){
+		log.debug("finding Favourites instance with property: " + Account
+				+ ", value: " + Account);
+		try {
+			String queryString = "from Favourites as model where "
+					+ "model.guser.account = ? and model.post.id = ?";
+			Query queryObject = getCurrentSession().createQuery(queryString);
+			queryObject.setParameter(0, Account);
+			queryObject.setParameter(1, postID);
+			return queryObject.list();
+		} catch (RuntimeException re) {
+			log.error("find by property name failed", re);
 			throw re;
 		}
 	}

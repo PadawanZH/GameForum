@@ -13,6 +13,7 @@ import dao.ReplyDAO;
 public class ReplyService {
 	ReplyDAO replyDAO;
 	PostService postService;
+	UserService userService;
 	
 	/**
 	 * 得到post的回复，根据时间升序排序,一般在post页面初始化时使用（包括点击回复后）
@@ -63,12 +64,24 @@ public class ReplyService {
 	}
 	
 	/**
-	 *	删除reply，可能只有版主，回复者、管理员可以删除，所以要检查权限，并作出处理
+	 *	删除reply，可能只有管理员可以删除，所以要检查权限，并作出处理
 	 * @param reply
 	 * @return
 	 */
-	public String deleteReply(Guser cUser, Reply reply){
-		return null;
+	public String delReply(String account,Integer delReplyID){
+		if(userService.isAdmin(account)){
+			Reply reply = replyDAO.findById(delReplyID);
+			if(reply == null){
+				ServletActionContext.getRequest().getSession().setAttribute("ErrorInfo", "此帖已被删除，请刷新重试，或返回主页面");
+				return "Failed";
+			}else{
+				replyDAO.delete(reply);
+				return "Succeed";
+			}
+		}else{
+			ServletActionContext.getRequest().getSession().setAttribute("ErrorInfo", "您不是管理员，谢谢");
+			return "Failed";
+		}
 	}
 	
 	/**
@@ -96,6 +109,14 @@ public class ReplyService {
 
 	public void setPostService(PostService postService) {
 		this.postService = postService;
+	}
+
+	public UserService getUserService() {
+		return userService;
+	}
+
+	public void setUserService(UserService userService) {
+		this.userService = userService;
 	}
 	
 	

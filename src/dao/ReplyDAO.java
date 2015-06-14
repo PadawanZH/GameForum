@@ -167,7 +167,7 @@ public class ReplyDAO {
 	}
 	
 	public List findByPostOrderByReplyTime(Post value){
-		return findByAOrderByB("post.id", value.getId(), "postTime");
+		return findByAOrderByB("post.id", value.getId(), "postTime", "asc");
 	}
 	
 	/**
@@ -176,7 +176,7 @@ public class ReplyDAO {
 	 * @return
 	 */
 	public List findByUserOrderByReplyTime(Guser author){
-		return findByAOrderByB("guser.account", author.getAccount(), "postTime");
+		return findByAOrderByB("guser.account", author.getAccount(), "postTime", "desc");
 	}
 	
 	/**
@@ -185,12 +185,12 @@ public class ReplyDAO {
 	 * @param B
 	 * @return
 	 */
-	public List findByAOrderByB(String A, Object value, String B) {
+	public List findByAOrderByB(String A, Object value, String B, String order) {
 		log.debug("finding Reply instance with property: " + A
 				+ ", order by : " + B);
 		try {
 			String queryString = "from Reply as model where model."
-					+ A + "= ? order by model."+B +" desc";
+					+ A + "= ? order by model."+B +" "+order;
 			Query queryObject = getCurrentSession().createQuery(queryString);
 			queryObject.setParameter(0, value);
 			return queryObject.list();

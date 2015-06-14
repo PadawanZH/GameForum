@@ -24,7 +24,7 @@ create table GUser(
 	signature	varchar(255),
 	coinNum		int(10)  default 0,
 	portraitAddr varchar(255),
-	foreign key (groupName) references UserGroup(name)
+	foreign key (groupName) references UserGroup(name) ON DELETE CASCADE ON UPDATE CASCADE
 );
 insert into Guser value ('admin','admin','admin','admin','M','1994-05-20','admin@qq.com','admin',0,0,0,'admin',0,null);
 insert into Guser value ('zhangan','zhangan001','zhangan0520','zhangan','M','1994-05-20','zhangan@qq.com','小白',0,0,0,'zhangan',0,null);
@@ -73,8 +73,8 @@ create table Game(
 	requirementID 	int(10),
 	description 	varchar(255),
 	PostNum			int(10)  default 0,
-	foreign key (requirementID) references Requirement(ID),
-	foreign key (studioId) references Studio(ID)
+	foreign key (requirementID) references Requirement(ID) ON DELETE CASCADE ON UPDATE CASCADE,
+	foreign key (studioId) references Studio(ID) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 create table Section(
@@ -85,8 +85,8 @@ create table Section(
 	OwnerID			varchar(30),
 	GameID			int(10),
 	SectionPictureAddr varchar(255),
-	foreign key (OwnerID) references GUser(account),
-	foreign key (GameID) references Game(ID)
+	foreign key (OwnerID) references GUser(account) ON DELETE CASCADE ON UPDATE CASCADE,
+	foreign key (GameID) references Game(ID) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 -- 用来添加游戏就添加相应的section
@@ -114,8 +114,8 @@ create table Post(
 	postTime		datetime,
 	SectionId		int(10),
 	Contents		varchar(255),
-	foreign key (sectionID) references Section(ID),
-	foreign key (authorId) references GUser(account)
+	foreign key (sectionID) references Section(ID) ON DELETE CASCADE ON UPDATE CASCADE,
+	foreign key (authorId) references GUser(account) ON DELETE CASCADE ON UPDATE CASCADE
 );
 INSERT INTO `gameforum`.`post` (`ID`, `title`, `authorId`, `type`, `shareNum`, `favouriteNum`, `postTime`, `SectionId`, `Contents`) VALUES ('1', '1', 'admin', '1', '0', '0', '2015-06-09 11:49:26', '1', '11111');
 INSERT INTO `gameforum`.`post` (`ID`, `title`, `authorId`, `type`, `shareNum`, `favouriteNum`, `postTime`, `SectionId`, `Contents`) VALUES ('2', '2', 'admin', '1', '0', '0', '2015-03-02 11:50:03', '1', '22222');
@@ -138,8 +138,8 @@ create table Reply(
 	favouriteNum	int(10)  default 0,
 	postTime 		datetime,
 	contents		varchar(255),
-	foreign key (PostID) references Post(ID),
-	foreign key (userId) references GUser(account)
+	foreign key (PostID) references Post(ID) ON DELETE CASCADE ON UPDATE CASCADE,
+	foreign key (userId) references GUser(account) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 create table Message(
@@ -149,24 +149,44 @@ create table Message(
 	time			datetime,
 	marked			CHAR(1),
 	contents		varchar(255),
-	foreign key (Sender) references GUser(account),
-	foreign key (Receiver) references GUser(account)
+	foreign key (Sender) references GUser(account) ON DELETE CASCADE ON UPDATE CASCADE,
+	foreign key (Receiver) references GUser(account) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 create table Favourites(
 	ID 				int(20) not null primary key AUTO_INCREMENT,
 	belong			varchar(30),
 	postID			int(10),
-	foreign key (belong) references GUser(account),
-	foreign key (postID) references Post(ID)
+	foreign key (belong) references GUser(account) ON DELETE CASCADE ON UPDATE CASCADE,
+	foreign key (postID) references Post(ID) ON DELETE CASCADE ON UPDATE CASCADE
 );
+
+-- 用来收藏帖子添加post的favouriteNum
+drop trigger if exists FavouritePostTrigger;
+DELIMITER //
+CREATE TRIGGER FavouritePostTrigger BEFORE INSERT ON favourites 
+FOR EACH ROW
+BEGIN
+	UPDATE post SET post.favouriteNum = post.favouriteNum + 1 WHERE post.id=new.postID;
+END//
+DELIMITER ;
+
+-- 用来取消收藏帖子添加post的favouriteNum
+drop trigger if exists unFavouritePostTrigger;
+DELIMITER //
+CREATE TRIGGER unFavouritePostTrigger AFTER DELETE ON favourites 
+FOR EACH ROW
+BEGIN
+	UPDATE post SET post.favouriteNum = post.favouriteNum - 1 WHERE post.id=old.postID;
+END//
+DELIMITER ;
 
 create table Follow(
 	ID				int(20) not null primary key AUTO_INCREMENT,
 	fromID			varchar(30) ,
 	targetID		varchar(30) ,
-	foreign key (fromID) references GUser(account),
-	foreign key (targetID) references GUser(account)
+	foreign key (fromID) references GUser(account) ON DELETE CASCADE ON UPDATE CASCADE,
+	foreign key (targetID) references GUser(account) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 

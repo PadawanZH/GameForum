@@ -106,6 +106,14 @@ public class MessageDAO {
 			throw re;
 		}
 	}
+	
+	public List findByReceiver(String account){
+		return findByProperty("guserByReceiver.account", account);
+	}
+	
+	public List findBySender(String account){
+		return findByProperty("guserBySender.account", account);
+	}
 
 	public List findByMarked(Object marked) {
 		return findByProperty(MARKED, marked);

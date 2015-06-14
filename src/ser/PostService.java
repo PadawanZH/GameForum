@@ -17,6 +17,7 @@ import dao.Section;
 public class PostService {
 	PostDAO postDAO;
 	FavouritesDAO favouritesDAO;
+	UserService userService;
 	
 	
 	public String sendPostInSection(String title, String contents, Section sectionOfPost, Guser cUser){
@@ -88,7 +89,8 @@ public class PostService {
 	 * @param cUserAccount
 	 * @return
 	 */
-	public String markFavourite(Post post, Guser cUser){
+	public String markFavourite(Integer postID, Guser cUser){
+		Post post = postDAO.findById(postID);
 		if(post != null && cUser != null){
 			//存入收藏信息
 			Favourites favourites = new Favourites(cUser, post);
@@ -111,11 +113,10 @@ public class PostService {
 	 * @param cUser
 	 * @return
 	 */
-	public String unMarkFavourite(Integer postID, Guser cUser){
-		Post post = postDAO.findById(postID);
-		if(post != null && cUser != null){
+	public String unMarkFavourite(String Account,Integer postID){
+		if(postID != null && Account != null){
 			//删除收藏信息
-			List<Favourites> list = favouritesDAO.findByExample( new Favourites(cUser, post));
+			List<Favourites> list = favouritesDAO.findByBelongAndPost(Account, postID);
 			if(list.size() == 0){
 				ServletActionContext.getRequest().getSession().setAttribute("ErrorInfo", "收藏失败，没有您的收藏信息，请刷新重新检视");
 				return "Failed";
@@ -128,6 +129,26 @@ public class PostService {
 			return "Succeed";
 		}else{
 			ServletActionContext.getRequest().getSession().setAttribute("ErrorInfo", "收藏失败，请您登录或通过正常方式访问帖子");
+			return "Failed";
+		}
+	}
+	
+	public List<Favourites> findFavouritesOfPost(Integer postID){
+		return favouritesDAO.findByExample(new Favourites(null, postDAO.findById(postID)));
+	}
+	
+	public String delPost(String account,Integer delPostID){
+		if(userService.isAdmin(account)){
+			Post post = postDAO.findById(delPostID);
+			if(post == null){
+				ServletActionContext.getRequest().getSession().setAttribute("ErrorInfo", "此帖已被删除，请刷新重试，或返回主页面");
+				return "Failed";
+			}else{
+				postDAO.delete(post);
+				return "Succeed";
+			}
+		}else{
+			ServletActionContext.getRequest().getSession().setAttribute("ErrorInfo", "您不是管理员，谢谢");
 			return "Failed";
 		}
 	}
@@ -145,5 +166,13 @@ public class PostService {
 
 	public void setFavouritesDAO(FavouritesDAO favouritesDAO) {
 		this.favouritesDAO = favouritesDAO;
+	}
+
+	public UserService getUserService() {
+		return userService;
+	}
+
+	public void setUserService(UserService userService) {
+		this.userService = userService;
 	}
 }

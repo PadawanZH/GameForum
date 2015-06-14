@@ -46,7 +46,7 @@ public class FollowerService {
 	 */
 	public String unFollowSombody(Guser cUser, Guser rUser){
 		Follow follow = new Follow(cUser,rUser);
-		List<Follow> list = followDAO.findByExample(follow);
+		List<Follow> list = followDAO.findByFromAndTarget(cUser.getAccount(), rUser.getAccount());
 		if(list.size() == 0){
 			ServletActionContext.getRequest().getSession().setAttribute("ErrorInfo", "您并未关注此人，请刷新页面重试");
 			return "Failed";
@@ -56,6 +56,10 @@ public class FollowerService {
 			}
 			return "Succeed";
 		}
+	}
+	
+	public List<Follow> getFollow(String propertyName, String value){
+		return followDAO.findByProperty(propertyName, value);
 	}
 
 	public FollowDAO getFollowDAO() {
